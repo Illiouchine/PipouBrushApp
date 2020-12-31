@@ -1,0 +1,2 @@
+rootProject.name = "ToothBrush"
+include ':app'
