@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.brushing.ui.composable
+package com.illiouchine.toothbrush.ui.composable
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
@@ -10,17 +10,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.feature.brushing.brushDuration
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
+import kotlin.time.Duration
 import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
 @Composable
 fun TimerText(
-    durationInSeconds: Double = brushDuration.toDouble(DurationUnit.SECONDS)
+    durationInSeconds: Duration = brushDuration
 ) {
     Surface {
         Text(
-            text = durationInSeconds.toTimerText(),
+            text = durationInSeconds.toText(),
             style = MaterialTheme.typography.h2,
             color = MaterialTheme.colors.primary,
             modifier = Modifier
@@ -34,7 +35,7 @@ fun TimerText(
 @Composable
 fun DarkTimer() {
     ToothBrushTheme(darkTheme = true) {
-        TimerText(330.3)
+        TimerText()
     }
 }
 
@@ -43,13 +44,18 @@ fun DarkTimer() {
 @Composable
 fun LightTimer() {
     ToothBrushTheme {
-        TimerText(423.0)
+        TimerText()
     }
 }
 
-private fun Double.toTimerText(): String {
-    val minuteCount = (this / 60).toInt()
-    val secondCount = (this % 60).toInt()
+@ExperimentalTime
+private fun Duration.toText(): String {
+    return this.toInt(DurationUnit.SECONDS).toTimerText()
+}
+
+private fun Int.toTimerText(): String {
+    val minuteCount = (this / 60)
+    val secondCount = (this % 60)
 
     val minuteString = if (minuteCount < 10) {
         "0$minuteCount"

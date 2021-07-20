@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.brushing.ui.composable.video
+package com.illiouchine.toothbrush.ui.composable.video
 
 import android.net.Uri
 import android.widget.VideoView
@@ -7,7 +7,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.viewinterop.AndroidView
 import com.illiouchine.toothbrush.R
 
 

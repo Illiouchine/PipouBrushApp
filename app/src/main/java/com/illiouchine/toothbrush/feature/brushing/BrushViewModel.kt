@@ -30,10 +30,6 @@ class BrushViewModel @Inject constructor(
 
     private fun launchTimer() {
         viewModelScope.launch {
-            startCountDown(initialDuration = countDownDuration)
-                .collect {
-                    setState { copy(timerState = BrushContract.TimerState.CountDown(it)) }
-                }
             startCountDown(initialDuration = brushDuration)
                 .collect {
                     setState { copy(timerState = BrushContract.TimerState.Running(it)) }

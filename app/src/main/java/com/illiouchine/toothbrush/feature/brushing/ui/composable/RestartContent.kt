@@ -10,21 +10,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import com.illiouchine.toothbrush.feature.main.composable.MyButton
+import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import kotlin.time.ExperimentalTime
 
 
 @ExperimentalTime
 @Composable
 fun RestartContent(
-    onRestartClick: ()-> Unit = {}
-){
+    onRestartClick: () -> Unit = {}
+) {
     Surface {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-            ,
+                .fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -32,7 +31,7 @@ fun RestartContent(
             Text("Bravo !")
             Spacer(Modifier)
             //VideoExoPlayer()
-            MyButton(text = "Restart !"){
+            MyButton(text = "Restart !") {
                 onRestartClick()
             }
             Spacer(Modifier)
@@ -56,7 +55,7 @@ fun RestartContentBrushScreenLight() {
 @Composable
 @ExperimentalTime
 fun RestartContentBrushScreenDark() {
-    ToothBrushTheme (darkTheme = true) {
+    ToothBrushTheme(darkTheme = true) {
         RestartContent()
     }
 }
