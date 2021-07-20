@@ -4,9 +4,11 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import com.illiouchine.toothbrush.feature.brushing.BrushViewModel
 import com.illiouchine.toothbrush.feature.brushing.BrushContract
-import com.illiouchine.toothbrush.feature.brushing.ui.composable.*
+import com.illiouchine.toothbrush.feature.brushing.BrushViewModel
+import com.illiouchine.toothbrush.feature.brushing.ui.composable.CountDownContent
+import com.illiouchine.toothbrush.feature.brushing.ui.composable.RestartContent
+import com.illiouchine.toothbrush.feature.brushing.ui.composable.WaitingContent
 import kotlin.time.ExperimentalTime
 
 @ExperimentalMaterialApi

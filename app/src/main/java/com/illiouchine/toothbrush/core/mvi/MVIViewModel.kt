@@ -31,11 +31,12 @@ import kotlinx.coroutines.launch
  *
  */
 abstract class MviViewModel
-<Intent : UiIntent,
+<
+        Intent : UiIntent,
+        Action : UiAction,
+        PartialState : UiPartialState,
         State : UiState,
         Event : UiEvent,
-        PartialState : UiPartialState,
-        Action : UiAction
         > :
     ViewModel() {
 
@@ -137,10 +138,13 @@ abstract class Reducer<UiState, UiPartialState> {
 
 // User Action
 interface UiIntent
+
 // Action
 interface UiAction
+
 // PartialState of View ? should be here ?
 interface UiPartialState
+
 // State of View
 interface UiState
 
