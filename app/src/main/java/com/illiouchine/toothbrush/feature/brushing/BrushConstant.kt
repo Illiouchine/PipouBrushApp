@@ -6,8 +6,6 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
 
 @ExperimentalTime
-val brushDuration: Duration = 3.toDuration(DurationUnit.MINUTES)
+val brushDuration: Duration = 3.toDuration(DurationUnit.SECONDS)
 @ExperimentalTime
 val tick: Duration = 1.toDuration(DurationUnit.SECONDS)
-@ExperimentalTime
-val countDownDuration: Duration = 3.toDuration(DurationUnit.SECONDS)

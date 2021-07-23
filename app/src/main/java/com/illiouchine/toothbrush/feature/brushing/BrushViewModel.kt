@@ -32,17 +32,17 @@ class BrushViewModel @Inject constructor(
     override fun handleUserIntent(intent: BrushContract.BrushIntent): BrushContract.BrushAction {
         return when (intent) {
             BrushContract.BrushIntent.LaunchTimer -> {
-                BrushContract.BrushAction.launchTimer
+                BrushContract.BrushAction.LaunchTimer
             }
             BrushContract.BrushIntent.RestartTimer -> {
-                BrushContract.BrushAction.launchTimer
+                BrushContract.BrushAction.LaunchTimer
             }
         }
     }
 
     override suspend fun handleAction(action: BrushContract.BrushAction) {
         when (action) {
-            BrushContract.BrushAction.launchTimer -> {
+            BrushContract.BrushAction.LaunchTimer -> {
                 launchTimer()
             }
         }

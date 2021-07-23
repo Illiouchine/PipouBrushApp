@@ -13,7 +13,7 @@ interface BrushContract {
     }
 
     sealed class BrushAction : UiAction{
-        object launchTimer: BrushAction()
+        object LaunchTimer: BrushAction()
     }
 
     data class BrushState(
