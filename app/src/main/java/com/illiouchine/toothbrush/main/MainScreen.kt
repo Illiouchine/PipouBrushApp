@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.main
+package com.illiouchine.toothbrush.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -6,13 +6,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.illiouchine.toothbrush.feature.brushing.*
+import com.illiouchine.toothbrush.feature.brushing.controller.BrushViewModel
 import com.illiouchine.toothbrush.feature.brushing.ui.BrushScreen
 import com.illiouchine.toothbrush.ui.composable.video.VideoExoPlayer
 import com.illiouchine.toothbrush.feature.calendar.composable.CalendarScreen
@@ -29,7 +27,7 @@ fun MainScreen(
     val navController = rememberNavController()
     val items = listOf(
         Screen.Brush,
-        Screen.Calendar,
+        Screen.Statistics,
         Screen.Settings
     )
 
@@ -56,7 +54,7 @@ fun MainScreen(
                         viewModel = brushViewModel
                     )
                 }
-                composable(Screen.Calendar.route) {
+                composable(Screen.Statistics.route) {
                     CalendarScreen()
                 }
                 composable(Screen.Settings.route) {

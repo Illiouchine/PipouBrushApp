@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.illiouchine.toothbrush.feature.brushing.brushDuration
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
@@ -17,7 +16,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalTime
 @Composable
 fun TimerText(
-    durationInSeconds: Duration = brushDuration
+    durationInSeconds: Duration
 ) {
     Surface {
         Text(
@@ -35,7 +34,7 @@ fun TimerText(
 @Composable
 fun DarkTimer() {
     ToothBrushTheme(darkTheme = true) {
-        TimerText()
+        TimerText(Duration.Companion.seconds(30))
     }
 }
 
@@ -44,7 +43,7 @@ fun DarkTimer() {
 @Composable
 fun LightTimer() {
     ToothBrushTheme {
-        TimerText()
+        TimerText(Duration.Companion.seconds(30))
     }
 }
 

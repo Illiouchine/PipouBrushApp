@@ -4,8 +4,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import com.illiouchine.toothbrush.feature.brushing.BrushContract
-import com.illiouchine.toothbrush.feature.brushing.BrushViewModel
+import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract
+import com.illiouchine.toothbrush.feature.brushing.controller.BrushViewModel
 import com.illiouchine.toothbrush.feature.brushing.ui.composable.CountDownContent
 import com.illiouchine.toothbrush.feature.brushing.ui.composable.RestartContent
 import com.illiouchine.toothbrush.feature.brushing.ui.composable.WaitingContent
@@ -36,7 +36,8 @@ fun BrushScreen(
         }
         is BrushContract.TimerState.Running -> {
             CountDownContent(
-                duration = (brushState.timerState as BrushContract.TimerState.Running).duration
+                duration = (brushState.timerState as BrushContract.TimerState.Running).duration,
+                totalDuration = (brushState.timerState as BrushContract.TimerState.Running).totalDuration
             )
         }
     }

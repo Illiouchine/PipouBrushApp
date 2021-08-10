@@ -9,9 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.illiouchine.toothbrush.feature.brushing.brushDuration
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
-import com.illiouchine.toothbrush.ui.composable.TimerText
 import com.illiouchine.toothbrush.ui.composable.chrono.Chrono
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration
@@ -21,7 +19,10 @@ import kotlin.time.ExperimentalTime
 @ExperimentalMaterialApi
 @ExperimentalTime
 @Composable
-fun CountDownContent(duration: Duration = brushDuration) {
+fun CountDownContent(
+    duration: Duration = Duration.seconds(30),
+    totalDuration: Duration = Duration.seconds(260)
+) {
     Surface {
         Column(
             modifier = Modifier
@@ -34,7 +35,7 @@ fun CountDownContent(duration: Duration = brushDuration) {
             Chrono(
                 modifier = Modifier.size(300.dp),
                 seconds = duration.toInt(TimeUnit.SECONDS),
-                totalSeconds = brushDuration.toInt(TimeUnit.SECONDS),
+                totalSeconds = totalDuration.toInt(TimeUnit.SECONDS),
                 centerColor = MaterialTheme.colors.background,
                 backgroundColor = MaterialTheme.colors.background,
             )

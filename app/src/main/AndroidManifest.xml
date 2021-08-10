@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToothBrush">
         <activity
-            android:name=".feature.main.MainActivity"
+            android:name=".main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.ToothBrush.NoActionBar">
             <intent-filter>

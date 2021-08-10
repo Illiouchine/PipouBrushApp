@@ -14,18 +14,19 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.illiouchine.toothbrush.feature.brushing.brushDuration
 import com.illiouchine.toothbrush.feature.main.composable.MyButton
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import com.illiouchine.toothbrush.ui.composable.chrono.Chrono
 import com.illiouchine.toothbrush.ui.utils.assetsToBitmap
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @ExperimentalMaterialApi
 @ExperimentalTime
 @Composable
 fun WaitingContent(
+    totalSeconds: Duration = Duration.Companion.seconds(30),
     onStartTimerClick: () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -52,8 +53,8 @@ fun WaitingContent(
             Spacer(Modifier)
             Chrono(
                 modifier = Modifier.size(300.dp),
-                seconds = brushDuration.toInt(TimeUnit.SECONDS),
-                totalSeconds = brushDuration.toInt(TimeUnit.SECONDS),
+                seconds = totalSeconds.toInt(TimeUnit.SECONDS),
+                totalSeconds = totalSeconds.toInt(TimeUnit.SECONDS),
                 centerColor = MaterialTheme.colors.background,
                 backgroundColor = MaterialTheme.colors.background,
             )

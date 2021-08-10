@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.illiouchine.toothbrush.feature.main.Screen
+import com.illiouchine.toothbrush.main.Screen
 
 @Composable
 fun BottomNavigationBar(

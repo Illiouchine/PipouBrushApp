@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.brushing
+package com.illiouchine.toothbrush.feature.brushing.controller
 
 import com.illiouchine.toothbrush.core.mvi.*
 import kotlin.time.Duration
@@ -22,13 +22,19 @@ interface BrushContract {
 
     sealed class TimerState {
         object Idle : TimerState()
-        data class Running(val duration: Duration) : TimerState()
+        data class Running(
+            val duration: Duration,
+            val totalDuration: Duration
+            ) : TimerState()
         object Finished : TimerState()
     }
 
     sealed class BrushPartialState: UiPartialState{
         object TimerFinished : BrushPartialState()
-        data class TimerRunning(val duration: Duration): BrushPartialState()
+        data class TimerRunning(
+            val duration: Duration,
+            val totalDuration: Duration,
+        ): BrushPartialState()
     }
 
     sealed class BrushEvent: UiEvent{

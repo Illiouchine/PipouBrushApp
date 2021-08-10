@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.brushing
+package com.illiouchine.toothbrush.feature.brushing.controller
 
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.toothbrush.core.mvi.MviViewModel
@@ -58,7 +58,8 @@ class BrushViewModel @Inject constructor(
                     is BrushContract.BrushPartialState.TimerRunning -> {
                         currentState.copy(
                             timerState = BrushContract.TimerState.Running(
-                                duration = partialState.duration
+                                duration = partialState.duration,
+                                totalDuration = partialState.totalDuration
                             )
                         )
                     }
@@ -74,10 +75,13 @@ class BrushViewModel @Inject constructor(
 
     private fun launchTimer() {
         viewModelScope.launch {
-            startCountDown(initialDuration = brushDuration)
+            startCountDown()
                 .collect {
                     setPartialState {
-                        BrushContract.BrushPartialState.TimerRunning(it)
+                        BrushContract.BrushPartialState.TimerRunning(
+                            duration = it.currentDuration,
+                            totalDuration = it.totalDuration
+                        )
                     }
                 }
             setPartialState {
