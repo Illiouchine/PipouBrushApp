@@ -17,9 +17,9 @@ fun StatisticsScreen(
 ) {
     val statisticsState by viewModel.uiState.collectAsState()
 
-    when(statisticsState.rawStatisticsState){
+    when (statisticsState.rawStatisticsState) {
         StatisticsContract.RawStatisticsState.Error -> {
-            StatisticsContent()
+            StatisticsContent("error")
         }
         is StatisticsContract.RawStatisticsState.Loaded -> {
             BrushHistoryContent(
@@ -27,16 +27,18 @@ fun StatisticsScreen(
             )
         }
         StatisticsContract.RawStatisticsState.Loading -> {
-            StatisticsContent()
+            StatisticsContent("loading")
         }
     }
 }
 
 @Composable
-fun StatisticsContent(){
+fun StatisticsContent(
+    text: String
+) {
     Surface {
         Text(
-            text = "Statistics",
+            text = text,
             fontSize = 32.sp
         )
     }

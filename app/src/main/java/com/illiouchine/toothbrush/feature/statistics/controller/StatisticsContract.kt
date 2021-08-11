@@ -4,7 +4,9 @@ import com.illiouchine.toothbrush.core.mvi.*
 
 interface StatisticsContract {
 
-    sealed class StatisticsIntent : UiIntent {}
+    sealed class StatisticsIntent : UiIntent {
+        object LoadScreen : StatisticsIntent()
+    }
 
     sealed class StatisticsAction : UiAction {
         object LoadStatistics : StatisticsAction()

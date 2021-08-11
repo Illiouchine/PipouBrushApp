@@ -58,7 +58,9 @@ class StatisticsViewModel @Inject constructor(
 
     override fun handleUserIntent(intent: StatisticsContract.StatisticsIntent): StatisticsContract.StatisticsAction {
         return when (intent) {
-            else -> StatisticsContract.StatisticsAction.LoadStatistics
+            StatisticsContract.StatisticsIntent.LoadScreen -> {
+                StatisticsContract.StatisticsAction.LoadStatistics
+            }
         }
     }
 

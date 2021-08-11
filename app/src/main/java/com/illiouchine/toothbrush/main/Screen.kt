@@ -24,7 +24,7 @@ sealed class Screen(
 
     object Settings : Screen(
         route = "Settings",
-        textId = R.string.screen_statistics_menu_title,
+        textId = R.string.screen_settings_menu_title,
         iconId = R.drawable.ic_launcher_background
     )
 }

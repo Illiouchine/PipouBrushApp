@@ -68,6 +68,7 @@ abstract class MviViewModel
     private fun observeAction() {
         viewModelScope.launch {
             for (action in actionChannel) {
+                println("MVI -> handle action : $action")
                 handleAction(action)
             }
         }
@@ -76,6 +77,7 @@ abstract class MviViewModel
     private fun observeReducer() {
         viewModelScope.launch {
             for (partialState in partialStateChannel) {
+                println("MVI -> reduce uiState : ${uiState.value} with partialState : $partialState")
                 val newState = reducer.reduce(uiState.value, partialState)
                 _uiState.value = newState
             }
@@ -89,6 +91,7 @@ abstract class MviViewModel
     private fun subscribeUserIntent() {
         viewModelScope.launch {
             intent.collect {
+                println("MVI -> handle User Intent $it")
                 val action = handleUserIntent(it)
                 actionChannel.send(action)
             }

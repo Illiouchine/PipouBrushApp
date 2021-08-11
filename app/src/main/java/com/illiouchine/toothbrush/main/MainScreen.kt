@@ -12,10 +12,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.illiouchine.toothbrush.feature.brushing.controller.BrushViewModel
 import com.illiouchine.toothbrush.feature.brushing.ui.BrushScreen
-import com.illiouchine.toothbrush.ui.composable.video.VideoExoPlayer
-import com.illiouchine.toothbrush.feature.statistics.ui.StatisticsScreen
 import com.illiouchine.toothbrush.feature.main.composable.BottomNavigationBar
+import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract
 import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsViewModel
+import com.illiouchine.toothbrush.feature.statistics.ui.StatisticsScreen
+import com.illiouchine.toothbrush.ui.composable.video.VideoExoPlayer
 import kotlin.time.ExperimentalTime
 
 
@@ -57,6 +58,7 @@ fun MainScreen(
                     )
                 }
                 composable(Screen.Statistics.route) {
+                    statisticsViewModel.dispatchIntent(StatisticsContract.StatisticsIntent.LoadScreen)
                     StatisticsScreen(
                         viewModel = statisticsViewModel
                     )
