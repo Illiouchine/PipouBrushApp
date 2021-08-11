@@ -18,7 +18,7 @@ fun MyButton(
     onClick: () -> Unit = {}
 ) {
     Box(
-        modifier = Modifier.padding(8.dp),
+        modifier = Modifier.padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
         Button(

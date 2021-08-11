@@ -20,23 +20,18 @@ import kotlin.time.ExperimentalTime
 fun RestartContent(
     onRestartClick: () -> Unit = {}
 ) {
-    Surface {
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(Modifier)
-            Text("Bravo !")
-            Spacer(Modifier)
-            //VideoExoPlayer()
-            MyButton(text = "Restart !") {
-                onRestartClick()
-            }
-            Spacer(Modifier)
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Bravo !")
+        Spacer(Modifier)
+        //VideoExoPlayer()
+        MyButton(text = "Restart !") {
+            onRestartClick()
         }
-
     }
 }
 
