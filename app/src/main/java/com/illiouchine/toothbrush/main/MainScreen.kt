@@ -13,8 +13,9 @@ import androidx.navigation.compose.rememberNavController
 import com.illiouchine.toothbrush.feature.brushing.controller.BrushViewModel
 import com.illiouchine.toothbrush.feature.brushing.ui.BrushScreen
 import com.illiouchine.toothbrush.ui.composable.video.VideoExoPlayer
-import com.illiouchine.toothbrush.feature.calendar.composable.CalendarScreen
+import com.illiouchine.toothbrush.feature.statistics.ui.StatisticsScreen
 import com.illiouchine.toothbrush.feature.main.composable.BottomNavigationBar
+import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsViewModel
 import kotlin.time.ExperimentalTime
 
 
@@ -22,7 +23,8 @@ import kotlin.time.ExperimentalTime
 @ExperimentalTime
 @Composable
 fun MainScreen(
-    brushViewModel: BrushViewModel
+    brushViewModel: BrushViewModel,
+    statisticsViewModel: StatisticsViewModel
 ) {
     val navController = rememberNavController()
     val items = listOf(
@@ -55,7 +57,9 @@ fun MainScreen(
                     )
                 }
                 composable(Screen.Statistics.route) {
-                    CalendarScreen()
+                    StatisticsScreen(
+                        viewModel = statisticsViewModel
+                    )
                 }
                 composable(Screen.Settings.route) {
                     VideoExoPlayer()

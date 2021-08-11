@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.main.composable
+package com.illiouchine.toothbrush.ui.composable
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues

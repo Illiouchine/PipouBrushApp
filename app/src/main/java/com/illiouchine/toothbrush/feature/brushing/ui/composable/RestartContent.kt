@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.illiouchine.toothbrush.feature.main.composable.MyButton
+import com.illiouchine.toothbrush.ui.composable.MyButton
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import kotlin.time.ExperimentalTime
 

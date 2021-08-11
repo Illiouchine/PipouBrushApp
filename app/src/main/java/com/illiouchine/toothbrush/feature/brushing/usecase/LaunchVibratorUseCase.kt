@@ -18,7 +18,7 @@ class LaunchVibratorUseCase @Inject constructor(
             vibrator.vibrate(
                 VibrationEffect.createWaveform(
                     listOf(2000L,2000L,2000L).toLongArray(),
-                    listOf(200,100,1000).toIntArray(),
+                    listOf(200,100,255).toIntArray(),
                     -1
                 )
             )

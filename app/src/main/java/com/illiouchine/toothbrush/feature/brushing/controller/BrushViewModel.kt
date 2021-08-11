@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.illiouchine.toothbrush.core.mvi.MviViewModel
 import com.illiouchine.toothbrush.core.mvi.Reducer
 import com.illiouchine.toothbrush.feature.brushing.usecase.LaunchVibratorUseCase
+import com.illiouchine.toothbrush.feature.brushing.usecase.SaveBrushProgressUseCase
 import com.illiouchine.toothbrush.feature.brushing.usecase.StartCountDownUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -16,6 +17,7 @@ import kotlin.time.ExperimentalTime
 class BrushViewModel @Inject constructor(
     private val startCountDown: StartCountDownUseCase,
     private val launchVibrator: LaunchVibratorUseCase,
+    private val saveBrushProgress: SaveBrushProgressUseCase
 ) : MviViewModel<
         BrushContract.BrushIntent,
         BrushContract.BrushAction,
@@ -88,6 +90,7 @@ class BrushViewModel @Inject constructor(
                 BrushContract.BrushPartialState.TimerFinished
             }
             launchVibrator()
+            saveBrushProgress()
         }
     }
 }

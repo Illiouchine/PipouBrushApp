@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.illiouchine.toothbrush.feature.main.composable.MyButton
+import com.illiouchine.toothbrush.ui.composable.MyButton
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import com.illiouchine.toothbrush.ui.composable.chrono.Chrono
 import com.illiouchine.toothbrush.ui.utils.assetsToBitmap
