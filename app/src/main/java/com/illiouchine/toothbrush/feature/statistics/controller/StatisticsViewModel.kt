@@ -1,8 +1,8 @@
 package com.illiouchine.toothbrush.feature.statistics.controller
 
 import androidx.lifecycle.viewModelScope
-import com.illiouchine.toothbrush.core.mvi.MviViewModel
-import com.illiouchine.toothbrush.core.mvi.Reducer
+import com.illiouchine.mvi.core.MviViewModel
+import com.illiouchine.mvi.core.Reducer
 import com.illiouchine.toothbrush.feature.statistics.usecase.GetBrushHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

@@ -1,8 +1,8 @@
 package com.illiouchine.toothbrush.feature.brushing.controller
 
 import androidx.lifecycle.viewModelScope
-import com.illiouchine.toothbrush.core.mvi.MviViewModel
-import com.illiouchine.toothbrush.core.mvi.Reducer
+import com.illiouchine.mvi.core.MviViewModel
+import com.illiouchine.mvi.core.Reducer
 import com.illiouchine.toothbrush.feature.brushing.usecase.LaunchVibratorUseCase
 import com.illiouchine.toothbrush.feature.brushing.usecase.SaveBrushProgressUseCase
 import com.illiouchine.toothbrush.feature.brushing.usecase.StartCountDownUseCase

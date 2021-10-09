@@ -1,18 +1,22 @@
 package com.illiouchine.toothbrush.feature.brushing.controller
 
-import com.illiouchine.toothbrush.core.mvi.*
+import com.illiouchine.mvi.core.UiAction
+import com.illiouchine.mvi.core.UiEvent
+import com.illiouchine.mvi.core.UiIntent
+import com.illiouchine.mvi.core.UiPartialState
+import com.illiouchine.mvi.core.UiState
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
 interface BrushContract {
 
-    sealed class BrushIntent : UiIntent{
+    sealed class BrushIntent : UiIntent {
         object LaunchTimer: BrushIntent()
         object RestartTimer: BrushIntent()
     }
 
-    sealed class BrushAction : UiAction{
+    sealed class BrushAction : UiAction {
         object LaunchTimer: BrushAction()
     }
 
@@ -29,7 +33,7 @@ interface BrushContract {
         object Finished : TimerState()
     }
 
-    sealed class BrushPartialState: UiPartialState{
+    sealed class BrushPartialState: UiPartialState {
         object TimerFinished : BrushPartialState()
         data class TimerRunning(
             val duration: Duration,
@@ -37,7 +41,7 @@ interface BrushContract {
         ): BrushPartialState()
     }
 
-    sealed class BrushEvent: UiEvent{
+    sealed class BrushEvent: UiEvent {
         object ShowToast: BrushEvent()
     }
 }
