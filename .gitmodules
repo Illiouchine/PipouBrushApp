@@ -1,0 +1,3 @@
+[submodule "MVI-Template-App"]
+	path = MVI-Template-App
+	url = https://github.com/Illiouchine/MVI-Template-App.git
