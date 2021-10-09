@@ -47,9 +47,6 @@ android {
 }
 
 dependencies {
-
-    implementation project(":mvi")
-
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
@@ -64,9 +61,7 @@ dependencies {
     implementation "androidx.activity:activity-compose:1.3.1"
     implementation "androidx.activity:activity-ktx:1.3.1"
 
-    implementation "androidx.navigation:navigation-compose:2.4.0-alpha06"
-
-
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha10"
 
     // KTX
     implementation "androidx.core:core-ktx:1.6.0"
@@ -84,6 +79,7 @@ dependencies {
     testImplementation 'com.google.dagger:hilt-android-testing:2.37'
     kaptTest 'com.google.dagger:hilt-compiler:2.37'
 
+    implementation project(path: ':mvi')
     // VIDEO
     implementation 'com.google.android.exoplayer:exoplayer:2.14.2'
 
