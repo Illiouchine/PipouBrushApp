@@ -1,6 +1,5 @@
 rootProject.name = "ToothBrush"
 include ':app'
 
-
 include ':mvi'
-project(':mvi').projectDir = new File('MVI-Template-App/app')
+project(':mvi').projectDir = new File('mvi-library/app')
