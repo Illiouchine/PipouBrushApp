@@ -13,7 +13,7 @@ import com.illiouchine.toothbrush.R
 @Preview
 @Composable
 fun VideoViewPlayer(
-    modifier : Modifier = Modifier
+    modifier: Modifier = Modifier
 ) {
     // This is the official way to access current context from Composable functions
     val context = LocalContext.current
@@ -21,7 +21,7 @@ fun VideoViewPlayer(
     val videoView = remember {
         VideoView(context).apply {
             setVideoURI(
-                Uri.parse("android.resource://" + context.packageName +"/"+ R.raw.brossage_dents_1920_1088)
+                Uri.parse("android.resource://" + context.packageName + "/" + R.raw.brossage_dents_1920_1088)
             )
             setOnPreparedListener {
                 it.isLooping = true

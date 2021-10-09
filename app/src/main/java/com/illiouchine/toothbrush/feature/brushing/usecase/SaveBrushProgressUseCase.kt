@@ -6,7 +6,7 @@ import javax.inject.Inject
 class SaveBrushProgressUseCase @Inject constructor(
     private val brushHistoryDataGateway: BrushHistoryDataGateway
 ) {
-    suspend operator fun invoke(){
+    suspend operator fun invoke() {
         brushHistoryDataGateway.saveBrushHistory()
     }
 }

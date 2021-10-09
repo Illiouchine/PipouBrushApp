@@ -7,43 +7,44 @@ import com.illiouchine.toothbrush.feature.statistics.usecase.GetBrushHistoryUseC
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.StatisticsAction as Action
+import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.StatisticsEvent as Event
+import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.StatisticsIntent as Intent
+import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.StatisticsPartialState as PartialState
+import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.StatisticsState as State
+
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
     private val getBrushHistory: GetBrushHistoryUseCase
-) : MviViewModel<
-        StatisticsContract.StatisticsIntent,
-        StatisticsContract.StatisticsAction,
-        StatisticsContract.StatisticsPartialState,
-        StatisticsContract.StatisticsState,
-        StatisticsContract.StatisticsEvent>() {
+) : MviViewModel<Intent, Action, PartialState, State, Event>() {
 
     init {
         setAction {
-            StatisticsContract.StatisticsAction.LoadStatistics
+            Action.LoadStatistics
         }
     }
 
-    override fun createInitialState(): StatisticsContract.StatisticsState {
-        return StatisticsContract.StatisticsState(
+    override fun createInitialState(): State {
+        return State(
             rawStatisticsState = StatisticsContract.RawStatisticsState.Loading
         )
     }
 
-    override fun createReducer(): Reducer<StatisticsContract.StatisticsState, StatisticsContract.StatisticsPartialState> {
+    override fun createReducer(): Reducer<State, PartialState> {
         return object :
-            Reducer<StatisticsContract.StatisticsState, StatisticsContract.StatisticsPartialState>() {
+            Reducer<State, PartialState>() {
             override fun reduce(
-                currentState: StatisticsContract.StatisticsState,
-                partialState: StatisticsContract.StatisticsPartialState
-            ): StatisticsContract.StatisticsState {
+                currentState: State,
+                partialState: PartialState
+            ): State {
                 return when (partialState) {
-                    StatisticsContract.StatisticsPartialState.Error -> {
+                    PartialState.Error -> {
                         currentState.copy(
                             rawStatisticsState = StatisticsContract.RawStatisticsState.Error
                         )
                     }
-                    is StatisticsContract.StatisticsPartialState.Loaded -> {
+                    is PartialState.Loaded -> {
                         currentState.copy(
                             rawStatisticsState = StatisticsContract.RawStatisticsState.Loaded(
                                 data = partialState.data
@@ -56,17 +57,17 @@ class StatisticsViewModel @Inject constructor(
         }
     }
 
-    override fun handleUserIntent(intent: StatisticsContract.StatisticsIntent): StatisticsContract.StatisticsAction {
+    override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {
-            StatisticsContract.StatisticsIntent.LoadScreen -> {
-                StatisticsContract.StatisticsAction.LoadStatistics
+            Intent.LoadScreen -> {
+                Action.LoadStatistics
             }
         }
     }
 
-    override suspend fun handleAction(action: StatisticsContract.StatisticsAction) {
+    override suspend fun handleAction(action: Action) {
         return when (action) {
-            StatisticsContract.StatisticsAction.LoadStatistics -> {
+            Action.LoadStatistics -> {
                 loadStatistics()
             }
         }
@@ -77,13 +78,13 @@ class StatisticsViewModel @Inject constructor(
             try {
                 val brushHistory = getBrushHistory()
                 setPartialState {
-                    StatisticsContract.StatisticsPartialState.Loaded(
+                    PartialState.Loaded(
                         data = brushHistory.map { it.date.toString() }
                     )
                 }
             } catch (e: Exception) {
                 setPartialState {
-                    StatisticsContract.StatisticsPartialState.Error
+                    PartialState.Error
                 }
             }
         }

@@ -7,10 +7,10 @@ import java.io.IOException
 
 fun Context.assetsToBitmap(fileName: String): Bitmap? {
     return try {
-        with(assets.open(fileName)){
+        with(assets.open(fileName)) {
             BitmapFactory.decodeStream(this)
         }
-    }catch (e: IOException) {
+    } catch (e: IOException) {
         null
     }
 }

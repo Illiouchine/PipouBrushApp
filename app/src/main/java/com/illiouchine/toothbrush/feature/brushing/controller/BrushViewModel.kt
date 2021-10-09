@@ -11,6 +11,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.ExperimentalTime
+import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushAction as Action
+import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushEvent as Event
+import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushIntent as Intent
+import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushPartialState as PartialState
+import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushState as State
 
 @ExperimentalTime
 @HiltViewModel
@@ -18,46 +23,40 @@ class BrushViewModel @Inject constructor(
     private val startCountDown: StartCountDownUseCase,
     private val launchVibrator: LaunchVibratorUseCase,
     private val saveBrushProgress: SaveBrushProgressUseCase
-) : MviViewModel<
-        BrushContract.BrushIntent,
-        BrushContract.BrushAction,
-        BrushContract.BrushPartialState,
-        BrushContract.BrushState,
-        BrushContract.BrushEvent,
-        >() {
+) : MviViewModel<Intent, Action, PartialState, State, Event>() {
 
-    override fun createInitialState(): BrushContract.BrushState =
-        BrushContract.BrushState(
+    override fun createInitialState(): State =
+        State(
             timerState = BrushContract.TimerState.Idle
         )
 
-    override fun handleUserIntent(intent: BrushContract.BrushIntent): BrushContract.BrushAction {
+    override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {
-            BrushContract.BrushIntent.LaunchTimer -> {
-                BrushContract.BrushAction.LaunchTimer
+            Intent.LaunchTimer -> {
+                Action.LaunchTimer
             }
-            BrushContract.BrushIntent.RestartTimer -> {
-                BrushContract.BrushAction.LaunchTimer
+            Intent.RestartTimer -> {
+                Action.LaunchTimer
             }
         }
     }
 
-    override suspend fun handleAction(action: BrushContract.BrushAction) {
+    override suspend fun handleAction(action: Action) {
         when (action) {
-            BrushContract.BrushAction.LaunchTimer -> {
+            Action.LaunchTimer -> {
                 launchTimer()
             }
         }
     }
 
-    override fun createReducer(): Reducer<BrushContract.BrushState, BrushContract.BrushPartialState> {
-        return object : Reducer<BrushContract.BrushState, BrushContract.BrushPartialState>() {
+    override fun createReducer(): Reducer<State, PartialState> {
+        return object : Reducer<State, PartialState>() {
             override fun reduce(
-                currentState: BrushContract.BrushState,
-                partialState: BrushContract.BrushPartialState
-            ): BrushContract.BrushState {
+                currentState: State,
+                partialState: PartialState
+            ): State {
                 return when (partialState) {
-                    is BrushContract.BrushPartialState.TimerRunning -> {
+                    is PartialState.TimerRunning -> {
                         currentState.copy(
                             timerState = BrushContract.TimerState.Running(
                                 duration = partialState.duration,
@@ -65,7 +64,7 @@ class BrushViewModel @Inject constructor(
                             )
                         )
                     }
-                    BrushContract.BrushPartialState.TimerFinished -> {
+                    PartialState.TimerFinished -> {
                         currentState.copy(
                             timerState = BrushContract.TimerState.Finished
                         )
@@ -80,14 +79,14 @@ class BrushViewModel @Inject constructor(
             startCountDown()
                 .collect {
                     setPartialState {
-                        BrushContract.BrushPartialState.TimerRunning(
+                        PartialState.TimerRunning(
                             duration = it.currentDuration,
                             totalDuration = it.totalDuration
                         )
                     }
                 }
             setPartialState {
-                BrushContract.BrushPartialState.TimerFinished
+                PartialState.TimerFinished
             }
             launchVibrator()
             saveBrushProgress()

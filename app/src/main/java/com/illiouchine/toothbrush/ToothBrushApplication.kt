@@ -4,6 +4,6 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class ToothBrushApplication: Application(){
+class ToothBrushApplication : Application() {
 
 }

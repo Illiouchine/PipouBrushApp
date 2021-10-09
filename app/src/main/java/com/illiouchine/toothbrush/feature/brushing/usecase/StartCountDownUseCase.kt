@@ -11,6 +11,7 @@ import kotlin.time.toDuration
 
 @ExperimentalTime
 val tick: Duration = 1.toDuration(DurationUnit.SECONDS)
+
 @ExperimentalTime
 val brushDuration: Duration = 3.toDuration(DurationUnit.SECONDS)
 

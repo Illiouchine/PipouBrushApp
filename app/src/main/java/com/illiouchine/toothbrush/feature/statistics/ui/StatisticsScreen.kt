@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.sp
-import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract
+import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.RawStatisticsState
 import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsViewModel
 import com.illiouchine.toothbrush.feature.statistics.ui.composable.BrushHistoryContent
 
@@ -18,15 +18,15 @@ fun StatisticsScreen(
     val statisticsState by viewModel.uiState.collectAsState()
 
     when (statisticsState.rawStatisticsState) {
-        StatisticsContract.RawStatisticsState.Error -> {
+        RawStatisticsState.Error -> {
             StatisticsContent("error")
         }
-        is StatisticsContract.RawStatisticsState.Loaded -> {
+        is RawStatisticsState.Loaded -> {
             BrushHistoryContent(
-                brushHistory = (statisticsState.rawStatisticsState as StatisticsContract.RawStatisticsState.Loaded).data
+                brushHistory = (statisticsState.rawStatisticsState as RawStatisticsState.Loaded).data
             )
         }
-        StatisticsContract.RawStatisticsState.Loading -> {
+        RawStatisticsState.Loading -> {
             StatisticsContent("loading")
         }
     }

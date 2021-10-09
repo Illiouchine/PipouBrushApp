@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetBrushHistoryUseCase @Inject constructor(
     private val brushHistoryDataGateway: BrushHistoryDataGateway,
 ) {
-    suspend operator fun invoke(): List<BrushHistoryEntity>{
+    suspend operator fun invoke(): List<BrushHistoryEntity> {
         return brushHistoryDataGateway.getBrushHistory()
     }
 }

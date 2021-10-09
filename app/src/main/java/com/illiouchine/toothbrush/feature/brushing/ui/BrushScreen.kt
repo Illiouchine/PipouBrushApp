@@ -12,7 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract
+import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushIntent
+import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.TimerState
 import com.illiouchine.toothbrush.feature.brushing.controller.BrushViewModel
 import com.illiouchine.toothbrush.feature.brushing.ui.composable.CountDownContent
 import com.illiouchine.toothbrush.feature.brushing.ui.composable.RestartContent
@@ -44,24 +45,24 @@ fun BrushScreen(
             )
         }
         when (brushState.timerState) {
-            BrushContract.TimerState.Finished -> {
+            TimerState.Finished -> {
                 RestartContent(
                     onRestartClick = {
-                        viewModel.dispatchIntent(BrushContract.BrushIntent.RestartTimer)
+                        viewModel.dispatchIntent(BrushIntent.RestartTimer)
                     },
                 )
             }
-            BrushContract.TimerState.Idle -> {
+            TimerState.Idle -> {
                 WaitingContent(
                     onStartTimerClick = {
-                        viewModel.dispatchIntent(BrushContract.BrushIntent.LaunchTimer)
+                        viewModel.dispatchIntent(BrushIntent.LaunchTimer)
                     }
                 )
             }
-            is BrushContract.TimerState.Running -> {
+            is TimerState.Running -> {
                 CountDownContent(
-                    duration = (brushState.timerState as BrushContract.TimerState.Running).duration,
-                    totalDuration = (brushState.timerState as BrushContract.TimerState.Running).totalDuration
+                    duration = (brushState.timerState as TimerState.Running).duration,
+                    totalDuration = (brushState.timerState as TimerState.Running).totalDuration
                 )
             }
         }

@@ -57,7 +57,7 @@ fun CountDownContentBrushScreenLight() {
 @Composable
 @ExperimentalTime
 fun CountDownContentBrushScreenDark() {
-    ToothBrushTheme (darkTheme = true) {
+    ToothBrushTheme(darkTheme = true) {
         CountDownContent()
     }
 }

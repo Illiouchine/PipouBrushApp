@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class BrushHistoryDataMapper @Inject constructor(
     private val brushHistoryDataSource: BrushHistoryDataSource
-): BrushHistoryDataGateway {
+) : BrushHistoryDataGateway {
 
     override suspend fun getBrushHistory(): List<BrushHistoryEntity> {
         return brushHistoryDataSource.getBrushHistory().map {

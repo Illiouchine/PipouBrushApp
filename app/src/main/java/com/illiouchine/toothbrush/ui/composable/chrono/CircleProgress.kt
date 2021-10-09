@@ -22,9 +22,9 @@ import com.illiouchine.toothbrush.ui.ToothBrushTheme
 @Composable
 internal fun CircleProgress(
     angle: Float,
-    progressColor: List<Color> = listOf( Color.DarkGray,Color.Gray,Color.LightGray),
-    backgroundProgressColor: List<Color> = listOf(Color.Transparent,Color.Transparent),
-    centerColor : Color = Color.White,
+    progressColor: List<Color> = listOf(Color.DarkGray, Color.Gray, Color.LightGray),
+    backgroundProgressColor: List<Color> = listOf(Color.Transparent, Color.Transparent),
+    centerColor: Color = Color.White,
     content: @Composable BoxScope.() -> Unit = {}
 ) {
     Box(

@@ -45,8 +45,8 @@ fun ToothBrushTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compos
 
 @Preview(name = "Dark Theme")
 @Composable
-fun DarkTheme(){
-    ToothBrushTheme(darkTheme = true){
+fun DarkTheme() {
+    ToothBrushTheme(darkTheme = true) {
         Surface {
             TextButton(
                 onClick = {}) {
@@ -59,8 +59,8 @@ fun DarkTheme(){
 
 @Preview(name = "Light Theme")
 @Composable
-fun LightTheme(){
-    ToothBrushTheme{
+fun LightTheme() {
+    ToothBrushTheme {
         Surface {
             TextButton(
                 onClick = {}) {

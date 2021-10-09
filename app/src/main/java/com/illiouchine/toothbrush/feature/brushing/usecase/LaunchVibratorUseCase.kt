@@ -17,8 +17,8 @@ class LaunchVibratorUseCase @Inject constructor(
             // Todo : Make a vibration pattern --.'.'''
             vibrator.vibrate(
                 VibrationEffect.createWaveform(
-                    listOf(2000L,2000L,2000L).toLongArray(),
-                    listOf(200,100,255).toIntArray(),
+                    listOf(2000L, 2000L, 2000L).toLongArray(),
+                    listOf(200, 100, 255).toIntArray(),
                     -1
                 )
             )

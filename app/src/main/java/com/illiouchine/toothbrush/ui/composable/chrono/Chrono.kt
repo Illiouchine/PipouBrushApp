@@ -36,8 +36,11 @@ fun Chrono(
     modifier: Modifier = Modifier,
     textStyle: TextStyle = MaterialTheme.typography.h6,
     textColor: Color = MaterialTheme.colors.primary,
-    progressColor: List<Color> = listOf(MaterialTheme.colors.primary,MaterialTheme.colors.primaryVariant),
-    backgroundProgressColor: List<Color>  = listOf(Color.Transparent,Color.Transparent),
+    progressColor: List<Color> = listOf(
+        MaterialTheme.colors.primary,
+        MaterialTheme.colors.primaryVariant
+    ),
+    backgroundProgressColor: List<Color> = listOf(Color.Transparent, Color.Transparent),
     centerColor: Color = MaterialTheme.colors.background,
     backgroundColor: Color = MaterialTheme.colors.background,
     onTap: () -> Unit = {},
@@ -89,7 +92,7 @@ fun Chrono(
 @Composable
 @Preview
 fun ChronoPreviewLight() {
-    ToothBrushTheme() {
+    ToothBrushTheme {
         Chrono(
             seconds = 240,
             totalSeconds = 500
