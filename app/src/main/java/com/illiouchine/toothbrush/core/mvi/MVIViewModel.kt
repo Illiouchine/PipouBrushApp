@@ -44,7 +44,7 @@ abstract class MviViewModel
     private val initialState: State by lazy { createInitialState() }
     protected abstract fun createInitialState(): State
 
-    private val _uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
+    private val _uiState: MutableStateFlow<State> by lazy { MutableStateFlow(initialState) }
     val uiState = _uiState.asStateFlow()
 
     private val _intent: MutableSharedFlow<Intent> = MutableSharedFlow()
