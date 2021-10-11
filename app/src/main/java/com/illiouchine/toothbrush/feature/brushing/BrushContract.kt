@@ -1,10 +1,6 @@
-package com.illiouchine.toothbrush.feature.brushing.controller
+package com.illiouchine.toothbrush.feature.brushing
 
-import com.illiouchine.mvi.core.UiAction
-import com.illiouchine.mvi.core.UiEvent
-import com.illiouchine.mvi.core.UiIntent
-import com.illiouchine.mvi.core.UiPartialState
-import com.illiouchine.mvi.core.UiState
+import com.illiouchine.mvi.core.*
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 

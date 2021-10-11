@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.main
+package com.illiouchine.toothbrush.feature
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -9,7 +9,6 @@ sealed class Screen(
     @StringRes val textId: Int,
     @DrawableRes val iconId: Int
 ) {
-
     object Brush : Screen(
         route = "Brush",
         textId = R.string.screen_brush_menu_title,

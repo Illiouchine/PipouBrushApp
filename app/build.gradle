@@ -1,4 +1,4 @@
-plugins{
+plugins {
     id 'com.android.application'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-android'
@@ -9,14 +9,14 @@ android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
-    buildFeatures{
+    buildFeatures {
         compose = true
     }
 
     defaultConfig {
         applicationId "com.illiouchine.toothbrush"
         minSdkVersion 22
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -41,7 +41,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerVersion '1.5.10'
+        kotlinCompilerVersion '1.5.30'
         kotlinCompilerExtensionVersion "$compose_version"
     }
 }
@@ -73,7 +73,7 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.37"
     kapt 'com.google.dagger:hilt-compiler:2.37'
     // For instrumentation tests
-    androidTestImplementation  'com.google.dagger:hilt-android-testing:2.37'
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.37'
     kaptAndroidTest 'com.google.dagger:hilt-compiler:2.37'
     // For local unit tests
     testImplementation 'com.google.dagger:hilt-android-testing:2.37'
@@ -89,7 +89,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
 
-kapt{
+kapt {
     correctErrorTypes true
     javacOptions {
         // These options are normally set automatically via the Hilt Gradle plugin, but we

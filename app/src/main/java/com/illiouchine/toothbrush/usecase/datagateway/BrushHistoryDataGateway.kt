@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.datagateway
+package com.illiouchine.toothbrush.usecase.datagateway
 
 import com.illiouchine.toothbrush.entities.BrushHistoryEntity
 

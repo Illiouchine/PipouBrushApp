@@ -1,10 +1,6 @@
-package com.illiouchine.toothbrush.feature.statistics.controller
+package com.illiouchine.toothbrush.feature.statistics
 
-import com.illiouchine.mvi.core.UiAction
-import com.illiouchine.mvi.core.UiEvent
-import com.illiouchine.mvi.core.UiIntent
-import com.illiouchine.mvi.core.UiPartialState
-import com.illiouchine.mvi.core.UiState
+import com.illiouchine.mvi.core.*
 
 interface StatisticsContract {
 

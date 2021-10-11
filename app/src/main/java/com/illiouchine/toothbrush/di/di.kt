@@ -1,9 +1,9 @@
-package com.illiouchine.toothbrush.main.di
+package com.illiouchine.toothbrush.di
 
 import com.illiouchine.toothbrush.database.BrushHistoryDataMapper
 import com.illiouchine.toothbrush.database.datasource.brushhistory.BrushHistoryDataSource
 import com.illiouchine.toothbrush.database.datasource.brushhistory.BrushHistoryInMemory
-import com.illiouchine.toothbrush.feature.datagateway.BrushHistoryDataGateway
+import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

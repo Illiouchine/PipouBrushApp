@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.sp
-import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.RawStatisticsState
-import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsViewModel
+import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.RawStatisticsState
+import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
 import com.illiouchine.toothbrush.feature.statistics.ui.composable.BrushHistoryContent
 
 @Composable

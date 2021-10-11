@@ -1,17 +1,17 @@
-package com.illiouchine.toothbrush.feature.statistics.controller
+package com.illiouchine.toothbrush.feature.statistics
 
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
-import com.illiouchine.toothbrush.feature.statistics.usecase.GetBrushHistoryUseCase
+import com.illiouchine.toothbrush.usecase.GetBrushHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.StatisticsAction as Action
-import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.StatisticsEvent as Event
-import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.StatisticsIntent as Intent
-import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.StatisticsPartialState as PartialState
-import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsContract.StatisticsState as State
+import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsAction as Action
+import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsEvent as Event
+import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsIntent as Intent
+import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsPartialState as PartialState
+import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState as State
 
 
 @HiltViewModel

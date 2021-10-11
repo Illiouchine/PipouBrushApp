@@ -1,21 +1,21 @@
-package com.illiouchine.toothbrush.feature.brushing.controller
+package com.illiouchine.toothbrush.feature.brushing
 
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
-import com.illiouchine.toothbrush.feature.brushing.usecase.LaunchVibratorUseCase
-import com.illiouchine.toothbrush.feature.brushing.usecase.SaveBrushProgressUseCase
-import com.illiouchine.toothbrush.feature.brushing.usecase.StartCountDownUseCase
+import com.illiouchine.toothbrush.usecase.LaunchVibratorUseCase
+import com.illiouchine.toothbrush.usecase.SaveBrushProgressUseCase
+import com.illiouchine.toothbrush.usecase.StartCountDownUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.ExperimentalTime
-import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushAction as Action
-import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushEvent as Event
-import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushIntent as Intent
-import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushPartialState as PartialState
-import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushState as State
+import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushAction as Action
+import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushEvent as Event
+import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushIntent as Intent
+import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushPartialState as PartialState
+import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushState as State
 
 @ExperimentalTime
 @HiltViewModel

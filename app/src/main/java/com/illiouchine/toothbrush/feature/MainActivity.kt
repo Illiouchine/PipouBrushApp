@@ -1,12 +1,13 @@
-package com.illiouchine.toothbrush.main
+package com.illiouchine.toothbrush.feature
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.ExperimentalMaterialApi
-import com.illiouchine.toothbrush.feature.brushing.controller.BrushViewModel
-import com.illiouchine.toothbrush.feature.statistics.controller.StatisticsViewModel
+import com.illiouchine.toothbrush.feature.brushing.BrushViewModel
+import com.illiouchine.toothbrush.feature.home.MainScreen
+import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.time.ExperimentalTime

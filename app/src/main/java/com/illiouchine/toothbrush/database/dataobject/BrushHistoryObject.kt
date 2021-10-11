@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.database.`object`
+package com.illiouchine.toothbrush.database.dataobject
 
 import java.util.*
 

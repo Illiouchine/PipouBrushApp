@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.brushing.ui.composable
+package com.illiouchine.toothbrush.feature.brushing.ui.content
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi

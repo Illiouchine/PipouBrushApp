@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.brushing.ui
+package com.illiouchine.toothbrush.feature.brushing
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,12 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.BrushIntent
-import com.illiouchine.toothbrush.feature.brushing.controller.BrushContract.TimerState
-import com.illiouchine.toothbrush.feature.brushing.controller.BrushViewModel
-import com.illiouchine.toothbrush.feature.brushing.ui.composable.CountDownContent
-import com.illiouchine.toothbrush.feature.brushing.ui.composable.RestartContent
-import com.illiouchine.toothbrush.feature.brushing.ui.composable.WaitingContent
+import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushIntent
+import com.illiouchine.toothbrush.feature.brushing.BrushContract.TimerState
+import com.illiouchine.toothbrush.feature.brushing.ui.content.CountDownContent
+import com.illiouchine.toothbrush.feature.brushing.ui.content.RestartContent
+import com.illiouchine.toothbrush.feature.brushing.ui.content.WaitingContent
 import com.illiouchine.toothbrush.ui.utils.assetsToBitmap
 import kotlin.time.ExperimentalTime
 

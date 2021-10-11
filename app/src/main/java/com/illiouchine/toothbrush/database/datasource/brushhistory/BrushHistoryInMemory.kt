@@ -1,6 +1,6 @@
 package com.illiouchine.toothbrush.database.datasource.brushhistory
 
-import com.illiouchine.toothbrush.database.`object`.BrushHistoryObject
+import com.illiouchine.toothbrush.database.dataobject.BrushHistoryObject
 import java.util.*
 import javax.inject.Inject
 

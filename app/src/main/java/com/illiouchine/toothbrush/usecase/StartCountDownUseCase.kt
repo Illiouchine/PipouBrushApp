@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.brushing.usecase
+package com.illiouchine.toothbrush.usecase
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow

@@ -1,6 +1,6 @@
-package com.illiouchine.toothbrush.feature.brushing.usecase
+package com.illiouchine.toothbrush.usecase
 
-import com.illiouchine.toothbrush.feature.datagateway.BrushHistoryDataGateway
+import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
 import javax.inject.Inject
 
 class SaveBrushProgressUseCase @Inject constructor(
