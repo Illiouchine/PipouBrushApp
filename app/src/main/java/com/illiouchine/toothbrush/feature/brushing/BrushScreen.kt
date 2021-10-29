@@ -43,7 +43,7 @@ fun BrushScreen(
                 contentDescription = "BG"
             )
         }
-        when (brushState.timerState) {
+        when (brushState.timer) {
             TimerState.Finished -> {
                 RestartContent(
                     onRestartClick = {
@@ -60,8 +60,8 @@ fun BrushScreen(
             }
             is TimerState.Running -> {
                 CountDownContent(
-                    duration = (brushState.timerState as TimerState.Running).duration,
-                    totalDuration = (brushState.timerState as TimerState.Running).totalDuration
+                    duration = (brushState.timer as TimerState.Running).duration,
+                    totalDuration = (brushState.timer as TimerState.Running).totalDuration
                 )
             }
         }

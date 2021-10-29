@@ -27,7 +27,7 @@ class BrushViewModel @Inject constructor(
 
     override fun createInitialState(): State =
         State(
-            timerState = BrushContract.TimerState.Idle
+            timer = BrushContract.TimerState.Idle
         )
 
     override fun handleUserIntent(intent: Intent): Action {
@@ -58,7 +58,7 @@ class BrushViewModel @Inject constructor(
                 return when (partialState) {
                     is PartialState.TimerRunning -> {
                         currentState.copy(
-                            timerState = BrushContract.TimerState.Running(
+                            timer = BrushContract.TimerState.Running(
                                 duration = partialState.duration,
                                 totalDuration = partialState.totalDuration
                             )
@@ -66,7 +66,7 @@ class BrushViewModel @Inject constructor(
                     }
                     PartialState.TimerFinished -> {
                         currentState.copy(
-                            timerState = BrushContract.TimerState.Finished
+                            timer = BrushContract.TimerState.Finished
                         )
                     }
                 }

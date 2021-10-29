@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.statistics.ui
+package com.illiouchine.toothbrush.feature.statistics
 
 
 import androidx.compose.material.Surface
@@ -8,7 +8,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.sp
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.RawStatisticsState
-import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
 import com.illiouchine.toothbrush.feature.statistics.ui.composable.BrushHistoryContent
 
 @Composable

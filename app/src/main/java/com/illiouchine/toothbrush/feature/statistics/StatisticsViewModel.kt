@@ -20,9 +20,7 @@ class StatisticsViewModel @Inject constructor(
 ) : MviViewModel<Intent, Action, PartialState, State, Event>() {
 
     init {
-        setAction {
-            Action.LoadStatistics
-        }
+        setAction { Action.LoadStatistics }
     }
 
     override fun createInitialState(): State {

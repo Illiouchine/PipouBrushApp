@@ -16,10 +16,9 @@ import com.illiouchine.toothbrush.feature.brushing.BrushScreen
 import com.illiouchine.toothbrush.feature.main.composable.BottomNavigationBar
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract
 import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
-import com.illiouchine.toothbrush.feature.statistics.ui.StatisticsScreen
+import com.illiouchine.toothbrush.feature.statistics.StatisticsScreen
 import com.illiouchine.toothbrush.ui.composable.video.VideoExoPlayer
 import kotlin.time.ExperimentalTime
-
 
 @ExperimentalMaterialApi
 @ExperimentalTime

@@ -41,7 +41,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerVersion '1.5.30'
+        kotlinCompilerVersion "$kotlin_compiler_versison"
         kotlinCompilerExtensionVersion "$compose_version"
     }
 }
@@ -71,6 +71,8 @@ dependencies {
 
     // HILT
     implementation "com.google.dagger:hilt-android:2.37"
+    implementation project(path: ':mvi')
+
     kapt 'com.google.dagger:hilt-compiler:2.37'
     // For instrumentation tests
     androidTestImplementation 'com.google.dagger:hilt-android-testing:2.37'
@@ -79,9 +81,8 @@ dependencies {
     testImplementation 'com.google.dagger:hilt-android-testing:2.37'
     kaptTest 'com.google.dagger:hilt-compiler:2.37'
 
-    implementation project(path: ':mvi')
     // VIDEO
-    implementation 'com.google.android.exoplayer:exoplayer:2.14.2'
+    implementation 'com.google.android.exoplayer:exoplayer:2.15.1'
 
     // JUNIT
     testImplementation 'junit:junit:4.+'

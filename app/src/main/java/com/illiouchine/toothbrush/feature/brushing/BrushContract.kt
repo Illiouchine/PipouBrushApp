@@ -17,18 +17,18 @@ interface BrushContract {
     }
 
     data class BrushState(
-        val timerState: TimerState
-    ) : UiState
-
-    sealed class TimerState {
-        object Idle : TimerState()
-        data class Running(
-            val duration: Duration,
-            val totalDuration: Duration
-        ) : TimerState()
-
-        object Finished : TimerState()
+        val timer: Timer
+    ) : UiState {
+        sealed class Timer {
+            object Idle : Timer()
+            data class Running(
+                val duration: Duration,
+                val totalDuration: Duration
+            ) : Timer()
+            object Finished : Timer()
+        }
     }
+
 
     sealed class BrushPartialState : UiPartialState {
         object TimerFinished : BrushPartialState()
