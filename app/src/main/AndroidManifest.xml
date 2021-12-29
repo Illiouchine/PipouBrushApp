@@ -13,9 +13,9 @@
         android:theme="@style/Theme.ToothBrush">
         <activity
             android:name="com.illiouchine.toothbrush.feature.MainActivity"
+            android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ToothBrush.NoActionBar"
-            android:exported="false">
+            android:theme="@style/Theme.ToothBrush.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

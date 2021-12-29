@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.brushing.ui.content
+package com.illiouchine.toothbrush.feature.brushing.content
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,17 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import com.illiouchine.toothbrush.ui.composable.chrono.Chrono
-import java.util.concurrent.TimeUnit
-import kotlin.time.Duration
-import kotlin.time.ExperimentalTime
 
 
 @ExperimentalMaterialApi
-@ExperimentalTime
 @Composable
 fun CountDownContent(
-    duration: Duration = Duration.seconds(30),
-    totalDuration: Duration = Duration.seconds(260)
+    current: Long = 30L,
+    total: Long = 260L
 ) {
     Column(
         modifier = Modifier
@@ -34,8 +30,8 @@ fun CountDownContent(
     ) {
         Chrono(
             modifier = Modifier.size(150.dp),
-            seconds = duration.toInt(TimeUnit.SECONDS),
-            totalSeconds = totalDuration.toInt(TimeUnit.SECONDS),
+            seconds = current.toInt(),
+            totalSeconds = total.toInt(),
             centerColor = MaterialTheme.colors.background,
             backgroundColor = Color.Transparent,
         )
@@ -46,7 +42,6 @@ fun CountDownContent(
 @ExperimentalMaterialApi
 @Preview
 @Composable
-@ExperimentalTime
 fun CountDownContentBrushScreenLight() {
     ToothBrushTheme {
         CountDownContent()
@@ -57,7 +52,6 @@ fun CountDownContentBrushScreenLight() {
 @ExperimentalMaterialApi
 @Preview
 @Composable
-@ExperimentalTime
 fun CountDownContentBrushScreenDark() {
     ToothBrushTheme(darkTheme = true) {
         CountDownContent()

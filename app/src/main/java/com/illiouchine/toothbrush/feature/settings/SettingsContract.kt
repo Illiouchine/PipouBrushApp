@@ -10,17 +10,17 @@ interface SettingsContract {
 
     sealed class SettingsIntent : UiIntent {
         data class UpdateTimerDuration(
-            val duration : Duration
-        ): SettingsIntent()
+            val duration: Duration
+        ) : SettingsIntent()
 
         // TODO rename
         data class AddReminder(
             val dayOfWeek: DayOfWeek,
             val hourOfWeek: Int
-        ): SettingsIntent()
+        ) : SettingsIntent()
     }
 
-    sealed class SettingsAction: UiAction {
+    sealed class SettingsAction : UiAction {
         data class SaveTimerDuration(val duration: Duration) : SettingsAction()
         data class SaveReminder(val dayOfWeek: DayOfWeek, val hourOfWeek: Int) : SettingsAction()
 
@@ -28,17 +28,17 @@ interface SettingsContract {
     }
 
     data class SettingsState(
-        val timer : Timer
-    ): UiState {
-        sealed class Timer{
-            data class TimerDuration(val duration: Duration): Timer()
-            object Choosing: Timer()
-            object Loading: Timer()
+        val timer: Timer
+    ) : UiState {
+        sealed class Timer {
+            data class TimerDuration(val duration: Duration) : Timer()
+            object Choosing : Timer()
+            object Loading : Timer()
         }
     }
 
-    sealed class SettingsPartialState(): UiPartialState
+    sealed class SettingsPartialState() : UiPartialState
 
-    sealed class SettingsEvent(): UiEvent
+    sealed class SettingsEvent() : UiEvent
 
 }

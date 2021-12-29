@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.brushing.ui.content
+package com.illiouchine.toothbrush.feature.brushing.content
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi
@@ -12,15 +12,11 @@ import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import com.illiouchine.toothbrush.ui.composable.MyButton
 import com.illiouchine.toothbrush.ui.composable.chrono.Chrono
-import java.util.concurrent.TimeUnit
-import kotlin.time.Duration
-import kotlin.time.ExperimentalTime
 
 @ExperimentalMaterialApi
-@ExperimentalTime
 @Composable
 fun WaitingContent(
-    totalSeconds: Duration = Duration.Companion.seconds(30),
+    totalSeconds: Long = 30L,
     onStartTimerClick: () -> Unit = {}
 ) {
     Column(
@@ -31,8 +27,8 @@ fun WaitingContent(
     ) {
         Chrono(
             modifier = Modifier.size(150.dp),
-            seconds = totalSeconds.toInt(TimeUnit.SECONDS),
-            totalSeconds = totalSeconds.toInt(TimeUnit.SECONDS),
+            seconds = totalSeconds.toInt(),
+            totalSeconds = totalSeconds.toInt(),
             centerColor = MaterialTheme.colors.background,
             backgroundColor = Color.Transparent,
         )
@@ -48,7 +44,6 @@ fun WaitingContent(
 @ExperimentalMaterialApi
 @Preview
 @Composable
-@ExperimentalTime
 fun WaitingStartBrushScreenLight() {
     ToothBrushTheme {
         WaitingContent()
@@ -59,7 +54,6 @@ fun WaitingStartBrushScreenLight() {
 @ExperimentalMaterialApi
 @Preview
 @Composable
-@ExperimentalTime
 fun WaitingStartBrushScreenDark() {
     ToothBrushTheme(darkTheme = true) {
         WaitingContent()

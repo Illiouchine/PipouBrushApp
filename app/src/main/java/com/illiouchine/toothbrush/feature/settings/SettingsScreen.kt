@@ -10,10 +10,10 @@ import kotlin.time.ExperimentalTime
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel
-){
+) {
     val settingsState by viewModel.uiState.collectAsState()
 
-    when(settingsState.timer){
+    when (settingsState.timer) {
         Timer.Choosing -> {
             TODO()
         }

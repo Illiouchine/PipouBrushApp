@@ -3,6 +3,7 @@ package com.illiouchine.toothbrush.feature.settings
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.DayOfWeek
 import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsAction as Action
@@ -29,13 +30,15 @@ class SettingsViewModel @Inject constructor(
     }
 
     override fun createReducer(): Reducer<State, PartialState> {
-        return object : Reducer<State, PartialState>(){
+        return object : Reducer<State, PartialState>() {
             override fun reduce(
                 currentState: State,
                 partialState: PartialState
             ): State {
-                return when(partialState){
-                    else -> { TODO("") }
+                return when (partialState) {
+                    else -> {
+                        TODO("")
+                    }
                 }
             }
 
@@ -43,14 +46,17 @@ class SettingsViewModel @Inject constructor(
     }
 
     override fun handleUserIntent(intent: Intent): Action {
-       return when(intent){
-           is Intent.UpdateTimerDuration -> {
-               Action.SaveTimerDuration(intent.duration)
-           }
-           is Intent.AddReminder -> {
-               Action.SaveReminder()
-           }
-       }
+        return when (intent) {
+            is Intent.UpdateTimerDuration -> {
+                Action.SaveTimerDuration(intent.duration)
+            }
+            is Intent.AddReminder -> {
+                Action.SaveReminder(
+                    dayOfWeek = DayOfWeek.MONDAY,
+                    hourOfWeek = 1
+                )
+            }
+        }
     }
 
     override suspend fun handleAction(action: SettingsContract.SettingsAction) {

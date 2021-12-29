@@ -1,44 +1,49 @@
 package com.illiouchine.toothbrush.feature.brushing
 
 import com.illiouchine.mvi.core.*
-import kotlin.time.Duration
-import kotlin.time.ExperimentalTime
 
-@ExperimentalTime
 interface BrushContract {
 
     sealed class BrushIntent : UiIntent {
-        object LaunchTimer : BrushIntent()
-        object RestartTimer : BrushIntent()
+        object StartBrushing : BrushIntent()
+        object PauseBrushing : BrushIntent()
+        object ResumeBrushing : BrushIntent()
+        object ResetBrushing : BrushIntent()
     }
 
     sealed class BrushAction : UiAction {
-        object LaunchTimer : BrushAction()
+        object StartTimer : BrushAction()
+        object PauseTimer : BrushAction()
+        object ResetTimer : BrushAction()
+        object ResumeTimer : BrushAction()
+        object FinishTimer : BrushAction()
     }
 
     data class BrushState(
         val timer: Timer
     ) : UiState {
         sealed class Timer {
-            object Idle : Timer()
-            data class Running(
-                val duration: Duration,
-                val totalDuration: Duration
+            data class Idle(
+                val current: Long,
+                val total: Long
             ) : Timer()
+
+            data class Running(
+                val current: Long,
+                val total: Long
+            ) : Timer()
+
             object Finished : Timer()
         }
     }
 
-
     sealed class BrushPartialState : UiPartialState {
         object TimerFinished : BrushPartialState()
-        data class TimerRunning(
-            val duration: Duration,
-            val totalDuration: Duration,
-        ) : BrushPartialState()
+        data class TimerRunning(val current: Long, val total: Long) : BrushPartialState()
+        data class TimerPaused(val current: Long, val total: Long) : BrushPartialState()
     }
 
     sealed class BrushEvent : UiEvent {
-        object ShowToast : BrushEvent()
+        data class ShowToast(val message: String) : BrushEvent() // TODO : should pass a resId
     }
 }

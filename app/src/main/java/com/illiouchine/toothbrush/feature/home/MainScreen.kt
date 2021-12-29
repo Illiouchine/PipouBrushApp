@@ -11,17 +11,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.illiouchine.toothbrush.feature.Screen
-import com.illiouchine.toothbrush.feature.brushing.BrushViewModel
 import com.illiouchine.toothbrush.feature.brushing.BrushScreen
+import com.illiouchine.toothbrush.feature.brushing.BrushViewModel
 import com.illiouchine.toothbrush.feature.main.composable.BottomNavigationBar
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract
-import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
 import com.illiouchine.toothbrush.feature.statistics.StatisticsScreen
+import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
 import com.illiouchine.toothbrush.ui.composable.video.VideoExoPlayer
-import kotlin.time.ExperimentalTime
 
 @ExperimentalMaterialApi
-@ExperimentalTime
 @Composable
 fun MainScreen(
     brushViewModel: BrushViewModel,

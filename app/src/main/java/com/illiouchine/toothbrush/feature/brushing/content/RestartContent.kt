@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.brushing.ui.content
+package com.illiouchine.toothbrush.feature.brushing.content
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,10 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import com.illiouchine.toothbrush.ui.composable.MyButton
-import kotlin.time.ExperimentalTime
 
 
-@ExperimentalTime
 @Composable
 fun RestartContent(
     onRestartClick: () -> Unit = {}
@@ -37,7 +35,6 @@ fun RestartContent(
 
 @Preview
 @Composable
-@ExperimentalTime
 fun RestartContentBrushScreenLight() {
     ToothBrushTheme {
         RestartContent()
@@ -47,7 +44,6 @@ fun RestartContentBrushScreenLight() {
 
 @Preview
 @Composable
-@ExperimentalTime
 fun RestartContentBrushScreenDark() {
     ToothBrushTheme(darkTheme = true) {
         RestartContent()

@@ -4,23 +4,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import kotlin.time.Duration
-import kotlin.time.DurationUnit
-import kotlin.time.ExperimentalTime
-import kotlin.time.toDuration
 
-@ExperimentalTime
-val tick: Duration = 1.toDuration(DurationUnit.SECONDS)
+const val tick: Long = 1L
 
-@ExperimentalTime
-val brushDuration: Duration = 3.toDuration(DurationUnit.SECONDS)
+const val brushDuration: Long = 3L
 
 class StartCountDownUseCase @Inject constructor() {
 
-    @ExperimentalTime
-    operator fun invoke(initialDuration: Duration = brushDuration): Flow<CountDown> = flow {
-        var currentDuration: Duration = initialDuration
-        while (currentDuration.inWholeSeconds > 0) {
+    operator fun invoke(initialDuration: Long = brushDuration): Flow<CountDown> = flow {
+        var currentDuration: Long = initialDuration
+        while (currentDuration > 0) {
             emit(
                 CountDown(
                     currentDuration = currentDuration,
@@ -32,9 +25,8 @@ class StartCountDownUseCase @Inject constructor() {
         }
     }
 
-    @ExperimentalTime
     data class CountDown(
-        val currentDuration: Duration,
-        val totalDuration: Duration
+        val currentDuration: Long,
+        val totalDuration: Long
     )
 }

@@ -12,16 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushIntent
-import com.illiouchine.toothbrush.feature.brushing.BrushContract.TimerState
-import com.illiouchine.toothbrush.feature.brushing.ui.content.CountDownContent
-import com.illiouchine.toothbrush.feature.brushing.ui.content.RestartContent
-import com.illiouchine.toothbrush.feature.brushing.ui.content.WaitingContent
+import com.illiouchine.toothbrush.feature.brushing.content.CountDownContent
+import com.illiouchine.toothbrush.feature.brushing.content.RestartContent
+import com.illiouchine.toothbrush.feature.brushing.content.WaitingContent
 import com.illiouchine.toothbrush.ui.utils.assetsToBitmap
-import kotlin.time.ExperimentalTime
+import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushIntent as UiIntent
+import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushState as State
 
 @ExperimentalMaterialApi
-@ExperimentalTime
 @Composable
 fun BrushScreen(
     viewModel: BrushViewModel
@@ -44,27 +42,27 @@ fun BrushScreen(
             )
         }
         when (brushState.timer) {
-            TimerState.Finished -> {
+            State.Timer.Finished -> {
                 RestartContent(
                     onRestartClick = {
-                        viewModel.dispatchIntent(BrushIntent.RestartTimer)
+                        viewModel.dispatchIntent(UiIntent.ResetBrushing)
                     },
                 )
             }
-            TimerState.Idle -> {
+            is State.Timer.Idle -> {
                 WaitingContent(
                     onStartTimerClick = {
-                        viewModel.dispatchIntent(BrushIntent.LaunchTimer)
+                        viewModel.dispatchIntent(UiIntent.StartBrushing)
                     }
                 )
             }
-            is TimerState.Running -> {
+            is State.Timer.Running -> {
+                val runningState = (brushState.timer as State.Timer.Running)
                 CountDownContent(
-                    duration = (brushState.timer as TimerState.Running).duration,
-                    totalDuration = (brushState.timer as TimerState.Running).totalDuration
+                    current = runningState.current,
+                    total = runningState.total
                 )
             }
         }
     }
-
 }
