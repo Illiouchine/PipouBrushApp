@@ -10,16 +10,14 @@ import com.illiouchine.toothbrush.feature.home.MainScreen
 import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.time.ExperimentalTime
 
-@ExperimentalTime
 @AndroidEntryPoint
+@ExperimentalMaterialApi
 class MainActivity : AppCompatActivity() {
 
     private val brushViewModel by viewModels<BrushViewModel>()
     private val statisticsViewModel by viewModels<StatisticsViewModel>()
 
-    @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
