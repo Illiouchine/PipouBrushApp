@@ -7,7 +7,7 @@ interface BrushContract {
     sealed class BrushIntent : UiIntent {
         object StartBrushing : BrushIntent()
         object PauseBrushing : BrushIntent()
-        object ResumeBrushing : BrushIntent()
+        data class ResumeBrushing(val currentDuration: Long, val totalDuration:Long) : BrushIntent()
         object ResetBrushing : BrushIntent()
     }
 
@@ -15,7 +15,7 @@ interface BrushContract {
         object StartTimer : BrushAction()
         object PauseTimer : BrushAction()
         object ResetTimer : BrushAction()
-        object ResumeTimer : BrushAction()
+        data class ResumeTimer(val currentDuration: Long, val totalDuration:Long) : BrushAction()
         object FinishTimer : BrushAction()
     }
 
@@ -40,7 +40,7 @@ interface BrushContract {
     sealed class BrushPartialState : UiPartialState {
         object TimerFinished : BrushPartialState()
         data class TimerRunning(val current: Long, val total: Long) : BrushPartialState()
-        data class TimerPaused(val current: Long, val total: Long) : BrushPartialState()
+        object TimerPaused : BrushPartialState()
         data class TimerIdle(val current: Long, val total: Long) : BrushPartialState()
 
     }

@@ -7,6 +7,7 @@ import com.illiouchine.toothbrush.usecase.LaunchVibratorUseCase
 import com.illiouchine.toothbrush.usecase.SaveBrushProgressUseCase
 import com.illiouchine.toothbrush.usecase.StartCountDownUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,6 +25,7 @@ class BrushViewModel @Inject constructor(
 ) : MviViewModel<Intent, Action, PartialState, State, Event>() {
 
     private val brushDuration: Long = 260L
+    private var timerJob: Job? = null
 
     override fun createInitialState(): State =
         State(
@@ -34,8 +36,10 @@ class BrushViewModel @Inject constructor(
 
     override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {
-            Intent.StartBrushing,
-            Intent.ResumeBrushing -> Action.StartTimer
+            Intent.StartBrushing -> Action.StartTimer
+            is Intent.ResumeBrushing -> Action.ResumeTimer(
+                intent.currentDuration, intent.totalDuration
+            )
             Intent.PauseBrushing -> Action.PauseTimer
             Intent.ResetBrushing -> Action.ResetTimer
         }
@@ -43,33 +47,33 @@ class BrushViewModel @Inject constructor(
 
     override suspend fun handleAction(action: Action) {
         when (action) {
-            Action.PauseTimer -> pauseTimer()
+            Action.PauseTimer -> {
+                timerJob?.cancel()
+                setPartialState {
+                    PartialState.TimerPaused
+                }
+            }
             Action.ResetTimer -> resetTimer()
-            Action.StartTimer -> startTimer()
-            Action.ResumeTimer -> resumeTimer()
+            Action.StartTimer -> {
+                timerJob?.cancel()
+                launchTimer()
+            }
+            is Action.ResumeTimer -> {
+                timerJob?.cancel()
+                launchTimer(action.currentDuration, action.totalDuration)
+            }
             Action.FinishTimer -> resetTimer()
         }
     }
 
-    private fun resumeTimer() {
-        TODO()
-    }
-
-    private fun startTimer() {
-        launchTimer()
-    }
-
     private fun resetTimer() {
+        timerJob?.cancel()
         setPartialState {
             PartialState.TimerIdle(
                 current = brushDuration,
                 total = brushDuration
             )
         }
-    }
-
-    private fun pauseTimer() {
-        TODO()
     }
 
     override fun createReducer(): Reducer<State, PartialState> {
@@ -92,13 +96,33 @@ class BrushViewModel @Inject constructor(
                             timer = State.Timer.Finished
                         )
                     }
-                    is BrushContract.BrushPartialState.TimerPaused -> {
-                        currentState.copy(
-                            timer = State.Timer.Idle(
-                                current = partialState.current,
-                                total = partialState.total
-                            )
-                        )
+                    is PartialState.TimerPaused -> {
+                        return when (currentState.timer) {
+                            State.Timer.Finished -> {
+                                currentState.copy(
+                                    timer = State.Timer.Idle(
+                                        current = brushDuration,
+                                        total = brushDuration
+                                    )
+                                )
+                            }
+                            is State.Timer.Idle -> {
+                                currentState.copy(
+                                    timer = State.Timer.Idle(
+                                        current = currentState.timer.current,
+                                        total = currentState.timer.total
+                                    )
+                                )
+                            }
+                            is State.Timer.Running -> {
+                                currentState.copy(
+                                    timer = State.Timer.Idle(
+                                        current = currentState.timer.current,
+                                        total = currentState.timer.total
+                                    )
+                                )
+                            }
+                        }
                     }
                     is BrushContract.BrushPartialState.TimerIdle -> {
                         currentState.copy(
@@ -113,11 +137,17 @@ class BrushViewModel @Inject constructor(
         }
     }
 
-    private fun launchTimer() {
-        viewModelScope.launch {
-            startCountDown()
+    private fun launchTimer(
+        initialDuration: Long = brushDuration,
+        totalDuration: Long = brushDuration
+    ) {
+        timerJob = viewModelScope.launch {
+            startCountDown(
+                initialDuration = initialDuration,
+                totalDuration = totalDuration
+            )
                 .collect {
-                    if (it.currentDuration <= 0){
+                    if (it.currentDuration <= 0) {
                         setPartialState {
                             PartialState.TimerFinished
                         }
