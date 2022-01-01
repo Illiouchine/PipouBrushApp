@@ -41,6 +41,8 @@ interface BrushContract {
         object TimerFinished : BrushPartialState()
         data class TimerRunning(val current: Long, val total: Long) : BrushPartialState()
         data class TimerPaused(val current: Long, val total: Long) : BrushPartialState()
+        data class TimerIdle(val current: Long, val total: Long) : BrushPartialState()
+
     }
 
     sealed class BrushEvent : UiEvent {

@@ -3,7 +3,6 @@ package com.illiouchine.toothbrush.feature.brushing
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
-import com.illiouchine.toothbrush.feature.brushing.timer.Timer
 import com.illiouchine.toothbrush.usecase.LaunchVibratorUseCase
 import com.illiouchine.toothbrush.usecase.SaveBrushProgressUseCase
 import com.illiouchine.toothbrush.usecase.StartCountDownUseCase
@@ -25,7 +24,6 @@ class BrushViewModel @Inject constructor(
 ) : MviViewModel<Intent, Action, PartialState, State, Event>() {
 
     private val brushDuration: Long = 260L
-    private var timer: Timer = Timer(duration = brushDuration)
 
     override fun createInitialState(): State =
         State(
@@ -54,49 +52,24 @@ class BrushViewModel @Inject constructor(
     }
 
     private fun resumeTimer() {
-        try {
-            timer.resume()
-            setPartialState {
-                PartialState.TimerRunning(
-                    current = timer.getRemindingTime(),
-                    total = brushDuration
-                )
-            }
-        } catch (exception: Timer.TimerException) {
-            setEvent {
-                Event.ShowToast("${exception.message}")
-            }
-        }
+        TODO()
     }
 
     private fun startTimer() {
-        timer.start(0L)
-        setPartialState {
-            PartialState.TimerRunning(
-                current = timer.getRemindingTime(),
-                total = brushDuration
-            )
-        }
+        launchTimer()
     }
 
     private fun resetTimer() {
-        timer = Timer(duration = brushDuration)
         setPartialState {
-            PartialState.TimerRunning(
-                current = timer.getRemindingTime(),
+            PartialState.TimerIdle(
+                current = brushDuration,
                 total = brushDuration
             )
         }
     }
 
     private fun pauseTimer() {
-        timer.pause()
-        setPartialState {
-            PartialState.TimerRunning(
-                current = timer.getRemindingTime(),
-                total = brushDuration
-            )
-        }
+        TODO()
     }
 
     override fun createReducer(): Reducer<State, PartialState> {
@@ -127,6 +100,14 @@ class BrushViewModel @Inject constructor(
                             )
                         )
                     }
+                    is BrushContract.BrushPartialState.TimerIdle -> {
+                        currentState.copy(
+                            timer = State.Timer.Idle(
+                                current = partialState.current,
+                                total = partialState.total
+                            )
+                        )
+                    }
                 }
             }
         }
@@ -136,18 +117,21 @@ class BrushViewModel @Inject constructor(
         viewModelScope.launch {
             startCountDown()
                 .collect {
-                    setPartialState {
-                        PartialState.TimerRunning(
-                            current = it.currentDuration,
-                            total = it.totalDuration
-                        )
+                    if (it.currentDuration <= 0){
+                        setPartialState {
+                            PartialState.TimerFinished
+                        }
+                        launchVibrator()
+                        saveBrushProgress()
+                    } else {
+                        setPartialState {
+                            PartialState.TimerRunning(
+                                current = it.currentDuration,
+                                total = it.totalDuration
+                            )
+                        }
                     }
                 }
-            setPartialState {
-                PartialState.TimerFinished
-            }
-            launchVibrator()
-            saveBrushProgress()
         }
     }
 }

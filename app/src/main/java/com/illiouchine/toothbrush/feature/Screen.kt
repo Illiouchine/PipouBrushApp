@@ -2,6 +2,7 @@ package com.illiouchine.toothbrush.feature
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.material.icons.materialIcon
 import com.illiouchine.toothbrush.R
 
 sealed class Screen(
@@ -24,6 +25,6 @@ sealed class Screen(
     object Settings : Screen(
         route = "Settings",
         textId = R.string.screen_settings_menu_title,
-        iconId = R.drawable.ic_launcher_background
+        iconId = R.drawable.ic_chart
     )
 }
