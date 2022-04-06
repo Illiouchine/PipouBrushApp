@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.main.composable
+package com.illiouchine.toothbrush.ui.composable
 
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem

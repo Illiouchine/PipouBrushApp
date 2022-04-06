@@ -15,14 +15,14 @@ interface SettingsContract {
 
         // TODO rename
         data class AddReminder(
-            val dayOfWeek: DayOfWeek,
+            val dayOfWeek: Int,
             val hourOfWeek: Int
         ) : SettingsIntent()
     }
 
     sealed class SettingsAction : UiAction {
         data class SaveTimerDuration(val duration: Duration) : SettingsAction()
-        data class SaveReminder(val dayOfWeek: DayOfWeek, val hourOfWeek: Int) : SettingsAction()
+        data class SaveReminder(val dayOfWeek: Int, val hourOfWeek: Int) : SettingsAction()
 
         object LoadSettings : SettingsAction()
     }

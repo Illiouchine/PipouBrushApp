@@ -13,11 +13,10 @@ import androidx.navigation.compose.rememberNavController
 import com.illiouchine.toothbrush.feature.Screen
 import com.illiouchine.toothbrush.feature.brushing.BrushScreen
 import com.illiouchine.toothbrush.feature.brushing.BrushViewModel
-import com.illiouchine.toothbrush.feature.main.composable.BottomNavigationBar
+import com.illiouchine.toothbrush.ui.composable.BottomNavigationBar
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract
 import com.illiouchine.toothbrush.feature.statistics.StatisticsScreen
 import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
-import com.illiouchine.toothbrush.ui.composable.video.VideoExoPlayer
 
 @ExperimentalMaterialApi
 @Composable
@@ -60,9 +59,6 @@ fun MainScreen(
                     StatisticsScreen(
                         viewModel = statisticsViewModel
                     )
-                }
-                composable(Screen.Settings.route) {
-                    VideoExoPlayer()
                 }
             }
         }

@@ -3,7 +3,6 @@ package com.illiouchine.toothbrush.feature.settings
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.time.DayOfWeek
 import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsAction as Action
@@ -37,7 +36,8 @@ class SettingsViewModel @Inject constructor(
             ): State {
                 return when (partialState) {
                     else -> {
-                        TODO("")
+                        //TODO("")
+                        currentState
                     }
                 }
             }
@@ -52,7 +52,7 @@ class SettingsViewModel @Inject constructor(
             }
             is Intent.AddReminder -> {
                 Action.SaveReminder(
-                    dayOfWeek = DayOfWeek.MONDAY,
+                    dayOfWeek = 1,
                     hourOfWeek = 1
                 )
             }
