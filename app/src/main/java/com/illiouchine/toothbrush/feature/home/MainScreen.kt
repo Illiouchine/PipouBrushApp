@@ -13,6 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import com.illiouchine.toothbrush.feature.Screen
 import com.illiouchine.toothbrush.feature.brushing.BrushScreen
 import com.illiouchine.toothbrush.feature.brushing.BrushViewModel
+import com.illiouchine.toothbrush.feature.settings.SettingsContract
+import com.illiouchine.toothbrush.feature.settings.SettingsViewModel
 import com.illiouchine.toothbrush.ui.composable.BottomNavigationBar
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract
 import com.illiouchine.toothbrush.feature.statistics.StatisticsScreen
@@ -22,7 +24,8 @@ import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
 @Composable
 fun MainScreen(
     brushViewModel: BrushViewModel,
-    statisticsViewModel: StatisticsViewModel
+    statisticsViewModel: StatisticsViewModel,
+    settingsViewModel: SettingsViewModel
 ) {
     val navController = rememberNavController()
     val items = listOf(
@@ -56,6 +59,12 @@ fun MainScreen(
                 }
                 composable(Screen.Statistics.route) {
                     statisticsViewModel.dispatchIntent(StatisticsContract.StatisticsIntent.LoadScreen)
+                    StatisticsScreen(
+                        viewModel = statisticsViewModel
+                    )
+                }
+                composable(Screen.Settings.route) {
+                    settingsViewModel.dispatchIntent(SettingsContract.SettingsIntent.LoadScreen)
                     StatisticsScreen(
                         viewModel = statisticsViewModel
                     )

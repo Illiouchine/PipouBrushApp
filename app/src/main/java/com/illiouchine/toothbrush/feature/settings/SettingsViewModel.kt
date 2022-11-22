@@ -1,10 +1,11 @@
 package com.illiouchine.toothbrush.feature.settings
 
+import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.time.ExperimentalTime
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsAction as Action
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsEvent as Event
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsIntent as Intent
@@ -12,7 +13,6 @@ import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsPart
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsState as State
 
 
-@ExperimentalTime
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
 
@@ -23,9 +23,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     override fun createInitialState(): State {
-        return State(
-            timer = State.Timer.Loading
-        )
+        return State.Loaded
     }
 
     override fun createReducer(): Reducer<State, PartialState> {
@@ -47,20 +45,28 @@ class SettingsViewModel @Inject constructor(
 
     override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {
-            is Intent.UpdateTimerDuration -> {
-                Action.SaveTimerDuration(intent.duration)
-            }
-            is Intent.AddReminder -> {
-                Action.SaveReminder(
-                    dayOfWeek = 1,
-                    hourOfWeek = 1
-                )
+            Intent.LoadScreen -> Action.LoadSettings
+        }
+    }
+
+    override suspend fun handleAction(action: Action) {
+        when( action) {
+            Action.LoadSettings -> loadSettings()
+        }
+    }
+    private fun loadSettings() {
+        viewModelScope.launch {
+            try {
+                setPartialState {
+                    PartialState.Loaded
+                }
+            } catch (e: Exception) {
+                setPartialState {
+                    PartialState.ErrorLoading
+                }
             }
         }
     }
 
-    override suspend fun handleAction(action: SettingsContract.SettingsAction) {
-        TODO("Not yet implemented")
-    }
 
 }
