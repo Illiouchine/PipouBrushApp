@@ -24,13 +24,13 @@ class BrushViewModel @Inject constructor(
     private val saveBrushProgress: SaveBrushProgressUseCase
 ) : MviViewModel<Intent, Action, PartialState, State, Event>() {
 
-    private val brushDuration: Long = 260L
+    private val brushDurationInSecond: Long = 180L
     private var timerJob: Job? = null
 
     override fun createInitialState(): State =
         State(
             timer = State.Timer.Idle(
-                current = 0L, total = brushDuration
+                current = 0L, total = brushDurationInSecond
             )
         )
 
@@ -70,8 +70,8 @@ class BrushViewModel @Inject constructor(
         timerJob?.cancel()
         setPartialState {
             PartialState.TimerIdle(
-                current = brushDuration,
-                total = brushDuration
+                current = brushDurationInSecond,
+                total = brushDurationInSecond
             )
         }
     }
@@ -101,8 +101,8 @@ class BrushViewModel @Inject constructor(
                             State.Timer.Finished -> {
                                 currentState.copy(
                                     timer = State.Timer.Idle(
-                                        current = brushDuration,
-                                        total = brushDuration
+                                        current = brushDurationInSecond,
+                                        total = brushDurationInSecond
                                     )
                                 )
                             }
@@ -138,8 +138,8 @@ class BrushViewModel @Inject constructor(
     }
 
     private fun launchTimer(
-        initialDuration: Long = brushDuration,
-        totalDuration: Long = brushDuration
+        initialDuration: Long = brushDurationInSecond,
+        totalDuration: Long = brushDurationInSecond
     ) {
         timerJob = viewModelScope.launch {
             startCountDown(

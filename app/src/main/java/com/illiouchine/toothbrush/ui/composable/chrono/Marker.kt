@@ -22,8 +22,8 @@ private const val NB_MARKER = 120
 
 @Composable
 internal fun CircleMarkers(
-    totalSeconds: Int,
-    seconds: Int,
+    totalSeconds: Long,
+    seconds: Long,
     markerColor: Color = MaterialTheme.colors.primaryVariant,
     activeMarkerColor: Color = MaterialTheme.colors.primary,
 ) {

@@ -19,8 +19,8 @@ import com.illiouchine.toothbrush.ui.composable.chrono.Chrono
 @ExperimentalMaterialApi
 @Composable
 fun CountDownContent(
-    current: Long = 30L,
-    total: Long = 260L
+    current: Long = 180L,
+    total: Long = 180L
 ) {
     Column(
         modifier = Modifier
@@ -30,8 +30,8 @@ fun CountDownContent(
     ) {
         Chrono(
             modifier = Modifier.size(150.dp),
-            seconds = current.toInt(),
-            totalSeconds = total.toInt(),
+            seconds = current,
+            totalSeconds = total,
             centerColor = MaterialTheme.colors.background,
             backgroundColor = Color.Transparent,
         )

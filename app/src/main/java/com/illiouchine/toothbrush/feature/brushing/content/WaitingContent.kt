@@ -16,7 +16,7 @@ import com.illiouchine.toothbrush.ui.composable.chrono.Chrono
 @ExperimentalMaterialApi
 @Composable
 fun WaitingContent(
-    totalSeconds: Long = 30L,
+    totalSeconds: Long = 180L,
     onStartTimerClick: () -> Unit = {}
 ) {
     Column(
@@ -27,8 +27,8 @@ fun WaitingContent(
     ) {
         Chrono(
             modifier = Modifier.size(150.dp),
-            seconds = totalSeconds.toInt(),
-            totalSeconds = totalSeconds.toInt(),
+            seconds = totalSeconds,
+            totalSeconds = totalSeconds,
             centerColor = MaterialTheme.colors.background,
             backgroundColor = Color.Transparent,
         )

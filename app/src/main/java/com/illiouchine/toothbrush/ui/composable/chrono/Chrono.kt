@@ -1,5 +1,6 @@
 package com.illiouchine.toothbrush.ui.composable.chrono
 
+import android.text.format.DateUtils
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -31,8 +32,8 @@ import com.illiouchine.toothbrush.ui.ToothBrushTheme
 @ExperimentalMaterialApi
 @Composable
 fun Chrono(
-    seconds: Int,
-    totalSeconds: Int,
+    seconds: Long,
+    totalSeconds: Long,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = MaterialTheme.typography.h6,
     textColor: Color = MaterialTheme.colors.primary,
@@ -78,7 +79,7 @@ fun Chrono(
             centerColor = centerColor,
         )
         Text(
-            text = "${seconds}s",
+            text = DateUtils.formatElapsedTime(seconds),
             style = textStyle,
             color = textColor,
             modifier = Modifier
