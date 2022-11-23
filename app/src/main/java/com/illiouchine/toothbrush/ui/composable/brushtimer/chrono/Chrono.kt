@@ -48,7 +48,7 @@ fun Chrono(
         modifier = modifier
             .fillMaxWidth()
             .aspectRatio(1f)
-            .background(Brush.radialGradient(listOf(Color.Gray, backgroundColor))),
+            .background(Brush.radialGradient(listOf(Color.LightGray, backgroundColor))),
         contentAlignment = Alignment.Center
     ) {
         CircleMarkers(

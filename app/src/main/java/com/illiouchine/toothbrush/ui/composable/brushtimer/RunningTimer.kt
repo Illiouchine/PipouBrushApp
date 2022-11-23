@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.illiouchine.toothbrush.ui.LightColorPalette
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import com.illiouchine.toothbrush.ui.composable.brushtimer.chrono.Chrono
 
@@ -24,7 +25,7 @@ fun RunningTimer(
     current: Long = 180L,
     total: Long = 180L,
     textStyle: TextStyle = MaterialTheme.typography.h6,
-    textColor: Color = MaterialTheme.colors.primary,
+    textColor: Color = LightColorPalette.primaryVariant,
 ) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,

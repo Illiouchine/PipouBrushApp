@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.illiouchine.toothbrush.ui.LightColorPalette
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import kotlin.math.PI
 import kotlin.math.cos
@@ -24,8 +26,8 @@ private const val NB_MARKER = 180
 internal fun CircleMarkers(
     totalSeconds: Long,
     seconds: Long,
-    markerColor: Color = MaterialTheme.colors.primaryVariant,
-    activeMarkerColor: Color = MaterialTheme.colors.primary,
+    markerColor: Color = LightColorPalette.primaryVariant,
+    activeMarkerColor: Color = LightColorPalette.primary,
 ) {
     for (i in 0 until NB_MARKER) {
 
