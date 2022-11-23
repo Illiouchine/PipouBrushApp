@@ -22,3 +22,7 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 
 ### Feature progress
 - count the number of use to anticipate achievement 
+
+### Feature settings
+- make total countdown dynamic
+- setup reminder of brushing 

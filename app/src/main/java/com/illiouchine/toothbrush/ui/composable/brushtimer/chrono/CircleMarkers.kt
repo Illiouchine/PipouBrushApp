@@ -35,8 +35,8 @@ internal fun CircleMarkers(
         val isActive = i < seconds * (NB_MARKER / totalSeconds)
 
         Marker(
-            angle = angle,
-            active = isActive,
+            angle = -angle,
+            active = !isActive,
             markerColor = markerColor,
             activeMarkerColor = activeMarkerColor,
         )
@@ -64,7 +64,7 @@ internal fun Marker(
                     color = if (!active) activeMarkerColor else markerColor.copy(alpha = .1f),
                     start = center + startPos,
                     end = center + endPos,
-                    strokeWidth = 8f,
+                    strokeWidth = 4f,
                     cap = StrokeCap.Round
                 )
             }

@@ -1,12 +1,9 @@
 package com.illiouchine.toothbrush.ui.composable.brushtimer.chrono
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
@@ -25,7 +22,6 @@ internal fun CircleProgress(
     progressColor: List<Color> = listOf(Color.DarkGray, Color.Gray, Color.LightGray),
     backgroundProgressColor: List<Color> = listOf(Color.Transparent, Color.Transparent),
     centerColor: Color = Color.White,
-    content: @Composable BoxScope.() -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -76,20 +72,35 @@ internal fun CircleProgress(
                     useCenter = true
                 )
             },
-        contentAlignment = Alignment.Center,
-    ) {
-        content()
+    )
+}
+
+@Preview
+@Composable
+fun CircleProgress45() {
+    ToothBrushTheme() {
+        Box(modifier = Modifier.size(200.dp)) {
+            CircleProgress(angle = 45.0F)
+        }
     }
 }
 
 @Preview
 @Composable
-fun MidCircleProgress() {
+fun CircleProgress95() {
     ToothBrushTheme() {
-        Box(modifier = Modifier.size(500.dp)) {
-            CircleProgress(angle = 330.0F) {
-                Text(text = "TOTO", modifier = Modifier.fillMaxSize())
-            }
+        Box(modifier = Modifier.size(200.dp)) {
+            CircleProgress(angle = 95.0F)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun CircleProgress180() {
+    ToothBrushTheme() {
+        Box(modifier = Modifier.size(200.dp)) {
+            CircleProgress(angle = 180.0F)
         }
     }
 }

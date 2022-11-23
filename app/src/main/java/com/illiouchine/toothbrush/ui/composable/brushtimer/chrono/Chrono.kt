@@ -40,7 +40,7 @@ fun Chrono(
     content: @Composable () -> Unit
 ) {
     val progressAngle by animateFloatAsState(
-        targetValue = 360f / totalSeconds.toFloat() * seconds,
+        targetValue = -360f / totalSeconds.toFloat() * seconds,
         animationSpec = tween(500)
     )
 
@@ -55,12 +55,15 @@ fun Chrono(
             totalSeconds = totalSeconds,
             seconds = seconds
         )
+        /*
         CircleProgress(
             angle = progressAngle,
             progressColor = progressColor,
             backgroundProgressColor = backgroundProgressColor,
             centerColor = centerColor,
         )
+
+         */
         content()
     }
 }

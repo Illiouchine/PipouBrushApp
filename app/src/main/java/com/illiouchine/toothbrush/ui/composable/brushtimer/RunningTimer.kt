@@ -35,7 +35,7 @@ fun RunningTimer(
             totalSeconds = total,
         ){
             Text(
-                text = DateUtils.formatElapsedTime(total),
+                text = DateUtils.formatElapsedTime(current),
                 style = textStyle,
                 color = textColor,
                 modifier = Modifier
