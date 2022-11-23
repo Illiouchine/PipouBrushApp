@@ -58,7 +58,7 @@ fun BrushScreen(
             BrushTimer(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .offset(x = 0.dp, y= (-150).dp),
+                    .offset(x = 0.dp, y= (-170).dp),
                 timerState.toBrushTimerState(),
             )
         }

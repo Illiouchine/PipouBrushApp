@@ -1,24 +1,19 @@
 package com.illiouchine.toothbrush.ui.composable.brushtimer.chrono
 
-import android.text.format.DateUtils
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 
@@ -35,18 +30,14 @@ fun Chrono(
     seconds: Long,
     totalSeconds: Long,
     modifier: Modifier = Modifier,
-    textStyle: TextStyle = MaterialTheme.typography.h6,
-    textColor: Color = MaterialTheme.colors.primary,
     progressColor: List<Color> = listOf(
         MaterialTheme.colors.primary,
         MaterialTheme.colors.primaryVariant
     ),
     backgroundProgressColor: List<Color> = listOf(Color.Transparent, Color.Transparent),
-    centerColor: Color = MaterialTheme.colors.background,
-    backgroundColor: Color = MaterialTheme.colors.background,
-    onTap: () -> Unit = {},
-    onDoubleTap: () -> Unit = {},
-    onLongPress: () -> Unit = {},
+    centerColor: Color = Color.Transparent,
+    backgroundColor: Color = Color.Transparent,
+    content: @Composable () -> Unit
 ) {
     val progressAngle by animateFloatAsState(
         targetValue = 360f / totalSeconds.toFloat() * seconds,
@@ -55,14 +46,6 @@ fun Chrono(
 
     Box(
         modifier = modifier
-            .pointerInput(Unit) {
-                detectTapGestures(
-                    onPress = { /* Called when the gesture starts */ },
-                    onDoubleTap = { onDoubleTap() },
-                    onLongPress = { onLongPress() },
-                    onTap = { onTap() }
-                )
-            }
             .fillMaxWidth()
             .aspectRatio(1f)
             .background(Brush.radialGradient(listOf(Color.Gray, backgroundColor))),
@@ -78,13 +61,7 @@ fun Chrono(
             backgroundProgressColor = backgroundProgressColor,
             centerColor = centerColor,
         )
-        Text(
-            text = DateUtils.formatElapsedTime(seconds),
-            style = textStyle,
-            color = textColor,
-            modifier = Modifier
-                .align(alignment = Alignment.Center)
-        )
+        content()
     }
 }
 
@@ -97,7 +74,7 @@ fun ChronoPreviewLight() {
         Chrono(
             seconds = 240,
             totalSeconds = 500
-        )
+        ){}
     }
 }
 
@@ -110,6 +87,6 @@ fun ChronoPreviewDark() {
         Chrono(
             seconds = 240,
             totalSeconds = 500
-        )
+        ){}
     }
 }

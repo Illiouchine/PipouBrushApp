@@ -1,10 +1,11 @@
 package com.illiouchine.toothbrush.ui.composable.brushtimer
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
 @ExperimentalMaterialApi
 @Composable
@@ -12,7 +13,10 @@ fun BrushTimer(
     modifier: Modifier = Modifier,
     timerState: BrushTimerState = BrushTimerState.Idle,
 ) {
-    Box(modifier = modifier){
+    Box(
+        modifier = modifier.width(150.dp)
+            .wrapContentHeight()
+    ){
         when (timerState) {
             BrushTimerState.Idle -> {
                 IdleTimer()
@@ -43,10 +47,34 @@ fun BrushTimerIdle(){
 @Preview
 @ExperimentalMaterialApi
 @Composable
-fun BrushTimerRunning(){
+fun BrushTimerRunning20(){
     BrushTimer(
         timerState = BrushTimerState.Running(
             current = 20,
+            total = 180
+        ),
+    )
+}
+
+@Preview
+@ExperimentalMaterialApi
+@Composable
+fun BrushTimerRunning60(){
+    BrushTimer(
+        timerState = BrushTimerState.Running(
+            current = 60,
+            total = 180
+        ),
+    )
+}
+
+@Preview
+@ExperimentalMaterialApi
+@Composable
+fun BrushTimerRunning120(){
+    BrushTimer(
+        timerState = BrushTimerState.Running(
+            current = 120,
             total = 180
         ),
     )
