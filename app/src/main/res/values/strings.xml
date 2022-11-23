@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToothBrush</string>
+    <string name="app_name">Pipou Brush</string>
     <string name="screen_brush_menu_title">brush</string>
     <string name="screen_statistics_menu_title">statistics</string>
     <string name="screen_settings_menu_title">settings</string>
