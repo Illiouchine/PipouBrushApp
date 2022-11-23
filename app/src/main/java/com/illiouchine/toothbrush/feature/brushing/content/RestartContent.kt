@@ -25,7 +25,6 @@ fun RestartContent(
     ) {
         Text("Bravo !")
         Spacer(Modifier)
-        //VideoExoPlayer()
         MyButton(text = "Restart !") {
             onRestartClick()
         }

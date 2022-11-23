@@ -28,39 +28,21 @@ class BrushViewModel @Inject constructor(
     private var timerJob: Job? = null
 
     override fun createInitialState(): State =
-        State(
-            timer = State.Timer.Idle(
-                current = 0L, total = brushDurationInSecond
-            )
-        )
+        State(timer = State.Timer.Idle)
 
     override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {
             Intent.StartBrushing -> Action.StartTimer
-            is Intent.ResumeBrushing -> Action.ResumeTimer(
-                intent.currentDuration, intent.totalDuration
-            )
-            Intent.PauseBrushing -> Action.PauseTimer
             Intent.ResetBrushing -> Action.ResetTimer
         }
     }
 
     override suspend fun handleAction(action: Action) {
         when (action) {
-            Action.PauseTimer -> {
-                timerJob?.cancel()
-                setPartialState {
-                    PartialState.TimerPaused
-                }
-            }
             Action.ResetTimer -> resetTimer()
             Action.StartTimer -> {
                 timerJob?.cancel()
                 launchTimer()
-            }
-            is Action.ResumeTimer -> {
-                timerJob?.cancel()
-                launchTimer(action.currentDuration, action.totalDuration)
             }
             Action.FinishTimer -> resetTimer()
         }
@@ -68,12 +50,7 @@ class BrushViewModel @Inject constructor(
 
     private fun resetTimer() {
         timerJob?.cancel()
-        setPartialState {
-            PartialState.TimerIdle(
-                current = brushDurationInSecond,
-                total = brushDurationInSecond
-            )
-        }
+        setPartialState { PartialState.TimerIdle }
     }
 
     override fun createReducer(): Reducer<State, PartialState> {
@@ -92,45 +69,10 @@ class BrushViewModel @Inject constructor(
                         )
                     }
                     PartialState.TimerFinished -> {
-                        currentState.copy(
-                            timer = State.Timer.Finished
-                        )
-                    }
-                    is PartialState.TimerPaused -> {
-                        return when (currentState.timer) {
-                            State.Timer.Finished -> {
-                                currentState.copy(
-                                    timer = State.Timer.Idle(
-                                        current = brushDurationInSecond,
-                                        total = brushDurationInSecond
-                                    )
-                                )
-                            }
-                            is State.Timer.Idle -> {
-                                currentState.copy(
-                                    timer = State.Timer.Idle(
-                                        current = currentState.timer.current,
-                                        total = currentState.timer.total
-                                    )
-                                )
-                            }
-                            is State.Timer.Running -> {
-                                currentState.copy(
-                                    timer = State.Timer.Idle(
-                                        current = currentState.timer.current,
-                                        total = currentState.timer.total
-                                    )
-                                )
-                            }
-                        }
+                        currentState.copy(timer = State.Timer.Finished)
                     }
                     is BrushContract.BrushPartialState.TimerIdle -> {
-                        currentState.copy(
-                            timer = State.Timer.Idle(
-                                current = partialState.current,
-                                total = partialState.total
-                            )
-                        )
+                        currentState.copy(timer = State.Timer.Idle)
                     }
                 }
             }

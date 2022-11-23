@@ -18,7 +18,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-private const val NB_MARKER = 120
+private const val NB_MARKER = 180
 
 @Composable
 internal fun CircleMarkers(
