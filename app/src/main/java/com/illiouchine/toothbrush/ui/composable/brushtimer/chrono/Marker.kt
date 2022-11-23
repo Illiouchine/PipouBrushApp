@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.ui.composable.chrono
+package com.illiouchine.toothbrush.ui.composable.brushtimer.chrono
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

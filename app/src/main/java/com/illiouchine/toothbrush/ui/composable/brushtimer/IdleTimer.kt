@@ -1,8 +1,9 @@
-package com.illiouchine.toothbrush.feature.brushing.content
+package com.illiouchine.toothbrush.ui.composable.brushtimer
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -10,18 +11,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
-import com.illiouchine.toothbrush.ui.composable.MyButton
-import com.illiouchine.toothbrush.ui.composable.chrono.Chrono
+import com.illiouchine.toothbrush.ui.composable.brushtimer.chrono.Chrono
 
 @ExperimentalMaterialApi
 @Composable
-fun WaitingContent(
+fun IdleTimer(
     totalSeconds: Long = 180L,
-    onStartTimerClick: () -> Unit = {}
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier,
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -32,11 +30,7 @@ fun WaitingContent(
             centerColor = MaterialTheme.colors.background,
             backgroundColor = Color.Transparent,
         )
-        Spacer(Modifier)
-        //VideoExoPlayer()
-        MyButton(text = "Go !") {
-            onStartTimerClick()
-        }
+        Text(text = "Click to start !")
     }
 }
 
@@ -46,7 +40,7 @@ fun WaitingContent(
 @Composable
 fun WaitingStartBrushScreenLight() {
     ToothBrushTheme {
-        WaitingContent()
+        IdleTimer()
     }
 }
 
@@ -56,6 +50,6 @@ fun WaitingStartBrushScreenLight() {
 @Composable
 fun WaitingStartBrushScreenDark() {
     ToothBrushTheme(darkTheme = true) {
-        WaitingContent()
+        IdleTimer()
     }
 }

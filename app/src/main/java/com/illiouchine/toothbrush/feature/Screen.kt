@@ -5,6 +5,12 @@ import androidx.annotation.StringRes
 import androidx.compose.material.icons.materialIcon
 import com.illiouchine.toothbrush.R
 
+val screenList = listOf(
+    Screen.Brush,
+    Screen.Statistics,
+    Screen.Settings
+)
+
 sealed class Screen(
     val route: String,
     @StringRes val textId: Int,

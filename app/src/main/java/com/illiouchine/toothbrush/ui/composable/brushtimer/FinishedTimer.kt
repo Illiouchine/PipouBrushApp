@@ -1,11 +1,11 @@
-package com.illiouchine.toothbrush.feature.brushing.content
+package com.illiouchine.toothbrush.ui.composable.brushtimer
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,28 +13,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
-import com.illiouchine.toothbrush.ui.composable.chrono.Chrono
+import com.illiouchine.toothbrush.ui.composable.brushtimer.chrono.Chrono
 
 
 @ExperimentalMaterialApi
 @Composable
-fun CountDownContent(
-    current: Long = 180L,
-    total: Long = 180L
-) {
+fun FinishedTimer() {
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier,
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Chrono(
             modifier = Modifier.size(150.dp),
-            seconds = current,
-            totalSeconds = total,
+            seconds = 0,
+            totalSeconds = 180,
             centerColor = MaterialTheme.colors.background,
             backgroundColor = Color.Transparent,
         )
+        Text(text = "Bravo !")
     }
 }
 
@@ -42,9 +39,9 @@ fun CountDownContent(
 @ExperimentalMaterialApi
 @Preview
 @Composable
-fun CountDownContentBrushScreenLight() {
+fun RestartContentBrushScreenLight() {
     ToothBrushTheme {
-        CountDownContent()
+        FinishedTimer()
     }
 }
 
@@ -52,8 +49,8 @@ fun CountDownContentBrushScreenLight() {
 @ExperimentalMaterialApi
 @Preview
 @Composable
-fun CountDownContentBrushScreenDark() {
+fun RestartContentBrushScreenDark() {
     ToothBrushTheme(darkTheme = true) {
-        CountDownContent()
+        FinishedTimer()
     }
 }

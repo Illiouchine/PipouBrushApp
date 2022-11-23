@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.ui.composable.chrono
+package com.illiouchine.toothbrush.ui.composable.brushtimer.chrono
 
 import android.text.format.DateUtils
 import androidx.compose.animation.core.animateFloatAsState
