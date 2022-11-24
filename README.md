@@ -16,12 +16,11 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 ### Feature counter
 - user can start a 3:00 countdown
 - user can reset coundown to 3:00
-
-### Feature prettier
 - make the countdown prettier
 
 ### Feature progress
 - count the number of use to anticipate achievement 
+- think about achievement 
 
 ### Feature settings
 - make total countdown dynamic

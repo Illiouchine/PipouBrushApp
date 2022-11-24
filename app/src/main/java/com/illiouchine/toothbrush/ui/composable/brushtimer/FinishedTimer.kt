@@ -28,7 +28,7 @@ fun FinishedTimer() {
             seconds = 180,
             totalSeconds = 180,
         ){
-            Icon(painterResource(id = R.drawable.ic_timer), "")
+            Icon(painterResource(id = R.drawable.ic_achievement_star_2), "")
         }
         Text(text = "Bravo !")
     }

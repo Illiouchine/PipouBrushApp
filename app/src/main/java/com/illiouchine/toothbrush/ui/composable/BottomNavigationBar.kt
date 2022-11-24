@@ -1,11 +1,10 @@
 package com.illiouchine.toothbrush.ui.composable
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavBackStackEntry
@@ -23,8 +22,20 @@ fun BottomNavigationBar(
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { screen ->
             BottomNavigationItem(
-                icon = { Icon(painterResource(id = screen.iconId), "") },
-                label = { Text(stringResource(id = screen.textId)) },
+                icon = {
+                    Icon(
+                        painter = painterResource(id = screen.iconId),
+                        contentDescription = "",
+                        tint = MaterialTheme.colors.onBackground,
+                        modifier = Modifier.fillMaxSize(.4f)
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(id = screen.textId),
+                        color = MaterialTheme.colors.onBackground
+                    )
+                },
                 selected = currentRoute == screen.route,
                 onClick = {
                     navController.navigate(screen.route) {
