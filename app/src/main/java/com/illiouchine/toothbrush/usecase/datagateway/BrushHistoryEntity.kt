@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.entities
+package com.illiouchine.toothbrush.usecase.datagateway
 
 import java.util.*
 

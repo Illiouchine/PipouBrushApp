@@ -1,7 +1,7 @@
 package com.illiouchine.toothbrush.database
 
 import com.illiouchine.toothbrush.database.datasource.brushhistory.BrushHistoryDataSource
-import com.illiouchine.toothbrush.entities.BrushHistoryEntity
+import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryEntity
 import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
 import javax.inject.Inject
 
