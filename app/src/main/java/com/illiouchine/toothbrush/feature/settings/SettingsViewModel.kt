@@ -3,6 +3,8 @@ package com.illiouchine.toothbrush.feature.settings
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
+import com.illiouchine.toothbrush.usecase.GetCountDownDurationUseCase
+import com.illiouchine.toothbrush.usecase.SetCountDownDurationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,7 +17,8 @@ import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsStat
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-
+    private val getCountDownDurationUseCase: GetCountDownDurationUseCase,
+    private val setCountDownDurationUseCase: SetCountDownDurationUseCase
 ) : MviViewModel<Intent, Action, PartialState, State, Event>() {
 
     init {
@@ -23,7 +26,9 @@ class SettingsViewModel @Inject constructor(
     }
 
     override fun createInitialState(): State {
-        return State.Loaded
+        return State(
+            countDownSettings = State.CountDownSettings.Loading
+        )
     }
 
     override fun createReducer(): Reducer<State, PartialState> {
@@ -33,9 +38,12 @@ class SettingsViewModel @Inject constructor(
                 partialState: PartialState
             ): State {
                 return when (partialState) {
-                    else -> {
-                        //TODO("")
-                        currentState
+                    is PartialState.CountDownDurationLoaded -> {
+                        currentState.copy(
+                            countDownSettings = State.CountDownSettings.Loaded(
+                                countDownDuration = partialState.countDownDuration
+                            )
+                        )
                     }
                 }
             }
@@ -45,7 +53,9 @@ class SettingsViewModel @Inject constructor(
 
     override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {
-            Intent.LoadScreen -> Action.LoadSettings
+            is SettingsContract.SettingsIntent.UpdateCountDownDuration -> {
+                TODO("start here")
+            }
         }
     }
 
@@ -54,16 +64,16 @@ class SettingsViewModel @Inject constructor(
             Action.LoadSettings -> loadSettings()
         }
     }
-    private fun loadSettings() {
-        viewModelScope.launch {
-            try {
-                setPartialState {
-                    PartialState.Loaded
-                }
-            } catch (e: Exception) {
-                setPartialState {
-                    PartialState.ErrorLoading
-                }
+
+    private suspend fun loadSettings() {
+        try {
+            val countDownDuration = getCountDownDurationUseCase()
+            setPartialState {
+                PartialState.CountDownDurationLoaded(countDownDuration = countDownDuration)
+            }
+        } catch (e: Exception){
+            setEvent {
+                Event.ErrorLoadingCountDownDuration(exception = e)
             }
         }
     }

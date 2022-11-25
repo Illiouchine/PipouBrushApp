@@ -3,6 +3,7 @@ package com.illiouchine.toothbrush.feature.brushing
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
+import com.illiouchine.toothbrush.usecase.GetCountDownDurationUseCase
 import com.illiouchine.toothbrush.usecase.LaunchVibratorUseCase
 import com.illiouchine.toothbrush.usecase.SaveBrushProgressUseCase
 import com.illiouchine.toothbrush.usecase.StartCountDownUseCase
@@ -11,6 +12,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration
 import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushAction as Action
 import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushEvent as Event
 import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushIntent as Intent
@@ -21,10 +23,10 @@ import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushState as S
 class BrushViewModel @Inject constructor(
     private val startCountDown: StartCountDownUseCase,
     private val launchVibrator: LaunchVibratorUseCase,
-    private val saveBrushProgress: SaveBrushProgressUseCase
+    private val saveBrushProgress: SaveBrushProgressUseCase,
+    private val getCountDownDurationUseCase: GetCountDownDurationUseCase
 ) : MviViewModel<Intent, Action, PartialState, State, Event>() {
 
-    private val brushDurationInSecond: Long = 180L
     private var timerJob: Job? = null
 
     override fun createInitialState(): State =
@@ -42,7 +44,11 @@ class BrushViewModel @Inject constructor(
             Action.ResetTimer -> resetTimer()
             Action.StartTimer -> {
                 timerJob?.cancel()
-                launchTimer()
+                val countDownDuration = getCountDownDurationUseCase()
+                launchTimer(
+                    initialDuration = countDownDuration,
+                    totalDuration = countDownDuration
+                )
             }
             Action.FinishTimer -> resetTimer()
         }
@@ -80,8 +86,8 @@ class BrushViewModel @Inject constructor(
     }
 
     private fun launchTimer(
-        initialDuration: Long = brushDurationInSecond,
-        totalDuration: Long = brushDurationInSecond
+        initialDuration: Duration,
+        totalDuration: Duration
     ) {
         timerJob = viewModelScope.launch {
             startCountDown(

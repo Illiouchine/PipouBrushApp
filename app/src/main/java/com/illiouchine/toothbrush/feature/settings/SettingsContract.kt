@@ -1,26 +1,39 @@
 package com.illiouchine.toothbrush.feature.settings
 
 import com.illiouchine.mvi.core.*
+import kotlin.time.Duration
 
 interface SettingsContract {
 
     sealed class SettingsIntent : UiIntent {
-        object LoadScreen: SettingsIntent()
+        data class UpdateCountDownDuration(val duration: Duration) : SettingsIntent()
     }
 
     sealed class SettingsAction : UiAction {
         object LoadSettings : SettingsAction()
     }
 
-    sealed class SettingsState : UiState {
-        object Loaded : SettingsState()
+    data class SettingsState(
+        val countDownSettings: CountDownSettings,
+    ) : UiState {
+        sealed class CountDownSettings{
+            object Loading : CountDownSettings()
+            data class Loaded(
+                val countDownDuration : Duration
+            ): CountDownSettings()
+        }
     }
 
     sealed class SettingsPartialState : UiPartialState {
-        object Loaded: SettingsPartialState()
-        object ErrorLoading: SettingsPartialState()
+        data class CountDownDurationLoaded(
+            val countDownDuration: Duration
+        ) : SettingsPartialState()
     }
 
-    sealed class SettingsEvent() : UiEvent
+    sealed class SettingsEvent : UiEvent {
+        data class ErrorLoadingCountDownDuration(
+            val exception: Exception
+        ) : SettingsEvent()
+    }
 
 }

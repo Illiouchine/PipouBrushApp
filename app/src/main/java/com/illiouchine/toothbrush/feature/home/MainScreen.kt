@@ -67,10 +67,12 @@ fun MainScreen() {
                 }
                 composable(Screen.Settings.route) {
                     val settingsViewModel = hiltViewModel<SettingsViewModel>()
-                    // TODO make the statisticsScreen VM agnostic like in brush screen
-                    settingsViewModel.dispatchIntent(SettingsContract.SettingsIntent.LoadScreen)
+                    val settingsState by settingsViewModel.uiState.collectAsState()
                     SettingsScreen(
-                        viewModel = settingsViewModel
+                        countDownSettings = settingsState.countDownSettings,
+                        onCountDownDurationChanged = {
+                            settingsViewModel.dispatchIntent(SettingsContract.SettingsIntent.UpdateCountDownDuration(it))
+                        }
                     )
                 }
             }
