@@ -10,6 +10,8 @@ interface SettingsContract {
     }
 
     sealed class SettingsAction : UiAction {
+        data class UpdateCountDownDuration(val duration: Duration) : SettingsAction()
+
         object LoadSettings : SettingsAction()
     }
 
@@ -34,6 +36,9 @@ interface SettingsContract {
         data class ErrorLoadingCountDownDuration(
             val exception: Exception
         ) : SettingsEvent()
+
+        data class ErrorSavingCountDownDuration(val exception: Exception) : SettingsEvent()
+        data class CountDownSaved(val duration: Duration) : SettingsEvent()
     }
 
 }

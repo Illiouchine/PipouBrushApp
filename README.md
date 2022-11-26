@@ -12,17 +12,15 @@
 This project use the MVI (Model View Intent) architecture and use a custom mvi library : `https://github.com/Illiouchine/mvi-library`
 
 
-## Todo
-### Feature counter
+
+### Done
 - user can start a 3:00 countdown
 - user can reset coundown to 3:00
 - make the countdown prettier
+- make total countdown dynamic (InMemory)
+- count the number of use to anticipate achievement (InMemory)
 
-### Feature settings
-- make total countdown dynamic
+## Todo
+- Handle Event in compose ?
 - setup reminder of brushing
-- 
-### Feature progress
-- count the number of use to anticipate achievement 
-- think about achievement 
-
+- think about achievement

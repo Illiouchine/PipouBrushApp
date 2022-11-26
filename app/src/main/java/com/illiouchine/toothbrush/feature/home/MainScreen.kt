@@ -25,6 +25,10 @@ import com.illiouchine.toothbrush.ui.composable.BottomNavigationBar
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract
 import com.illiouchine.toothbrush.feature.statistics.StatisticsScreen
 import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collect
+import kotlin.coroutines.coroutineContext
+import kotlin.time.Duration
 
 @ExperimentalMaterialApi
 @Composable
@@ -68,10 +72,13 @@ fun MainScreen() {
                 composable(Screen.Settings.route) {
                     val settingsViewModel = hiltViewModel<SettingsViewModel>()
                     val settingsState by settingsViewModel.uiState.collectAsState()
+                    // TODO Handle Event in compose ?
                     SettingsScreen(
                         countDownSettings = settingsState.countDownSettings,
-                        onCountDownDurationChanged = {
-                            settingsViewModel.dispatchIntent(SettingsContract.SettingsIntent.UpdateCountDownDuration(it))
+                        onCountDownDurationChanged = { duration : Duration ->
+                            settingsViewModel.dispatchIntent(
+                                SettingsContract.SettingsIntent.UpdateCountDownDuration(duration)
+                            )
                         }
                     )
                 }

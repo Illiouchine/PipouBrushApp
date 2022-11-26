@@ -1,20 +1,19 @@
 package com.illiouchine.toothbrush.feature.settings
 
-import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
 import com.illiouchine.toothbrush.usecase.GetCountDownDurationUseCase
 import com.illiouchine.toothbrush.usecase.SetCountDownDurationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsAction as Action
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsEvent as Event
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsIntent as Intent
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsPartialState as PartialState
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsState as State
 
-
+// TODO Manage Event
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val getCountDownDurationUseCase: GetCountDownDurationUseCase,
@@ -54,14 +53,30 @@ class SettingsViewModel @Inject constructor(
     override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {
             is SettingsContract.SettingsIntent.UpdateCountDownDuration -> {
-                TODO("start here")
+                Action.UpdateCountDownDuration(
+                    intent.duration
+                )
             }
         }
     }
 
     override suspend fun handleAction(action: Action) {
-        when( action) {
+        when(action) {
             Action.LoadSettings -> loadSettings()
+            is Action.UpdateCountDownDuration -> saveCountDownDuration(action.duration)
+        }
+    }
+
+    private suspend fun saveCountDownDuration(duration: Duration) {
+        try {
+            setCountDownDurationUseCase(duration)
+            setEvent {
+                Event.CountDownSaved(duration)
+            }
+        } catch (e: Exception){
+            setEvent {
+                Event.ErrorSavingCountDownDuration(exception = e)
+            }
         }
     }
 
