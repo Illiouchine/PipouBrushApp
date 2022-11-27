@@ -16,7 +16,8 @@ interface BrushContract {
     }
 
     data class BrushState(
-        val timer: Timer
+        val timer: Timer,
+        override val event: BrushEvent?
     ) : UiState {
         sealed class Timer {
             object Idle: Timer()
@@ -27,6 +28,9 @@ interface BrushContract {
                 val total: Long
             ) : Timer()
         }
+        sealed class BrushEvent : UiEvent {
+            data class ShowToast(val message: String) : BrushEvent() // TODO : should pass a resId
+        }
     }
 
     sealed class BrushPartialState : UiPartialState {
@@ -34,9 +38,5 @@ interface BrushContract {
         data class TimerRunning(val current: Long, val total: Long) : BrushPartialState()
         object TimerIdle : BrushPartialState()
 
-    }
-
-    sealed class BrushEvent : UiEvent {
-        data class ShowToast(val message: String) : BrushEvent() // TODO : should pass a resId
     }
 }

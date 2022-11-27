@@ -13,8 +13,11 @@ interface StatisticsContract {
     }
 
     data class StatisticsState(
-        val rawStatisticsState: RawStatisticsState
-    ) : UiState
+        val rawStatisticsState: RawStatisticsState,
+        override val event: StatisticsEvent?
+    ) : UiState {
+        sealed class StatisticsEvent : UiEvent {}
+    }
 
     sealed class RawStatisticsState {
         object Loading : RawStatisticsState()
@@ -32,6 +35,4 @@ interface StatisticsContract {
 
         object Error : StatisticsPartialState()
     }
-
-    sealed class StatisticsEvent : UiEvent {}
 }

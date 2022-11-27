@@ -8,7 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsAction as Action
-import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsEvent as Event
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsIntent as Intent
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsPartialState as PartialState
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState as State
@@ -17,7 +16,7 @@ import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.Statisti
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
     private val getBrushHistory: GetBrushHistoryUseCase
-) : MviViewModel<Intent, Action, PartialState, State, Event>() {
+) : MviViewModel<Intent, Action, PartialState, State>() {
 
     init {
         setAction { Action.LoadStatistics }
@@ -25,7 +24,8 @@ class StatisticsViewModel @Inject constructor(
 
     override fun createInitialState(): State {
         return State(
-            rawStatisticsState = StatisticsContract.RawStatisticsState.Loading
+            rawStatisticsState = StatisticsContract.RawStatisticsState.Loading,
+            event = null
         )
     }
 

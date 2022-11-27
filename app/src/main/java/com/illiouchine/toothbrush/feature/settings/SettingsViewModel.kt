@@ -8,7 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.time.Duration
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsAction as Action
-import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsEvent as Event
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsIntent as Intent
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsPartialState as PartialState
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsState as State
@@ -18,7 +17,7 @@ import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsStat
 class SettingsViewModel @Inject constructor(
     private val getCountDownDurationUseCase: GetCountDownDurationUseCase,
     private val setCountDownDurationUseCase: SetCountDownDurationUseCase
-) : MviViewModel<Intent, Action, PartialState, State, Event>() {
+) : MviViewModel<Intent, Action, PartialState, State>() {
 
     init {
         setAction { Action.LoadSettings }
@@ -26,7 +25,8 @@ class SettingsViewModel @Inject constructor(
 
     override fun createInitialState(): State {
         return State(
-            countDownSettings = State.CountDownSettings.Loading
+            countDownSettings = State.CountDownSettings.Loading,
+            event = null
         )
     }
 
@@ -42,6 +42,21 @@ class SettingsViewModel @Inject constructor(
                             countDownSettings = State.CountDownSettings.Loaded(
                                 countDownDuration = partialState.countDownDuration
                             )
+                        )
+                    }
+                    is PartialState.CountDownSaved -> {
+                        currentState.copy(
+                            event = State.SettingsEvent.CountDownSaved(duration = partialState.duration)
+                        )
+                    }
+                    is PartialState.ErrorLoadingCountDownDuration -> {
+                        currentState.copy(
+                            event = State.SettingsEvent.ErrorLoadingCountDownDuration(exception = partialState.exception)
+                        )
+                    }
+                    is PartialState.ErrorSavingCountDownDuration -> {
+                        currentState.copy(
+                            event = State.SettingsEvent.ErrorLoadingCountDownDuration(exception = partialState.exception)
                         )
                     }
                 }
@@ -70,12 +85,12 @@ class SettingsViewModel @Inject constructor(
     private suspend fun saveCountDownDuration(duration: Duration) {
         try {
             setCountDownDurationUseCase(duration)
-            setEvent {
-                Event.CountDownSaved(duration)
+            setPartialState {
+                PartialState.CountDownSaved(duration)
             }
         } catch (e: Exception){
-            setEvent {
-                Event.ErrorSavingCountDownDuration(exception = e)
+            setPartialState {
+                PartialState.ErrorSavingCountDownDuration(exception = e)
             }
         }
     }
@@ -87,8 +102,8 @@ class SettingsViewModel @Inject constructor(
                 PartialState.CountDownDurationLoaded(countDownDuration = countDownDuration)
             }
         } catch (e: Exception){
-            setEvent {
-                Event.ErrorLoadingCountDownDuration(exception = e)
+            setPartialState {
+                PartialState.ErrorLoadingCountDownDuration(exception = e)
             }
         }
     }

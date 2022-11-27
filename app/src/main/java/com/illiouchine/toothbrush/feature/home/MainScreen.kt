@@ -72,7 +72,6 @@ fun MainScreen() {
                 composable(Screen.Settings.route) {
                     val settingsViewModel = hiltViewModel<SettingsViewModel>()
                     val settingsState by settingsViewModel.uiState.collectAsState()
-                    // TODO Handle Event in compose ?
                     SettingsScreen(
                         countDownSettings = settingsState.countDownSettings,
                         onCountDownDurationChanged = { duration : Duration ->

@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration
 import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushAction as Action
-import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushEvent as Event
 import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushIntent as Intent
 import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushPartialState as PartialState
 import com.illiouchine.toothbrush.feature.brushing.BrushContract.BrushState as State
@@ -25,12 +24,15 @@ class BrushViewModel @Inject constructor(
     private val launchVibrator: LaunchVibratorUseCase,
     private val saveBrushProgress: SaveBrushProgressUseCase,
     private val getCountDownDurationUseCase: GetCountDownDurationUseCase
-) : MviViewModel<Intent, Action, PartialState, State, Event>() {
+) : MviViewModel<Intent, Action, PartialState, State>() {
 
     private var timerJob: Job? = null
 
     override fun createInitialState(): State =
-        State(timer = State.Timer.Idle)
+        State(
+            timer = State.Timer.Idle,
+            event = null
+        )
 
     override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {

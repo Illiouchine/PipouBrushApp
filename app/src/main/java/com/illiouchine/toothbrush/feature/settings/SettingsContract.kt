@@ -17,6 +17,7 @@ interface SettingsContract {
 
     data class SettingsState(
         val countDownSettings: CountDownSettings,
+        override val event: SettingsEvent?,
     ) : UiState {
         sealed class CountDownSettings{
             object Loading : CountDownSettings()
@@ -24,21 +25,22 @@ interface SettingsContract {
                 val countDownDuration : Duration
             ): CountDownSettings()
         }
+        sealed class SettingsEvent : UiEvent {
+            data class ErrorLoadingCountDownDuration(
+                val exception: Exception
+            ) : SettingsEvent()
+            data class ErrorSavingCountDownDuration(val exception: Exception) : SettingsEvent()
+            data class CountDownSaved(val duration: Duration) : SettingsEvent()
+        }
     }
 
     sealed class SettingsPartialState : UiPartialState {
         data class CountDownDurationLoaded(
             val countDownDuration: Duration
         ) : SettingsPartialState()
+
+        data class CountDownSaved(val duration: Duration) : SettingsPartialState()
+        data class ErrorSavingCountDownDuration(val exception: Exception) : SettingsPartialState()
+        data class ErrorLoadingCountDownDuration(val exception: Exception) : SettingsPartialState()
     }
-
-    sealed class SettingsEvent : UiEvent {
-        data class ErrorLoadingCountDownDuration(
-            val exception: Exception
-        ) : SettingsEvent()
-
-        data class ErrorSavingCountDownDuration(val exception: Exception) : SettingsEvent()
-        data class CountDownSaved(val duration: Duration) : SettingsEvent()
-    }
-
 }
