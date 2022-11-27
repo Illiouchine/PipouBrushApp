@@ -7,10 +7,12 @@ interface SettingsContract {
 
     sealed class SettingsIntent : UiIntent {
         data class UpdateCountDownDuration(val duration: Duration) : SettingsIntent()
+        data class EventHandled(val settingsEvent: SettingsState.SettingsEvent) : SettingsIntent()
     }
 
     sealed class SettingsAction : UiAction {
         data class UpdateCountDownDuration(val duration: Duration) : SettingsAction()
+        data class EventHandled(val settingsEvent: SettingsState.SettingsEvent) : SettingsAction()
 
         object LoadSettings : SettingsAction()
     }
@@ -42,5 +44,6 @@ interface SettingsContract {
         data class CountDownSaved(val duration: Duration) : SettingsPartialState()
         data class ErrorSavingCountDownDuration(val exception: Exception) : SettingsPartialState()
         data class ErrorLoadingCountDownDuration(val exception: Exception) : SettingsPartialState()
+        data class EventHandled(val settingsEvent: SettingsState.SettingsEvent) : SettingsPartialState()
     }
 }

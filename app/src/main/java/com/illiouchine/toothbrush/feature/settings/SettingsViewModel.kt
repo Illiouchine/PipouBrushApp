@@ -12,7 +12,6 @@ import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsInte
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsPartialState as PartialState
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsState as State
 
-// TODO Manage Event
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val getCountDownDurationUseCase: GetCountDownDurationUseCase,
@@ -59,6 +58,15 @@ class SettingsViewModel @Inject constructor(
                             event = State.SettingsEvent.ErrorLoadingCountDownDuration(exception = partialState.exception)
                         )
                     }
+                    is SettingsContract.SettingsPartialState.EventHandled -> {
+                        if (currentState.event == partialState.settingsEvent){
+                            currentState.copy(
+                                event = null
+                            )
+                        }else {
+                            currentState
+                        }
+                    }
                 }
             }
 
@@ -72,6 +80,9 @@ class SettingsViewModel @Inject constructor(
                     intent.duration
                 )
             }
+            is SettingsContract.SettingsIntent.EventHandled -> {
+                Action.EventHandled(intent.settingsEvent)
+            }
         }
     }
 
@@ -79,6 +90,11 @@ class SettingsViewModel @Inject constructor(
         when(action) {
             Action.LoadSettings -> loadSettings()
             is Action.UpdateCountDownDuration -> saveCountDownDuration(action.duration)
+            is SettingsContract.SettingsAction.EventHandled -> {
+                setPartialState {
+                    PartialState.EventHandled(action.settingsEvent)
+                }
+            }
         }
     }
 

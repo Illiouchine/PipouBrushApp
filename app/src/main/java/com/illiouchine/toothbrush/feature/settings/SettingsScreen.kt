@@ -17,6 +17,7 @@ fun SettingsScreen(
     countDownSettings: CountDownSettings = CountDownSettings.Loading,
     event: SettingsContract.SettingsState.SettingsEvent? = null,
     onCountDownDurationChanged: (Duration) -> Unit = {},
+    onEventHandled: (SettingsContract.SettingsState.SettingsEvent) -> Unit = {}
 ) {
 
     val context = LocalContext.current
@@ -41,6 +42,7 @@ fun SettingsScreen(
                 Toast.makeText(context, "ErrorSavingCountDownDuration", Toast.LENGTH_LONG).show()
             }
         }
+        onEventHandled(event)
     }
 }
 

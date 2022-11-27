@@ -74,9 +74,15 @@ fun MainScreen() {
                     val settingsState by settingsViewModel.uiState.collectAsState()
                     SettingsScreen(
                         countDownSettings = settingsState.countDownSettings,
+                        event = settingsState.event,
                         onCountDownDurationChanged = { duration : Duration ->
                             settingsViewModel.dispatchIntent(
                                 SettingsContract.SettingsIntent.UpdateCountDownDuration(duration)
+                            )
+                        },
+                        onEventHandled = { settingsEvent ->
+                            settingsViewModel.dispatchIntent(
+                                SettingsContract.SettingsIntent.EventHandled(settingsEvent)
                             )
                         }
                     )
