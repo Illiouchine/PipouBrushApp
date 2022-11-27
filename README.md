@@ -13,14 +13,16 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 
 
 
-### Done
+## Done
 - user can start a 3:00 countdown
-- user can reset coundown to 3:00
+- user can reset countdown to 3:00
 - make the countdown prettier
 - make total countdown dynamic (InMemory)
 - count the number of use to anticipate achievement (InMemory)
 
 ## Todo
-- Handle Event in compose ?
 - setup reminder of brushing
 - think about achievement
+
+## Todo Long Term
+- Handle Event in Brush screen and statistics
