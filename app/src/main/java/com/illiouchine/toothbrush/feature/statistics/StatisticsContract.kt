@@ -17,16 +17,17 @@ interface StatisticsContract {
         override val event: StatisticsEvent?
     ) : UiState {
         sealed class StatisticsEvent : UiEvent {}
+        sealed class RawStatisticsState {
+            object Loading : RawStatisticsState()
+            data class Loaded(
+                val data: List<String>
+            ) : RawStatisticsState()
+
+            object Error : RawStatisticsState()
+        }
     }
 
-    sealed class RawStatisticsState {
-        object Loading : RawStatisticsState()
-        data class Loaded(
-            val data: List<String>
-        ) : RawStatisticsState()
 
-        object Error : RawStatisticsState()
-    }
 
     sealed class StatisticsPartialState : UiPartialState {
         data class Loaded(

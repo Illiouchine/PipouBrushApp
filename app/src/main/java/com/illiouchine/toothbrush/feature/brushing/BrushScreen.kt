@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.illiouchine.toothbrush.ui.composable.PipouBackground
 import com.illiouchine.toothbrush.ui.composable.brushtimer.BrushTimerState
 import com.illiouchine.toothbrush.ui.composable.brushtimer.BrushTimer
 import com.illiouchine.toothbrush.ui.utils.assetsToBitmap
@@ -29,36 +30,22 @@ fun BrushScreen(
     onStartClick : () -> Unit = {},
 ) {
 
-    val context = LocalContext.current
-    val bitmap: ImageBitmap? = remember {
-        context
-            .assetsToBitmap("brossage_dents_redimension.jpg")
-            ?.asImageBitmap()
-    }
-
-    Surface {
-        bitmap?.let {
-            Image(
-                modifier = Modifier.fillMaxSize(),
-                bitmap = it,
-                contentDescription = "BG"
-            )
-        }
+    PipouBackground(){
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .clickable {
-                    when (timerState){
+                    when (timerState) {
                         BrushContract.BrushState.Timer.Finished -> onRestartClick()
                         BrushContract.BrushState.Timer.Idle -> onStartClick()
                         is BrushContract.BrushState.Timer.Running -> {}
                     }
                 },
-            ){
+        ){
             BrushTimer(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .offset(x = 0.dp, y= (-170).dp),
+                    .offset(x = 0.dp, y = (-170).dp),
                 timerState.toBrushTimerState(),
             )
         }

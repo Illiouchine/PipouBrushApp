@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsState.CountDownSettings
+import com.illiouchine.toothbrush.ui.composable.PipouBackground
 import com.illiouchine.toothbrush.ui.composable.settings.CountDownSettingsView
 import com.illiouchine.toothbrush.ui.composable.settings.CountDownState
 import kotlin.time.Duration
@@ -19,30 +20,31 @@ fun SettingsScreen(
     onCountDownDurationChanged: (Duration) -> Unit = {},
     onEventHandled: (SettingsContract.SettingsState.SettingsEvent) -> Unit = {}
 ) {
-
-    val context = LocalContext.current
-    Column {
-        Row {
-            CountDownSettingsView(
-                countDownState = countDownSettings.toCountDownState(),
-                onCountDownDurationChanged = { onCountDownDurationChanged(it) }
-            )
-        }
-    }
-
-    if (event != null){
-        when(event){
-            is SettingsContract.SettingsState.SettingsEvent.CountDownSaved -> {
-                Toast.makeText(context, "CountDownSaved", Toast.LENGTH_LONG).show()
-            }
-            is SettingsContract.SettingsState.SettingsEvent.ErrorLoadingCountDownDuration -> {
-                Toast.makeText(context, "ErrorLoadingCountDownDuration", Toast.LENGTH_LONG).show()
-            }
-            is SettingsContract.SettingsState.SettingsEvent.ErrorSavingCountDownDuration -> {
-                Toast.makeText(context, "ErrorSavingCountDownDuration", Toast.LENGTH_LONG).show()
+    PipouBackground(enableBlur = true){
+        val context = LocalContext.current
+        Column {
+            Row {
+                CountDownSettingsView(
+                    countDownState = countDownSettings.toCountDownState(),
+                    onCountDownDurationChanged = { onCountDownDurationChanged(it) }
+                )
             }
         }
-        onEventHandled(event)
+
+        if (event != null){
+            when(event){
+                is SettingsContract.SettingsState.SettingsEvent.CountDownSaved -> {
+                    Toast.makeText(context, "CountDownSaved", Toast.LENGTH_LONG).show()
+                }
+                is SettingsContract.SettingsState.SettingsEvent.ErrorLoadingCountDownDuration -> {
+                    Toast.makeText(context, "ErrorLoadingCountDownDuration", Toast.LENGTH_LONG).show()
+                }
+                is SettingsContract.SettingsState.SettingsEvent.ErrorSavingCountDownDuration -> {
+                    Toast.makeText(context, "ErrorSavingCountDownDuration", Toast.LENGTH_LONG).show()
+                }
+            }
+            onEventHandled(event)
+        }
     }
 }
 

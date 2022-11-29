@@ -24,7 +24,7 @@ class StatisticsViewModel @Inject constructor(
 
     override fun createInitialState(): State {
         return State(
-            rawStatisticsState = StatisticsContract.RawStatisticsState.Loading,
+            rawStatisticsState = State.RawStatisticsState.Loading,
             event = null
         )
     }
@@ -39,12 +39,12 @@ class StatisticsViewModel @Inject constructor(
                 return when (partialState) {
                     PartialState.Error -> {
                         currentState.copy(
-                            rawStatisticsState = StatisticsContract.RawStatisticsState.Error
+                            rawStatisticsState = State.RawStatisticsState.Error
                         )
                     }
                     is PartialState.Loaded -> {
                         currentState.copy(
-                            rawStatisticsState = StatisticsContract.RawStatisticsState.Loaded(
+                            rawStatisticsState = State.RawStatisticsState.Loaded(
                                 data = partialState.data
                             )
                         )

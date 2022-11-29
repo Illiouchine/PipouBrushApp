@@ -4,29 +4,31 @@ package com.illiouchine.toothbrush.feature.statistics
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.RawStatisticsState
-import com.illiouchine.toothbrush.feature.statistics.ui.composable.BrushHistoryContent
+import com.illiouchine.toothbrush.ui.composable.PipouBackground
+import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.RawStatisticsState as StatisticsState
+import com.illiouchine.toothbrush.ui.composable.achievement.BrushHistoryContent
 
+@Preview
 @Composable
 fun StatisticsScreen(
-    viewModel: StatisticsViewModel
+    statisticsState: StatisticsState = StatisticsState.Loaded(data = listOf("One", "Two"))
 ) {
-    val statisticsState by viewModel.uiState.collectAsState()
 
-    when (statisticsState.rawStatisticsState) {
-        RawStatisticsState.Error -> {
-            StatisticsContent("error")
-        }
-        is RawStatisticsState.Loaded -> {
-            BrushHistoryContent(
-                brushHistory = (statisticsState.rawStatisticsState as RawStatisticsState.Loaded).data
-            )
-        }
-        RawStatisticsState.Loading -> {
-            StatisticsContent("loading")
+    PipouBackground(enableBlur = true){
+        when (statisticsState) {
+            StatisticsState.Error -> {
+                StatisticsContent("error")
+            }
+            is StatisticsState.Loaded -> {
+                BrushHistoryContent(
+                    brushHistory = statisticsState.data
+                )
+            }
+            StatisticsState.Loading -> {
+                StatisticsContent("loading")
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.feature.statistics.ui.composable
+package com.illiouchine.toothbrush.ui.composable.achievement
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn

@@ -63,10 +63,10 @@ fun MainScreen() {
                 }
                 composable(Screen.Statistics.route) {
                     val statisticsViewModel = hiltViewModel<StatisticsViewModel>()
-                    // TODO make the statisticsScreen VM agnostic like in brush screen
+                    val statisticsState by statisticsViewModel.uiState.collectAsState()
                     statisticsViewModel.dispatchIntent(StatisticsContract.StatisticsIntent.LoadScreen)
                     StatisticsScreen(
-                        viewModel = statisticsViewModel
+                        statisticsState = statisticsState.rawStatisticsState
                     )
                 }
                 composable(Screen.Settings.route) {
