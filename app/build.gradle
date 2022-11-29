@@ -69,11 +69,20 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
+    // ROOM
+    implementation "androidx.room:room-runtime:2.4.3"
+    annotationProcessor "androidx.room:room-compiler:2.4.3"
+    // To use Kotlin annotation processing tool (kapt)
+    kapt "androidx.room:room-compiler:2.4.3"
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:2.4.3"
+    // optional - Paging 3 Integration
+    implementation "androidx.room:room-paging:2.4.3"
+    implementation "androidx.room:room-ktx:2.4.3"
+
     // HILT
     implementation "com.google.dagger:hilt-android:2.44.2"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
-
-
     kapt 'com.google.dagger:hilt-compiler:2.44.2'
     // For instrumentation tests
     androidTestImplementation 'com.google.dagger:hilt-android-testing:2.44.2'

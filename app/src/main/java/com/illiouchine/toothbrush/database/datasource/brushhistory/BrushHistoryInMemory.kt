@@ -1,7 +1,6 @@
 package com.illiouchine.toothbrush.database.datasource.brushhistory
 
 import com.illiouchine.toothbrush.database.dataobject.BrushHistoryObject
-import java.util.*
 import javax.inject.Inject
 
 class BrushHistoryInMemory @Inject constructor() : BrushHistoryDataSource {
@@ -12,11 +11,7 @@ class BrushHistoryInMemory @Inject constructor() : BrushHistoryDataSource {
         return brushHistory
     }
 
-    override suspend fun addBrushFinished() {
-        brushHistory.add(
-            BrushHistoryObject(
-                date = Date()
-            )
-        )
+    override suspend fun addBrushFinished(date: BrushHistoryObject) {
+        brushHistory.add(date)
     }
 }

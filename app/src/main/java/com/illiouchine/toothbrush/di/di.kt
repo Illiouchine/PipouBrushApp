@@ -1,5 +1,8 @@
 package com.illiouchine.toothbrush.di
 
+import android.content.Context
+import androidx.room.Room
+import com.illiouchine.toothbrush.database.AppDatabase
 import com.illiouchine.toothbrush.database.BrushHistoryDataMapper
 import com.illiouchine.toothbrush.database.CountDownDurationDataMapper
 import com.illiouchine.toothbrush.database.datasource.brushhistory.BrushHistoryDataSource
@@ -12,18 +15,22 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class StatisticsModule {
+class StatisticsModule {
 
     @Singleton
-    @Binds
-    abstract fun bindStatisticsDataSource(
-        statisticsInMemory: BrushHistoryInMemory
-    ): BrushHistoryDataSource
+    @Provides
+    fun bindStatisticsDataSource(
+        //statisticsInMemory: BrushHistoryInMemory
+        appDatabase: AppDatabase
+    ): BrushHistoryDataSource{
+        return appDatabase.brushHistoryDao()
+    }
 }
 
 @Module
@@ -40,6 +47,16 @@ abstract class SettingsModule {
 @Module
 @InstallIn(SingletonComponent::class)
 object DataBaseModule {
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java,
+            "appDatabase"
+        ).build()
+    }
 
     @Provides
     fun bindStatisticsDataGateway(
