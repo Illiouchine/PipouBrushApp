@@ -13,8 +13,6 @@ class BrushHistoryDataMapper @Inject constructor(
         return brushHistoryDataSource.getBrushHistory().map {
             BrushHistoryEntity(
                 date = it.date,
-                // Todo calculate here ?
-                dayPeriod = BrushHistoryEntity.DayPeriod.Morning
             )
         }
     }
