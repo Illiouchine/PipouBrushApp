@@ -11,16 +11,17 @@ import java.util.*
 @Preview
 @Composable
 fun BrushHistoryContent(
-    brushHistory: List<Date> = listOf(Date(),Date())
+    brushHistory: List<Pair<Date, Int>> = listOf(Date() to 3)
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
-        brushHistory.forEach { date ->
+        brushHistory.forEach { element ->
             item {
                 Text(
-                    text = date.toString()
+                    text = element.first.toString()
                 )
+                Text(text = element.second.toString())
             }
         }
     }

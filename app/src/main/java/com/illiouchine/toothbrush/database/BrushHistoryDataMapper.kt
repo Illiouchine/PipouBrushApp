@@ -11,12 +11,10 @@ class BrushHistoryDataMapper @Inject constructor(
     private val brushHistoryDataSource: BrushHistoryDataSource
 ) : BrushHistoryDataGateway {
 
-    override suspend fun getBrushHistory(): List<BrushHistoryEntity> {
-        return brushHistoryDataSource.getBrushHistory().map {
-            BrushHistoryEntity(
-                date = it.date,
+    override suspend fun getBrushHistory(): BrushHistoryEntity {
+        return BrushHistoryEntity(
+                brushDates = brushHistoryDataSource.getBrushHistory().map { it.date },
             )
-        }
     }
 
     override suspend fun saveBrushHistory() {

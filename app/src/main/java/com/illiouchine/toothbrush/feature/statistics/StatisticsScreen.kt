@@ -18,7 +18,7 @@ import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.Statisti
 @Preview
 @Composable
 fun StatisticsScreen(
-    statisticsState: StatisticsState = StatisticsState.Loaded(data = listOf(Date()))
+    statisticsState: StatisticsState = StatisticsState.Loaded(brushHistory = listOf(Date() to 3))
 ) {
     PipouBackground(enableBlur = true){
         Column(
@@ -38,7 +38,7 @@ fun StatisticsScreen(
                 }
                 is StatisticsState.Loaded -> {
                     BrushHistoryContent(
-                        brushHistory = statisticsState.data
+                        brushHistory = statisticsState.brushHistory
                     )
                 }
                 StatisticsState.Loading -> {

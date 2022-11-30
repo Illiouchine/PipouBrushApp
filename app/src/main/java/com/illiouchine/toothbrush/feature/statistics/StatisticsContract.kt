@@ -21,7 +21,7 @@ interface StatisticsContract {
         sealed class RawStatisticsState {
             object Loading : RawStatisticsState()
             data class Loaded(
-                val data: List<Date>
+                val brushHistory: List<Pair<Date, Int>>
             ) : RawStatisticsState()
 
             object Error : RawStatisticsState()
@@ -32,7 +32,7 @@ interface StatisticsContract {
 
     sealed class StatisticsPartialState : UiPartialState {
         data class Loaded(
-            val data: List<Date>
+            val data: List<Pair<Date, Int>>
         ) : StatisticsPartialState()
 
         object Error : StatisticsPartialState()

@@ -3,7 +3,7 @@ package com.illiouchine.toothbrush.feature.statistics
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
-import com.illiouchine.toothbrush.usecase.GetBrushHistoryUseCase
+import com.illiouchine.toothbrush.usecase.GetBrushStatisticUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.Statisti
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
-    private val getBrushHistory: GetBrushHistoryUseCase
+    private val getBrushHistory: GetBrushStatisticUseCase
 ) : MviViewModel<Intent, Action, PartialState, State>() {
 
     init {
@@ -45,7 +45,7 @@ class StatisticsViewModel @Inject constructor(
                     is PartialState.Loaded -> {
                         currentState.copy(
                             rawStatisticsState = State.RawStatisticsState.Loaded(
-                                data = partialState.data
+                                brushHistory = partialState.data
                             )
                         )
                     }
@@ -77,7 +77,7 @@ class StatisticsViewModel @Inject constructor(
                 val brushHistory = getBrushHistory()
                 setPartialState {
                     PartialState.Loaded(
-                        data = brushHistory.map { it.date }
+                        data = brushHistory
                     )
                 }
             } catch (e: Exception) {
