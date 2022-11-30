@@ -3,8 +3,8 @@ package com.illiouchine.toothbrush.feature
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -13,24 +13,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.illiouchine.toothbrush.feature.Screen
 import com.illiouchine.toothbrush.feature.brushing.BrushContract
 import com.illiouchine.toothbrush.feature.brushing.BrushScreen
 import com.illiouchine.toothbrush.feature.brushing.BrushViewModel
-import com.illiouchine.toothbrush.feature.screenList
 import com.illiouchine.toothbrush.feature.settings.SettingsContract
 import com.illiouchine.toothbrush.feature.settings.SettingsScreen
 import com.illiouchine.toothbrush.feature.settings.SettingsViewModel
-import com.illiouchine.toothbrush.ui.composable.BottomNavigationBar
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract
 import com.illiouchine.toothbrush.feature.statistics.StatisticsScreen
 import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.collect
-import kotlin.coroutines.coroutineContext
+import com.illiouchine.toothbrush.ui.composable.BottomNavigationBar
 import kotlin.time.Duration
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()

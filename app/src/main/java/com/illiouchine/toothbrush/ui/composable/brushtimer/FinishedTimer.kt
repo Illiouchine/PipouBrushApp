@@ -3,9 +3,8 @@ package com.illiouchine.toothbrush.ui.composable.brushtimer
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,7 +16,7 @@ import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import com.illiouchine.toothbrush.ui.composable.brushtimer.chrono.Chrono
 
 
-@ExperimentalMaterialApi
+
 @Composable
 fun FinishedTimer() {
     Column(
@@ -35,7 +34,7 @@ fun FinishedTimer() {
 }
 
 
-@ExperimentalMaterialApi
+
 @Preview
 @Composable
 fun RestartContentBrushScreenLight() {
@@ -45,7 +44,7 @@ fun RestartContentBrushScreenLight() {
 }
 
 
-@ExperimentalMaterialApi
+
 @Preview
 @Composable
 fun RestartContentBrushScreenDark() {

@@ -1,13 +1,12 @@
 package com.illiouchine.toothbrush.ui.composable.brushtimer
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-@ExperimentalMaterialApi
+
 @Composable
 fun BrushTimer(
     modifier: Modifier = Modifier,
@@ -36,7 +35,6 @@ fun BrushTimer(
 
 
 @Preview
-@ExperimentalMaterialApi
 @Composable
 fun BrushTimerIdle(){
     BrushTimer(
@@ -45,7 +43,6 @@ fun BrushTimerIdle(){
 }
 
 @Preview
-@ExperimentalMaterialApi
 @Composable
 fun BrushTimerRunning20(){
     BrushTimer(
@@ -57,7 +54,6 @@ fun BrushTimerRunning20(){
 }
 
 @Preview
-@ExperimentalMaterialApi
 @Composable
 fun BrushTimerRunning60(){
     BrushTimer(
@@ -69,7 +65,6 @@ fun BrushTimerRunning60(){
 }
 
 @Preview
-@ExperimentalMaterialApi
 @Composable
 fun BrushTimerRunning120(){
     BrushTimer(
@@ -81,7 +76,6 @@ fun BrushTimerRunning120(){
 }
 
 @Preview
-@ExperimentalMaterialApi
 @Composable
 fun BrushTimerFinished(){
     BrushTimer(

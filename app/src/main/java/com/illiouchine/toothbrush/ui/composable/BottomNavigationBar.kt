@@ -1,7 +1,7 @@
 package com.illiouchine.toothbrush.ui.composable
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -17,23 +17,21 @@ fun BottomNavigationBar(
     navController: NavController,
     items: List<Screen>
 ) {
-    BottomNavigation {
+    NavigationBar {
         val navBackStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { screen ->
-            BottomNavigationItem(
+            NavigationBarItem(
                 icon = {
                     Icon(
                         painter = painterResource(id = screen.iconId),
                         contentDescription = "",
-                        tint = MaterialTheme.colors.onBackground,
                         modifier = Modifier.fillMaxSize(.4f)
                     )
                 },
                 label = {
                     Text(
                         text = stringResource(id = screen.textId),
-                        color = MaterialTheme.colors.onBackground
                     )
                 },
                 selected = currentRoute == screen.route,

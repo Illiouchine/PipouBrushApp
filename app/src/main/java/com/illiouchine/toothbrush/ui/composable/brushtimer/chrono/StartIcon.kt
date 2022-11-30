@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.illiouchine.toothbrush.ui.LightColorPalette
+import com.illiouchine.toothbrush.ui.md_theme_light_primary
 
 @Preview
 @Composable
@@ -25,7 +25,7 @@ fun StartIcon(
         }
         drawPath(
             path = trianglePath,
-            color = LightColorPalette.onBackground,
+            color = md_theme_light_primary,
         )
     }
 }

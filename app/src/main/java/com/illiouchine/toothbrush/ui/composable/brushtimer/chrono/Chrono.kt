@@ -6,8 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -24,15 +23,14 @@ import com.illiouchine.toothbrush.ui.ToothBrushTheme
  * Article : https://medium.com/@GerardPaligot/jetpack-compose-how-to-play-with-canvas-36d3638996b6
  */
 
-@ExperimentalMaterialApi
 @Composable
 fun Chrono(
     seconds: Long,
     totalSeconds: Long,
     modifier: Modifier = Modifier,
     progressColor: List<Color> = listOf(
-        MaterialTheme.colors.primary,
-        MaterialTheme.colors.primaryVariant
+        MaterialTheme.colorScheme.primary,
+        MaterialTheme.colorScheme.secondary
     ),
     backgroundProgressColor: List<Color> = listOf(Color.Transparent, Color.Transparent),
     centerColor: Color = Color.Transparent,
@@ -69,7 +67,6 @@ fun Chrono(
 }
 
 
-@ExperimentalMaterialApi
 @Composable
 @Preview
 fun ChronoPreviewLight() {
@@ -81,8 +78,6 @@ fun ChronoPreviewLight() {
     }
 }
 
-
-@ExperimentalMaterialApi
 @Composable
 @Preview
 fun ChronoPreviewDark() {

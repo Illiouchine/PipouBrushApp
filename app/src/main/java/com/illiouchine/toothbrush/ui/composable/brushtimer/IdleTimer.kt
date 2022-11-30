@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +18,6 @@ import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import com.illiouchine.toothbrush.ui.composable.brushtimer.chrono.Chrono
 import com.illiouchine.toothbrush.ui.composable.brushtimer.chrono.StartIcon
 
-@ExperimentalMaterialApi
 @Composable
 fun IdleTimer(totalSeconds: Long = 180L, ) {
     Column(
@@ -39,7 +38,7 @@ fun IdleTimer(totalSeconds: Long = 180L, ) {
 }
 
 
-@ExperimentalMaterialApi
+
 @Preview
 @Composable
 fun WaitingStartBrushScreenLight() {
@@ -49,7 +48,7 @@ fun WaitingStartBrushScreenLight() {
 }
 
 
-@ExperimentalMaterialApi
+
 @Preview
 @Composable
 fun WaitingStartBrushScreenDark() {
