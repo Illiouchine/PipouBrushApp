@@ -77,7 +77,7 @@ class StatisticsViewModel @Inject constructor(
                 val brushHistory = getBrushHistory()
                 setPartialState {
                     PartialState.Loaded(
-                        data = brushHistory.map { it.date.toString() }
+                        data = brushHistory.map { it.date }
                     )
                 }
             } catch (e: Exception) {

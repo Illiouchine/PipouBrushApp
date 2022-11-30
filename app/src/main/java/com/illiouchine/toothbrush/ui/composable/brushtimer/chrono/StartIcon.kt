@@ -1,20 +1,18 @@
 package com.illiouchine.toothbrush.ui.composable.brushtimer.chrono
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.illiouchine.toothbrush.ui.md_theme_light_primary
 
 @Preview
 @Composable
 fun StartIcon(
-    modifier: Modifier = Modifier.size(100.dp).padding(32.dp)
+    modifier: Modifier = Modifier
 ) {
+    val pathColor = MaterialTheme.colorScheme.secondary
     Canvas(modifier = modifier) {
         val trianglePath = Path().let {
             it.moveTo(this.size.width * 0.05f, 0f)
@@ -23,9 +21,10 @@ fun StartIcon(
             it.close()
             it
         }
+
         drawPath(
             path = trianglePath,
-            color = md_theme_light_primary,
+            color = pathColor,
         )
     }
 }

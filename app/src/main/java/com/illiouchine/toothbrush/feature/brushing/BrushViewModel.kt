@@ -9,7 +9,6 @@ import com.illiouchine.toothbrush.usecase.SaveBrushProgressUseCase
 import com.illiouchine.toothbrush.usecase.StartCountDownUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration

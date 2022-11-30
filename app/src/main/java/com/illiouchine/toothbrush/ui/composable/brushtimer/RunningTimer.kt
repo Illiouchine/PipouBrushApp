@@ -20,7 +20,7 @@ fun RunningTimer(
     current: Long = 180L,
     total: Long = 180L,
     textStyle: TextStyle = MaterialTheme.typography.headlineMedium,
-    textColor: Color = MaterialTheme.colorScheme.primary,
+    textColor: Color = MaterialTheme.colorScheme.secondary,
 ) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
@@ -37,7 +37,7 @@ fun RunningTimer(
                 modifier = Modifier
             )
         }
-        Text(text = "Brush your teeth !")
+        Text(text = "Brush your teeth !", color = MaterialTheme.colorScheme.secondary)
     }
 }
 
@@ -47,16 +47,6 @@ fun RunningTimer(
 @Composable
 fun CountDownContentBrushScreenLight() {
     ToothBrushTheme {
-        RunningTimer()
-    }
-}
-
-
-
-@Preview
-@Composable
-fun CountDownContentBrushScreenDark() {
-    ToothBrushTheme(darkTheme = true) {
         RunningTimer()
     }
 }

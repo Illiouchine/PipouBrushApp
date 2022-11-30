@@ -6,7 +6,6 @@ import com.illiouchine.toothbrush.database.AppDatabase
 import com.illiouchine.toothbrush.database.BrushHistoryDataMapper
 import com.illiouchine.toothbrush.database.CountDownDurationDataMapper
 import com.illiouchine.toothbrush.database.datasource.brushhistory.BrushHistoryDataSource
-import com.illiouchine.toothbrush.database.datasource.brushhistory.BrushHistoryInMemory
 import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSource
 import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSourceInMemory
 import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway

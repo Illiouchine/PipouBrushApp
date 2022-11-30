@@ -24,8 +24,8 @@ private const val NB_MARKER = 180
 internal fun CircleMarkers(
     totalSeconds: Long,
     seconds: Long,
-    markerColor: Color = MaterialTheme.colorScheme.primary,
-    activeMarkerColor: Color = MaterialTheme.colorScheme.primary,
+    markerColor: Color = MaterialTheme.colorScheme.secondary,
+    activeMarkerColor: Color = MaterialTheme.colorScheme.secondary,
 ) {
     for (i in 0 until NB_MARKER) {
 
@@ -80,23 +80,6 @@ fun CircleMarkerPreviewLight() {
             modifier = Modifier
                 .size(300.dp)
                 .background(Color.White)
-        ) {
-            CircleMarkers(
-                totalSeconds = 360,
-                seconds = 120
-            )
-        }
-    }
-}
-
-@Composable
-@Preview
-fun CircleMarkerPreviewDark() {
-    ToothBrushTheme(darkTheme = true) {
-        Box(
-            modifier = Modifier
-                .size(300.dp)
-                .background(Color.Black)
         ) {
             CircleMarkers(
                 totalSeconds = 360,

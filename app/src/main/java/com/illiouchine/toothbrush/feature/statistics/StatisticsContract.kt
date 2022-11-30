@@ -1,6 +1,7 @@
 package com.illiouchine.toothbrush.feature.statistics
 
 import com.illiouchine.mvi.core.*
+import java.util.*
 
 interface StatisticsContract {
 
@@ -20,7 +21,7 @@ interface StatisticsContract {
         sealed class RawStatisticsState {
             object Loading : RawStatisticsState()
             data class Loaded(
-                val data: List<String>
+                val data: List<Date>
             ) : RawStatisticsState()
 
             object Error : RawStatisticsState()
@@ -31,7 +32,7 @@ interface StatisticsContract {
 
     sealed class StatisticsPartialState : UiPartialState {
         data class Loaded(
-            val data: List<String>
+            val data: List<Date>
         ) : StatisticsPartialState()
 
         object Error : StatisticsPartialState()

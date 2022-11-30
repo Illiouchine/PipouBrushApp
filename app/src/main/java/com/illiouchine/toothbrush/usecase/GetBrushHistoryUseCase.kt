@@ -1,7 +1,7 @@
 package com.illiouchine.toothbrush.usecase
 
-import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryEntity
 import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
+import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryEntity
 import javax.inject.Inject
 
 class GetBrushHistoryUseCase @Inject constructor(
