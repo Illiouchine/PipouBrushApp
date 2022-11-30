@@ -1,9 +1,8 @@
 package com.illiouchine.toothbrush.feature.settings
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -35,6 +34,13 @@ fun SettingsScreen(
                     onCountDownDurationChanged = { onCountDownDurationChanged(it) }
                 )
             }
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(text = "Reminder", style = typography.titleLarge)
+            Text(text = "Alarme en construction",
+                modifier = Modifier.padding(8.dp),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+
         }
 
         if (event != null){

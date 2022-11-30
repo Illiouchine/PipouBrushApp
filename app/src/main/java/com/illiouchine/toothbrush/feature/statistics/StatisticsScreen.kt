@@ -18,7 +18,7 @@ import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.Statisti
 @Preview
 @Composable
 fun StatisticsScreen(
-    statisticsState: StatisticsState = StatisticsState.Loaded(brushHistory = listOf(Date() to 3))
+    statisticsState: StatisticsState = StatisticsState.Loaded(brushHistory = listOf(Date() to 1))
 ) {
     PipouBackground(enableBlur = true){
         Column(
@@ -28,6 +28,17 @@ fun StatisticsScreen(
         ) {
             Text(
                 text = "Achievement",
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(text = "List des achievements en construction",
+                modifier = Modifier.padding(8.dp),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+
+            Text(
+                text = "Historique",
                 style = MaterialTheme.typography.titleLarge,
             )
             Spacer(modifier = Modifier.height(2.dp))
@@ -45,6 +56,7 @@ fun StatisticsScreen(
                     StatisticsContent("loading")
                 }
             }
+
         }
     }
 }

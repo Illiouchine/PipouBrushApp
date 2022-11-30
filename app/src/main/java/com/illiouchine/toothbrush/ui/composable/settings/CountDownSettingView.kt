@@ -33,20 +33,21 @@ fun CountDownSettingsView(
                 .fillMaxWidth()
         ) {
             Icon(painterResource(id = R.drawable.ic_timer), "")
+            Spacer(modifier = Modifier.width(4.dp))
             Text(text = "Brush Duration", modifier = Modifier.align(Alignment.CenterVertically))
         }
         Row(
             modifier = Modifier
                 .wrapContentHeight()
-                .fillMaxWidth()
-                .padding(8.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             when(countDownState){
                 is CountDownState.Loaded -> {
                     var durationInSeconds by remember { mutableStateOf(countDownState.duration.inWholeSeconds.toFloat()) }
 
                     Text(text = DateUtils.formatElapsedTime(durationInSeconds.toLong()))
-
+                    Spacer(modifier = Modifier.width(16.dp))
                     Slider(
                         value = durationInSeconds,
                         onValueChange = { newPosition -> durationInSeconds = newPosition },
@@ -56,13 +57,14 @@ fun CountDownSettingsView(
                     )
                 }
                 CountDownState.Loading -> {
-                    CircularProgressIndicator()
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
                 }
             }
         }
-
     }
-
 }
 
 @Preview
