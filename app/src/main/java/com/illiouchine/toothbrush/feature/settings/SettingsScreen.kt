@@ -3,10 +3,13 @@ package com.illiouchine.toothbrush.feature.settings
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsState.CountDownSettings
 import com.illiouchine.toothbrush.ui.composable.PipouBackground
 import com.illiouchine.toothbrush.ui.composable.settings.CountDownSettingsView
@@ -24,8 +27,8 @@ fun SettingsScreen(
 ) {
     PipouBackground(enableBlur = true){
         val context = LocalContext.current
-        Column {
-            Text(text = "Settings", style = typography.titleMedium)
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = "Settings", style = typography.titleLarge)
             Row {
                 CountDownSettingsView(
                     countDownState = countDownSettings.toCountDownState(),
