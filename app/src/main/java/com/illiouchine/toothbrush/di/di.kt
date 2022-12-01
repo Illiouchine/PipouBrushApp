@@ -8,6 +8,7 @@ import com.illiouchine.toothbrush.database.CountDownDurationDataMapper
 import com.illiouchine.toothbrush.database.datasource.brushhistory.BrushHistoryDataSource
 import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSource
 import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSourceInMemory
+import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSourceSharedPref
 import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
 import com.illiouchine.toothbrush.usecase.datagateway.CountDownDurationDataGateway
 import dagger.Binds
@@ -34,13 +35,22 @@ class StatisticsModule {
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class SettingsModule {
+class SettingsModule {
 
+    /*
     @Singleton
     @Binds
     abstract fun bindSettingsDataSource(
         countDownDataSourceInMemory: CountDownDataSourceInMemory
     ): CountDownDataSource
+    */
+
+    @Singleton
+    @Provides
+    fun provideCountDownDataSource(@ApplicationContext appContext: Context): CountDownDataSource {
+        return CountDownDataSourceSharedPref(appContext)
+    }
+
 }
 
 @Module
