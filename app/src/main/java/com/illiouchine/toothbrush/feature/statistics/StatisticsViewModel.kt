@@ -3,7 +3,8 @@ package com.illiouchine.toothbrush.feature.statistics
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
-import com.illiouchine.toothbrush.usecase.GetBrushStatisticUseCase
+import com.illiouchine.toothbrush.usecase.GetAchievementsUseCase
+import com.illiouchine.toothbrush.usecase.GetBrushHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,16 +16,18 @@ import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.Statisti
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
-    private val getBrushHistory: GetBrushStatisticUseCase
+    private val getBrushHistory: GetBrushHistoryUseCase,
+    private val getAchievements: GetAchievementsUseCase
 ) : MviViewModel<Intent, Action, PartialState, State>() {
 
     init {
-        setAction { Action.LoadStatistics }
+        setAction { Action.LoadHistoryAndAchievement }
     }
 
     override fun createInitialState(): State {
         return State(
-            rawStatisticsState = State.RawStatisticsState.Loading,
+            historyState = State.HistoryState.Loading,
+            achievementState = State.AchievementState.Loading,
             event = null
         )
     }
@@ -37,54 +40,102 @@ class StatisticsViewModel @Inject constructor(
                 partialState: PartialState
             ): State {
                 return when (partialState) {
-                    PartialState.Error -> {
+                    PartialState.HistoryError -> {
                         currentState.copy(
-                            rawStatisticsState = State.RawStatisticsState.Error
+                            historyState = State.HistoryState.Error
                         )
                     }
-                    is PartialState.Loaded -> {
+                    is PartialState.HistoryLoaded -> {
                         currentState.copy(
-                            rawStatisticsState = State.RawStatisticsState.Loaded(
+                            historyState = State.HistoryState.Loaded(
                                 brushHistory = partialState.data
+                            )
+                        )
+                    }
+                    PartialState.AchievementError -> {
+                        currentState.copy(
+                            achievementState = State.AchievementState.Error
+                        )
+                    }
+                    is PartialState.AchievementLoaded -> {
+                        currentState.copy(
+                            achievementState = State.AchievementState.Loaded(
+                                achievements = partialState.data
                             )
                         )
                     }
                 }
             }
-
         }
     }
 
     override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {
             Intent.LoadScreen -> {
-                Action.LoadStatistics
+                Action.LoadHistoryAndAchievement
             }
         }
     }
 
     override suspend fun handleAction(action: Action) {
         return when (action) {
-            Action.LoadStatistics -> {
-                loadStatistics()
+            Action.LoadHistoryAndAchievement -> {
+                loadHistory()
+                loadAchievement()
             }
         }
     }
 
-    private fun loadStatistics() {
+    private fun loadAchievement() {
         viewModelScope.launch {
             try {
-                val brushHistory = getBrushHistory()
+                val achievements = getAchievements()
                 setPartialState {
-                    PartialState.Loaded(
-                        data = brushHistory
+                    PartialState.AchievementLoaded(
+                        data = achievements.toVMDataAchievement()
                     )
                 }
             } catch (e: Exception) {
                 setPartialState {
-                    PartialState.Error
+                    PartialState.AchievementError
                 }
             }
         }
+    }
+
+    private fun loadHistory() {
+        viewModelScope.launch {
+            try {
+                val brushHistory = getBrushHistory()
+                setPartialState {
+                    PartialState.HistoryLoaded(
+                        data = brushHistory.toVMDataHistory()
+                    )
+                }
+            } catch (e: Exception) {
+                setPartialState {
+                    PartialState.HistoryError
+                }
+            }
+        }
+    }
+}
+
+private fun List<GetBrushHistoryUseCase.BrushHistory>.toVMDataHistory(): List<StatisticsContract.History> {
+    return this.map {
+        StatisticsContract.History(
+            date = it.date,
+            brushCount = it.brushCount
+        )
+    }
+}
+
+private fun List<GetAchievementsUseCase.Achievement>.toVMDataAchievement(): List<StatisticsContract.Achievement> {
+    return this.map {
+        StatisticsContract.Achievement(
+            name = it.name,
+            description = it.description,
+            earned = it.earned
+        )
     }
 }

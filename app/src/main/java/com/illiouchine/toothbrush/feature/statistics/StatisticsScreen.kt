@@ -8,15 +8,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.ui.composable.PipouBackground
 import com.illiouchine.toothbrush.ui.composable.achievement.AchievementContent
+import com.illiouchine.toothbrush.ui.composable.achievement.AchievementState
 import com.illiouchine.toothbrush.ui.composable.history.HistoryContent
 import com.illiouchine.toothbrush.ui.composable.history.HistoryState
-import java.util.*
-import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.RawStatisticsState as StatisticsState
+import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.HistoryState as VMHistoryState
+import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.AchievementState as VMAchievementState
 
 @Preview
 @Composable
 fun StatisticsScreen(
-    statisticsState: StatisticsState = StatisticsState.Loaded(brushHistory = listOf(Date() to 1)),
+    historyState: VMHistoryState = VMHistoryState.Loaded(brushHistory = listOf()),
+    achievementState: VMAchievementState = VMAchievementState.Loaded(achievements = listOf())
 ) {
     PipouBackground(enableBlur = true){
         Column(
@@ -25,23 +27,58 @@ fun StatisticsScreen(
                 .padding(16.dp)
         ) {
             Box(modifier = Modifier.fillMaxHeight(.5f)){
-                AchievementContent()
+                AchievementContent(achievementState = achievementState.toViewState())
             }
             Box(modifier = Modifier.fillMaxHeight(.5f)){
-                HistoryContent(statisticsState.toHistoryState())
+                HistoryContent(historyState.toViewState())
             }
         }
     }
 }
 
-private fun StatisticsContract.StatisticsState.RawStatisticsState.toHistoryState(): HistoryState {
+private fun VMAchievementState.toViewState(): AchievementState {
     return when(this){
-        StatisticsContract.StatisticsState.RawStatisticsState.Error -> { HistoryState.Error }
-        is StatisticsContract.StatisticsState.RawStatisticsState.Loaded -> {
-            HistoryState.Loaded(data = this.brushHistory)
+        VMAchievementState.Error -> {
+            AchievementState.Error
         }
-        StatisticsContract.StatisticsState.RawStatisticsState.Loading -> {
+        is VMAchievementState.Loaded -> {
+            AchievementState.Loaded(
+                achievements = this.achievements.toViewModel()
+            )
+        }
+        VMAchievementState.Loading -> {
+            AchievementState.Loading
+        }
+    }
+}
+
+private fun List<StatisticsContract.Achievement>.toViewModel(): List<AchievementState.Achievement> {
+    return this.map { vmAchievement ->
+        AchievementState.Achievement(
+            name = vmAchievement.name,
+            description = vmAchievement.description,
+            earned = vmAchievement.earned
+        )
+    }
+}
+
+private fun VMHistoryState.toViewState(): HistoryState {
+    return when(this){
+        VMHistoryState.Error -> { HistoryState.Error }
+        is VMHistoryState.Loaded -> {
+            HistoryState.Loaded(data = this.brushHistory.toViewData())
+        }
+        VMHistoryState.Loading -> {
             HistoryState.Loading
         }
+    }
+}
+
+private fun List<StatisticsContract.History>.toViewData(): List<HistoryState.History> {
+    return this.map {
+        HistoryState.History(
+            date = it.date,
+            brushCount = it.brushCount
+        )
     }
 }

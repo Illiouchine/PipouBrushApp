@@ -9,7 +9,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import java.util.*
 
-class GetBrushStatisticUseCaseTest{
+class GetBrushHistoryUseCaseTest{
 
     private val d10: Date = Calendar.getInstance().apply { set(1999, 12, 29, 12, 0,0) }.time
     private val d11: Date = Calendar.getInstance().apply { set(1999, 12, 29,15, 0,0) }.time
@@ -23,9 +23,9 @@ class GetBrushStatisticUseCaseTest{
     )
 
     private val expectedData = listOf(
-        d10 to 3,
-        d20 to 2,
-        d30 to 1
+        GetBrushHistoryUseCase.BrushHistory(d10, 3),
+        GetBrushHistoryUseCase.BrushHistory(d20, 2),
+        GetBrushHistoryUseCase.BrushHistory(d30, 1),
     )
 
     private val dataGateway: BrushHistoryDataGateway = mock()
@@ -35,7 +35,7 @@ class GetBrushStatisticUseCaseTest{
         whenever(dataGateway.getBrushHistory())
             .thenReturn(BrushHistoryEntity(initalData))
 
-        val getBrushStatistic = GetBrushStatisticUseCase(dataGateway)
+        val getBrushStatistic = GetBrushHistoryUseCase(dataGateway)
 
         val result = getBrushStatistic()
         assertEquals(expectedData, result)

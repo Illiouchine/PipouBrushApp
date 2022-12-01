@@ -19,7 +19,7 @@ import java.util.*
 @Preview
 @Composable
 fun HistoryRow(
-    brushHistory: List<Pair<Date, Int>> = listOf(Date() to 2)
+    brushHistory: List<HistoryState.History> = previewDataHistoryList()
 ) {
     LazyColumn(
         modifier = Modifier
@@ -27,29 +27,30 @@ fun HistoryRow(
             .padding(8.dp)
     ) {
         brushHistory
-            .sortedBy { it.first }.forEach { element ->
-            item {
-                Row(
-                    modifier = Modifier
-                        .height(32.dp)
-                        .fillMaxWidth(),
-                    verticalAlignment = CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = element.first.toFormattedDate(),
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(start = 8.dp)
-                    )
-                    ToothStar(
+            .sortedBy { it.date }
+            .forEach { element ->
+                item {
+                    Row(
                         modifier = Modifier
                             .height(32.dp)
-                            .padding(8.dp),
-                        value = element.second
-                    )
+                            .fillMaxWidth(),
+                        verticalAlignment = CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = element.date.toFormattedDate(),
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                        ToothStar(
+                            modifier = Modifier
+                                .height(32.dp)
+                                .padding(8.dp),
+                            value = element.brushCount
+                        )
+                    }
                 }
             }
-        }
     }
 }
 

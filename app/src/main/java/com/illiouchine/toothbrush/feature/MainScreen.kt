@@ -61,7 +61,8 @@ fun MainScreen() {
                     val statisticsState by statisticsViewModel.uiState.collectAsState()
                     statisticsViewModel.dispatchIntent(StatisticsContract.StatisticsIntent.LoadScreen)
                     StatisticsScreen(
-                        statisticsState = statisticsState.rawStatisticsState
+                        historyState = statisticsState.historyState,
+                        achievementState = statisticsState.achievementState
                     )
                 }
                 composable(Screen.Settings.route) {

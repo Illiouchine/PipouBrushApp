@@ -4,24 +4,25 @@ import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
 import java.util.*
 import javax.inject.Inject
 
-class GetBrushStatisticUseCase @Inject constructor(
+class GetBrushHistoryUseCase @Inject constructor(
     private val brushHistoryDataGateway: BrushHistoryDataGateway,
 ) {
-    suspend operator fun invoke(): List<Pair<Date, Int>> {
+    suspend operator fun invoke(): List<BrushHistory> {
         val brushDates: List<Date> = brushHistoryDataGateway.getBrushHistory().brushDates
         return brushDates.groupByDayAndCountOccurrence()
     }
 
-    private fun List<Date>.groupByDayAndCountOccurrence(): List<Pair<Date, Int>> {
+    private fun List<Date>.groupByDayAndCountOccurrence(): List<BrushHistory> {
         return this
             .map { date: Date ->
                 date to date.getYearAndDay()
             }.groupBy {
                 it.second
-            }.mapKeys {
-                it.value.first().first
-            }.mapValues {
-                it.value.count()
+            }.map {
+                BrushHistory(
+                    date = it.value.first().first,
+                    brushCount = it.value.count()
+                )
             }.toList()
     }
 
@@ -29,5 +30,10 @@ class GetBrushStatisticUseCase @Inject constructor(
         val dateCalendar = Calendar.getInstance().apply { time = this@getYearAndDay }
         return dateCalendar.get(Calendar.YEAR) to dateCalendar.get(Calendar.DAY_OF_YEAR)
     }
+
+    data class BrushHistory(
+        val date: Date,
+        val brushCount: Int
+    )
 }
 

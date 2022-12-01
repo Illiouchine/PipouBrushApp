@@ -10,31 +10,51 @@ interface StatisticsContract {
     }
 
     sealed class StatisticsAction : UiAction {
-        object LoadStatistics : StatisticsAction()
+        object LoadHistoryAndAchievement : StatisticsAction()
     }
 
     data class StatisticsState(
-        val rawStatisticsState: RawStatisticsState,
+        val historyState: HistoryState,
+        val achievementState: AchievementState,
         override val event: StatisticsEvent?
     ) : UiState {
         sealed class StatisticsEvent : UiEvent {}
-        sealed class RawStatisticsState {
-            object Loading : RawStatisticsState()
+        sealed class HistoryState {
+            object Loading : HistoryState()
+            object Error : HistoryState()
             data class Loaded(
-                val brushHistory: List<Pair<Date, Int>>
-            ) : RawStatisticsState()
+                val brushHistory: List<History>
+            ) : HistoryState()
+        }
+        sealed class AchievementState{
+            object Loading : AchievementState()
+            object Error : AchievementState()
+            data class Loaded(
+                val achievements: List<Achievement>
+            ) : AchievementState()
 
-            object Error : RawStatisticsState()
         }
     }
 
-
-
     sealed class StatisticsPartialState : UiPartialState {
-        data class Loaded(
-            val data: List<Pair<Date, Int>>
+        data class HistoryLoaded(
+            val data: List<History>
         ) : StatisticsPartialState()
-
-        object Error : StatisticsPartialState()
+        object HistoryError : StatisticsPartialState()
+        data class AchievementLoaded(
+            val data: List<Achievement>
+        ) : StatisticsPartialState()
+        object AchievementError : StatisticsPartialState()
     }
+
+    data class History(
+        val date: Date,
+        val brushCount: Int
+    )
+
+    data class Achievement(
+        val name: String,
+        val description: String,
+        val earned: Boolean
+    )
 }
