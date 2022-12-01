@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.illiouchine.toothbrush.ui.ToothBrushTheme
 
 
 /**
@@ -45,11 +44,9 @@ fun Chrono(
 
 @Composable
 @Preview
-fun ChronoPreviewLight() {
-    ToothBrushTheme {
-        Chrono(
-            seconds = 240,
-            totalSeconds = 500
-        ){}
-    }
+fun ChronoPreview() {
+    Chrono(
+        seconds = 240,
+        totalSeconds = 500
+    ){}
 }

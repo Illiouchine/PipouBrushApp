@@ -8,15 +8,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.illiouchine.toothbrush.feature.statistics.StatisticsContract
 import java.util.*
 
 @Composable
 fun HistoryContent(
-    statisticsState: StatisticsContract.StatisticsState.RawStatisticsState = StatisticsContract.StatisticsState.RawStatisticsState.Loaded(
-        brushHistory = listOf(Date() to 1)
-    ),
-    ) {
+    historyState: HistoryState = HistoryState.Loaded(data = listOf(Date() to 1))
+) {
     Column {
         Text(
             text = "Historique",
@@ -24,16 +21,16 @@ fun HistoryContent(
         )
         Spacer(modifier = Modifier.height(2.dp))
 
-        when (statisticsState) {
-            StatisticsContract.StatisticsState.RawStatisticsState.Error -> {
+        when (historyState) {
+            HistoryState.Error -> {
                 Text("error")
             }
-            is StatisticsContract.StatisticsState.RawStatisticsState.Loaded -> {
+            is HistoryState.Loaded -> {
                 HistoryRow(
-                    brushHistory = statisticsState.brushHistory
+                    brushHistory = historyState.data
                 )
             }
-            StatisticsContract.StatisticsState.RawStatisticsState.Loading -> {
+            HistoryState.Loading -> {
                 Text("loading")
             }
         }

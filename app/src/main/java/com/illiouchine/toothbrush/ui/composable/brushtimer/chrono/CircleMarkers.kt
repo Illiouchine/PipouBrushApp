@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -74,17 +73,15 @@ internal fun Marker(
 
 @Composable
 @Preview
-fun CircleMarkerPreviewLight() {
-    ToothBrushTheme() {
-        Box(
-            modifier = Modifier
-                .size(300.dp)
-                .background(Color.White)
-        ) {
-            CircleMarkers(
-                totalSeconds = 360,
-                seconds = 120
-            )
-        }
+fun CircleMarkerPreview() {
+    Box(
+        modifier = Modifier
+            .size(300.dp)
+            .background(Color.White)
+    ) {
+        CircleMarkers(
+            totalSeconds = 360,
+            seconds = 120
+        )
     }
 }
