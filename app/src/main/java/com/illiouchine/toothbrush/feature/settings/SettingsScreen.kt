@@ -40,7 +40,6 @@ fun SettingsScreen(
                 modifier = Modifier.padding(8.dp),
                 style = MaterialTheme.typography.bodyMedium,
             )
-
         }
 
         if (event != null){

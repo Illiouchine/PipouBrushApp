@@ -21,8 +21,6 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - count the number of use to anticipate achievement (InMemory)
 
 ## Todo
+- save Brush Duration in shared pref ? or database
+- setup achievement ? 
 - setup reminder of brushing
-- think about achievement
-
-## Todo Long Term
-- Handle Event in Brush screen and statistics
