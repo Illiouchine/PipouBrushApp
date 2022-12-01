@@ -18,9 +18,11 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - user can reset countdown to 3:00
 - make the countdown prettier
 - make total countdown dynamic (InMemory)
-- count the number of use to anticipate achievement (InMemory)
+- count the number of use to anticipate achievement
+- save Brush Duration in shared pref 
 
 ## Todo
-- save Brush Duration in shared pref ? or database
 - setup achievement ? 
-- setup reminder of brushing
+- setup reminder of brushing : 
+  - For Alarm -> see "Set a repeating alarm"
+  - For notification -> 

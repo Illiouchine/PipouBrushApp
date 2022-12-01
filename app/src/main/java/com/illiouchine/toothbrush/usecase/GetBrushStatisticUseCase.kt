@@ -9,24 +9,20 @@ class GetBrushStatisticUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(): List<Pair<Date, Int>> {
         val brushDates: List<Date> = brushHistoryDataGateway.getBrushHistory().brushDates
-        return brushDates.performGrouping()
+        return brushDates.groupByDayAndCountOccurrence()
     }
 
-    //Should return Map<Date, Int>
-    private fun List<Date>.performGrouping(): List<Pair<Date, Int>> {
-        val dateAndYD: List<Pair<Date, Pair<Int, Int>>> = this.map { date: Date ->
-            date to date.getYearAndDay()
-        }
-
-        val groupedByYD: Map<Pair<Int, Int>, List<Pair<Date, Pair<Int, Int>>>> = dateAndYD.groupBy { it.second }
-
-        val counted: List<Pair<Date, Int>> = groupedByYD
-            .mapKeys {
+    private fun List<Date>.groupByDayAndCountOccurrence(): List<Pair<Date, Int>> {
+        return this
+            .map { date: Date ->
+                date to date.getYearAndDay()
+            }.groupBy {
+                it.second
+            }.mapKeys {
                 it.value.first().first
             }.mapValues {
                 it.value.count()
             }.toList()
-        return counted
     }
 
     private fun Date.getYearAndDay():Pair<Int,Int>{

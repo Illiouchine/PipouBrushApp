@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.ui.composable.achievement
+package com.illiouchine.toothbrush.ui.composable.history
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +18,7 @@ import java.util.*
 
 @Preview
 @Composable
-fun BrushHistoryContent(
+fun HistoryRow(
     brushHistory: List<Pair<Date, Int>> = listOf(Date() to 2)
 ) {
     LazyColumn(

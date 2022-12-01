@@ -2,23 +2,20 @@ package com.illiouchine.toothbrush.feature.statistics
 
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.illiouchine.toothbrush.ui.composable.PipouBackground
-import com.illiouchine.toothbrush.ui.composable.achievement.BrushHistoryContent
+import com.illiouchine.toothbrush.ui.composable.achievement.AchievementContent
+import com.illiouchine.toothbrush.ui.composable.history.HistoryContent
 import java.util.*
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.RawStatisticsState as StatisticsState
 
 @Preview
 @Composable
 fun StatisticsScreen(
-    statisticsState: StatisticsState = StatisticsState.Loaded(brushHistory = listOf(Date() to 1))
+    statisticsState: StatisticsState = StatisticsState.Loaded(brushHistory = listOf(Date() to 1)),
 ) {
     PipouBackground(enableBlur = true){
         Column(
@@ -26,49 +23,12 @@ fun StatisticsScreen(
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            Text(
-                text = "Achievement",
-                style = MaterialTheme.typography.titleLarge,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(text = "List des achievements en construction",
-                modifier = Modifier.padding(8.dp),
-                style = MaterialTheme.typography.bodyMedium,
-            )
-
-            Text(
-                text = "Historique",
-                style = MaterialTheme.typography.titleLarge,
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-
-            when (statisticsState) {
-                StatisticsState.Error -> {
-                    StatisticsContent("error")
-                }
-                is StatisticsState.Loaded -> {
-                    BrushHistoryContent(
-                        brushHistory = statisticsState.brushHistory
-                    )
-                }
-                StatisticsState.Loading -> {
-                    StatisticsContent("loading")
-                }
+            Box(modifier = Modifier.fillMaxHeight(.5f)){
+                AchievementContent()
             }
-
+            Box(modifier = Modifier.fillMaxHeight(.5f)){
+                HistoryContent(statisticsState)
+            }
         }
-    }
-}
-
-@Composable
-fun StatisticsContent(
-    text: String
-) {
-    Surface {
-        Text(
-            text = text,
-            fontSize = 32.sp
-        )
     }
 }
