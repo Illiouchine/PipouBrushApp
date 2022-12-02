@@ -53,8 +53,8 @@ interface StatisticsContract {
     )
 
     data class Achievement(
-        val name: String,
-        val description: String,
+        val nameResId: Int,
+        val descriptionResId: Int,
         val earned: Boolean
     )
 }

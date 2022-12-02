@@ -4,6 +4,7 @@ package com.illiouchine.toothbrush.feature.statistics
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.ui.composable.PipouBackground
@@ -36,6 +37,7 @@ fun StatisticsScreen(
     }
 }
 
+@Composable // I don't know if this is a code smell ?
 private fun VMAchievementState.toViewState(): AchievementState {
     return when(this){
         VMAchievementState.Error -> {
@@ -52,11 +54,12 @@ private fun VMAchievementState.toViewState(): AchievementState {
     }
 }
 
+@Composable
 private fun List<StatisticsContract.Achievement>.toViewModel(): List<AchievementState.Achievement> {
     return this.map { vmAchievement ->
         AchievementState.Achievement(
-            name = vmAchievement.name,
-            description = vmAchievement.description,
+            name = stringResource(id = vmAchievement.nameResId),
+            description = stringResource(vmAchievement.descriptionResId),
             earned = vmAchievement.earned
         )
     }

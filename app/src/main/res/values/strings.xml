@@ -3,4 +3,17 @@
     <string name="screen_brush_menu_title">brush</string>
     <string name="screen_statistics_menu_title">statistics</string>
     <string name="screen_settings_menu_title">settings</string>
+    
+    <string name="achievement_100_name">First brush</string>
+    <string name="achievement_110_name">Ten brush</string>
+    <string name="achievement_200_name">Full day</string>
+    <string name="achievement_210_name">Ten full day</string>
+    <string name="achievement_300_name">Three day in a row</string>
+    <string name="achievement_310_name">Ten day in a row</string>
+    <string name="achievement_100_desc">Earned when completing one brush</string>
+    <string name="achievement_110_desc">Earned when completing ten brush</string>
+    <string name="achievement_200_desc">Earned when brushing three time on a single day</string>
+    <string name="achievement_210_desc">Earned when brushing three time on a ten day</string>
+    <string name="achievement_300_desc">Earned when brushing three day in a row</string>
+    <string name="achievement_310_desc">Earned when brushing ten day in a row</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.database.roomTypeConverter
+package com.illiouchine.toothbrush.database.room
 
 import androidx.room.TypeConverter
 import java.util.*

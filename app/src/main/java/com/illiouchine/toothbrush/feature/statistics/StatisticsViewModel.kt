@@ -133,8 +133,8 @@ private fun List<GetBrushHistoryUseCase.BrushHistory>.toVMDataHistory(): List<St
 private fun List<GetAchievementsUseCase.Achievement>.toVMDataAchievement(): List<StatisticsContract.Achievement> {
     return this.map {
         StatisticsContract.Achievement(
-            name = it.name,
-            description = it.description,
+            nameResId = it.nameResId,
+            descriptionResId = it.descriptionResId,
             earned = it.earned
         )
     }

@@ -9,6 +9,7 @@ import com.illiouchine.toothbrush.database.dataobject.BrushHistoryObject
 interface BrushHistoryDataSource {
     @Query("SELECT * FROM brush_history")
     suspend fun getBrushHistory(): List<BrushHistoryObject>
+
     @Insert
     suspend fun addBrushFinished(date: BrushHistoryObject)
 }

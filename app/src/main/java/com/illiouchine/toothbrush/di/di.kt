@@ -2,22 +2,37 @@ package com.illiouchine.toothbrush.di
 
 import android.content.Context
 import androidx.room.Room
-import com.illiouchine.toothbrush.database.AppDatabase
+import com.illiouchine.toothbrush.database.AchievementDataMapper
+import com.illiouchine.toothbrush.database.room.AppDatabase
 import com.illiouchine.toothbrush.database.BrushHistoryDataMapper
 import com.illiouchine.toothbrush.database.CountDownDurationDataMapper
+import com.illiouchine.toothbrush.database.datasource.achievement.AchievementDataSource
 import com.illiouchine.toothbrush.database.datasource.brushhistory.BrushHistoryDataSource
 import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSource
-import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSourceInMemory
 import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSourceSharedPref
+import com.illiouchine.toothbrush.database.room.MigrationFrom1To2
+import com.illiouchine.toothbrush.usecase.datagateway.AchievementDataGateway
 import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
 import com.illiouchine.toothbrush.usecase.datagateway.CountDownDurationDataGateway
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+class AchievementsModule {
+
+    @Singleton
+    @Provides
+    fun provideAchievementDataSource(
+        appDatabase: AppDatabase
+    ): AchievementDataSource {
+        return appDatabase.achievementDao()
+    }
+}
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,7 +43,7 @@ class StatisticsModule {
     fun bindStatisticsDataSource(
         //statisticsInMemory: BrushHistoryInMemory
         appDatabase: AppDatabase
-    ): BrushHistoryDataSource{
+    ): BrushHistoryDataSource {
         return appDatabase.brushHistoryDao()
     }
 }
@@ -50,7 +65,6 @@ class SettingsModule {
     fun provideCountDownDataSource(@ApplicationContext appContext: Context): CountDownDataSource {
         return CountDownDataSourceSharedPref(appContext)
     }
-
 }
 
 @Module
@@ -60,11 +74,25 @@ object DataBaseModule {
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
-        return Room.databaseBuilder(
-            appContext,
-            AppDatabase::class.java,
-            "appDatabase"
-        ).build()
+        return Room
+            .databaseBuilder(
+                appContext,
+                AppDatabase::class.java,
+                "appDatabase"
+            )
+            .addMigrations(
+                MigrationFrom1To2
+            )
+            .build()
+    }
+
+    @Provides
+    fun provideAchievementDataGateway(
+        achievementDataSource: AchievementDataSource
+    ): AchievementDataGateway {
+        return AchievementDataMapper(
+            achievementDataSource = achievementDataSource
+        )
     }
 
     @Provides
