@@ -1,6 +1,8 @@
 package com.illiouchine.toothbrush.ui.composable.achievement
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,8 +32,8 @@ fun AchievementContent(
                     Text(text = "Error")
                 }
                 is AchievementState.Loaded -> {
-                    Column {
-                        achievementState.achievements.forEach{ achievement ->
+                    LazyColumn {
+                        items(achievementState.achievements){ achievement ->
                             AchievementRow(achievement)
                         }
                     }

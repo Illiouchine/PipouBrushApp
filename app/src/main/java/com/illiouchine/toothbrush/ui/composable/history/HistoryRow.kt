@@ -2,6 +2,7 @@ package com.illiouchine.toothbrush.ui.composable.history
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,31 +27,27 @@ fun HistoryRow(
             .fillMaxSize()
             .padding(8.dp)
     ) {
-        brushHistory
-            .sortedBy { it.date }
-            .forEach { element ->
-                item {
-                    Row(
-                        modifier = Modifier
-                            .height(32.dp)
-                            .fillMaxWidth(),
-                        verticalAlignment = CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            text = element.date.toFormattedDate(),
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
-                        ToothStar(
-                            modifier = Modifier
-                                .height(32.dp)
-                                .padding(8.dp),
-                            value = element.brushCount
-                        )
-                    }
-                }
+        items(brushHistory.sortedBy { it.date }){ element ->
+            Row(
+                modifier = Modifier
+                    .height(32.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = element.date.toFormattedDate(),
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+                ToothStar(
+                    modifier = Modifier
+                        .height(32.dp)
+                        .padding(8.dp),
+                    value = element.brushCount
+                )
             }
+        }
     }
 }
 
