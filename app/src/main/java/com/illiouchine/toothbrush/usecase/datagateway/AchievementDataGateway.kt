@@ -4,7 +4,7 @@ import java.util.*
 
 interface AchievementDataGateway {
 
-    val achievementsReference: List<AchievementRef>
+    val achievementsReference: List<AchievementReference>
 
     suspend fun getEarnedAchievements(): List<AchievementEntity>
     suspend fun saveAchievements(achievement: AchievementEntity)
@@ -12,11 +12,5 @@ interface AchievementDataGateway {
     data class AchievementEntity(
         val code: Int,
         val unlockDate: Date,
-    )
-
-    data class AchievementRef(
-        val code: Int,
-        val nameResId: Int,
-        val descriptionResId: Int,
     )
 }

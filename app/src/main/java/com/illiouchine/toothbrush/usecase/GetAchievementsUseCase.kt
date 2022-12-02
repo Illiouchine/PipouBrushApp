@@ -1,5 +1,6 @@
 package com.illiouchine.toothbrush.usecase
 
+import com.illiouchine.toothbrush.usecase.datagateway.Achievement
 import com.illiouchine.toothbrush.usecase.datagateway.AchievementDataGateway
 import javax.inject.Inject
 
@@ -24,10 +25,4 @@ class GetAchievementsUseCase @Inject constructor(
                 )
             }
     }
-
-    data class Achievement(
-        val nameResId: Int,
-        val descriptionResId: Int,
-        val earned: Boolean
-    )
 }

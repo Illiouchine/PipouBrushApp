@@ -5,6 +5,7 @@ import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
 import com.illiouchine.toothbrush.usecase.GetAchievementsUseCase
 import com.illiouchine.toothbrush.usecase.GetBrushHistoryUseCase
+import com.illiouchine.toothbrush.usecase.datagateway.Achievement
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -130,7 +131,7 @@ private fun List<GetBrushHistoryUseCase.BrushHistory>.toVMDataHistory(): List<St
     }
 }
 
-private fun List<GetAchievementsUseCase.Achievement>.toVMDataAchievement(): List<StatisticsContract.Achievement> {
+private fun List<Achievement>.toVMDataAchievement(): List<StatisticsContract.Achievement> {
     return this.map {
         StatisticsContract.Achievement(
             nameResId = it.nameResId,

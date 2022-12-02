@@ -3,10 +3,7 @@ package com.illiouchine.toothbrush.feature.brushing
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
-import com.illiouchine.toothbrush.usecase.GetCountDownDurationUseCase
-import com.illiouchine.toothbrush.usecase.LaunchVibratorUseCase
-import com.illiouchine.toothbrush.usecase.SaveBrushProgressUseCase
-import com.illiouchine.toothbrush.usecase.StartCountDownUseCase
+import com.illiouchine.toothbrush.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -22,7 +19,8 @@ class BrushViewModel @Inject constructor(
     private val startCountDown: StartCountDownUseCase,
     private val launchVibrator: LaunchVibratorUseCase,
     private val saveBrushProgress: SaveBrushProgressUseCase,
-    private val getCountDownDurationUseCase: GetCountDownDurationUseCase
+    private val getCountDownDurationUseCase: GetCountDownDurationUseCase,
+    private val earnBrushAchievementUseCase: EarnBrushAchievementUseCase
 ) : MviViewModel<Intent, Action, PartialState, State>() {
 
     private var timerJob: Job? = null
@@ -102,6 +100,7 @@ class BrushViewModel @Inject constructor(
                         }
                         launchVibrator()
                         saveBrushProgress()
+                        earnBrushAchievementUseCase()
                     } else {
                         setPartialState {
                             PartialState.TimerRunning(
