@@ -8,7 +8,7 @@
 - Permit to setup a reminder alarm and/or notification
 
 ## Screenshots
-![](screenshots/home-idle-pixel-4a.png)
+![](screenshots/home-idle-pixel-4a.png){:height="1100px" width="500px"}
 
 ## Setup
 1. In your terminal : Clone this repo with : 
