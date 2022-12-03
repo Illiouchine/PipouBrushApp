@@ -40,3 +40,6 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
   - For Alarm -> see "Set a repeating alarm"
   - For notification -> 
 - [ ] setup Mini game when brushing
+- [ ] Give feedback when earning achievement
+- [ ] Setup I18n : en / fr
+- [ ] Setup PlayStore and CD/CI
