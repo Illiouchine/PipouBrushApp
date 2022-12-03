@@ -4,6 +4,8 @@ import com.illiouchine.toothbrush.usecase.datagateway.Achievement
 import com.illiouchine.toothbrush.usecase.datagateway.AchievementDataGateway
 import com.illiouchine.toothbrush.usecase.datagateway.AchievementReference
 import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
+import com.illiouchine.toothbrush.usecase.utils.countTenDayInRow
+import com.illiouchine.toothbrush.usecase.utils.countThreeDayInRow
 import java.util.*
 import javax.inject.Inject
 
@@ -54,14 +56,16 @@ class EarnBrushAchievementUseCase @Inject constructor(
                 }
                 300 -> { // Three Day in a row
                     shouldGive(notEarnedAchievement) {
-                        // TODO
-                        getBrushHistoryUseCase().count3DayInRowBrushing() >= 1
+                        getBrushHistoryUseCase()
+                            .map { it.date }
+                            .countThreeDayInRow() >= 1
                     }
                 }
                 310 -> { // 10 Three Day in a row
                     shouldGive(notEarnedAchievement) {
-                        // TODO
-                        getBrushHistoryUseCase().count3DayInRowBrushing() >= 10
+                        getBrushHistoryUseCase()
+                            .map { it.date }
+                            .countThreeDayInRow() >= 10
                     }
                 }
                 else -> {

@@ -17,7 +17,7 @@ class GetBrushHistoryUseCaseTest {
     private val d21: Date = Calendar.getInstance().apply { set(1999, 12, 31, 22, 0, 0) }.time
     private val d30: Date = Calendar.getInstance().apply { set(1999, 12, 12, 12, 0, 0) }.time
 
-    private val initalData = listOf<Date>(
+    private val initialData = listOf<Date>(
         d10, d11, d12, d20, d21, d30
     )
 
@@ -32,7 +32,7 @@ class GetBrushHistoryUseCaseTest {
     @Test
     fun test() = runBlocking {
         whenever(dataGateway.getBrushHistory())
-            .thenReturn(BrushHistoryEntity(initalData))
+            .thenReturn(BrushHistoryDataGateway.BrushHistoryEntity(initialData))
 
         val getBrushStatistic = GetBrushHistoryUseCase(dataGateway)
 
