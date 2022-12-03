@@ -1,4 +1,4 @@
-# PipouBrushApp
+# ![](screenshots/pipou-launcher.png) PipouBrushApp
 
 ## App Feature
 - Display a timer for brush duration
@@ -6,9 +6,6 @@
 - Display an achievement list.
 - Permit to change the brush duration
 - Permit to setup a reminder alarm and/or notification
-
-## Screenshots
-![](screenshots/home-idle-pixel-4a.png){:height="1100px" width="500px"}
 
 ## Setup
 1. In your terminal : Clone this repo with : 
@@ -55,3 +52,14 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [ ] Give feedback when earning achievement
 - [ ] Setup I18n : en / fr
 - [ ] Setup PlayStore and CD/CI
+
+## Screenshots
+### Timer screen
+![](screenshots/home-idle-pixel-4a.png)
+![](screenshots/home-running-pixel-4a.png)
+![](screenshots/home-finished-pixel-4a.png)
+### Statistics screen
+![](screenshots/stat-pixel-4a.png)
+### Settings screen
+![](screenshots/settings-pixel-4a.png)
+
