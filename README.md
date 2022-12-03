@@ -1,5 +1,15 @@
 # PipouBrushApp
 
+## App Feature
+- Display a timer for brush duration
+- Display a brush history with brush count per day
+- Display an achievement list.
+- Permit to change the brush duration
+- Permit to setup a reminder alarm and/or notification
+
+## Screenshots
+![](screenshots/home-idle-pixel-4a.png)
+
 ## Setup
 1. In your terminal : Clone this repo with : 
 ```sh
@@ -28,12 +38,7 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - Testing with [mockito](https://developer.android.com/training/testing/local-tests)
 - Asynchronous with [Coroutine and Flow](https://developer.android.com/kotlin/flow)
 
-## App Feature
-- Display a timer for brush duration
-- Display a brush history with brush count per day
-- Display an achievement list.
-- Permit to change the brush duration
-- Permit to setup a reminder alarm and/or notification
+
 
 ## TODO
 - [x] user can start a 3:00 countdown
