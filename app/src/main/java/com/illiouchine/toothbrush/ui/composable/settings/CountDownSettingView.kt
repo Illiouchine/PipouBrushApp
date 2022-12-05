@@ -2,10 +2,7 @@ package com.illiouchine.toothbrush.ui.composable.settings
 
 import android.text.format.DateUtils
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Slider
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,7 +51,12 @@ fun CountDownSettingsView(
                         onValueChange = { newPosition -> durationInSeconds = newPosition },
                         valueRange = 60f..360f,
                         steps = 9,
-                        onValueChangeFinished = { onCountDownDurationChanged(durationInSeconds.toLong().seconds) }
+                        onValueChangeFinished = { onCountDownDurationChanged(durationInSeconds.toLong().seconds) },
+                        colors = SliderDefaults.colors(
+                            activeTrackColor = MaterialTheme.colorScheme.secondary,
+                            activeTickColor = MaterialTheme.colorScheme.secondary,
+                            thumbColor = MaterialTheme.colorScheme.secondary,
+                        )
                     )
                 }
                 CountDownState.Loading -> {
