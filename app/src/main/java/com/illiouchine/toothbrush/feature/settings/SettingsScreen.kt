@@ -36,9 +36,15 @@ fun SettingsScreen(
                     onCountDownDurationChanged = { onCountDownDurationChanged(it) }
                 )
             }
-            Spacer(modifier = Modifier.height(2.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             Text(text = stringResource(R.string.settings_reminder_title), style = typography.titleLarge)
             Text(text = stringResource(R.string.misc_in_progress),
+                modifier = Modifier.padding(8.dp),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = stringResource(R.string.settings_thanks_title), style = typography.titleLarge)
+            Text(text = stringResource(R.string.settings_thanks_krog),
                 modifier = Modifier.padding(8.dp),
                 style = MaterialTheme.typography.bodyMedium,
             )

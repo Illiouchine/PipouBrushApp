@@ -45,13 +45,15 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [x] count the number of use to anticipate achievement
 - [x] save Brush Duration in shared pref
 - [x] setup achievement ? 
+- [x] Setup I18n : en / fr
+- [x] Add Thanks section
+- [ ] Give feedback when earning achievement
 - [ ] setup reminder of brushing : 
   - For Alarm -> see "Set a repeating alarm"
   - For notification -> 
-- [ ] setup Mini game when brushing
-- [ ] Give feedback when earning achievement
-- [ ] Setup I18n : en / fr
 - [ ] Setup PlayStore and CD/CI
+- [ ] setup Mini game when brushing
+- [ ] Manage external link in Thanks section
 
 ## Screenshots
 ### Timer screen

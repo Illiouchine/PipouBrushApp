@@ -34,4 +34,6 @@
     <string name="setting_toast_countdown_saved">Durée du compte à rebours enregistrée</string>
     <string name="setting_toast_countdown_loading_error">Une erreur est survenu lors du chargement de la durée du compte à rebours</string>
     <string name="setting_toast_countdown_save_error">Une erreur est survenu lors de l\'enregistrement de la durée du compte à rebours</string>
+    <string name="settings_thanks_title">Remerciements</string>
+    <string name="settings_thanks_krog">Merci à Krog pour les images : @Krogogo sur instagram</string>
 </resources>

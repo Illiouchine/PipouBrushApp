@@ -33,4 +33,6 @@
     <string name="setting_toast_countdown_saved">Countdown duration saved</string>
     <string name="setting_toast_countdown_loading_error">An error occurred while loading the countdown duration</string>
     <string name="setting_toast_countdown_save_error">An error occurred while saving the countdown duration</string>
+    <string name="settings_thanks_title">Thanks</string>
+    <string name="settings_thanks_krog">Thanks to Krog for the assets : @Krogogo in instagram</string>
 </resources>
