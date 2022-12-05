@@ -76,10 +76,6 @@ class EarnBrushAchievementUseCase @Inject constructor(
         return justEarnedAchievements.toList()
     }
 
-    private suspend fun List<GetBrushHistoryUseCase.BrushHistory>.count3DayInRowBrushing(): Int {
-        return 0
-    }
-
     private suspend fun shouldGive(
         achievement: AchievementReference,
         predicate: suspend ()-> Boolean

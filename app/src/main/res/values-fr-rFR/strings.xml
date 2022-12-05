@@ -36,4 +36,6 @@
     <string name="setting_toast_countdown_save_error">Une erreur est survenu lors de l\'enregistrement de la durée du compte à rebours</string>
     <string name="settings_thanks_title">Remerciements</string>
     <string name="settings_thanks_krog">Merci à Krog pour les images : @Krogogo sur instagram</string>
+    <string name="brush_achievement_dialog_title">Nouveaux Succès !</string>
+    <string name="brush_achievement_dialog_confirm_button">Fermer</string>
 </resources>

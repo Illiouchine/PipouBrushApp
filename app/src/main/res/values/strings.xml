@@ -35,4 +35,6 @@
     <string name="setting_toast_countdown_save_error">An error occurred while saving the countdown duration</string>
     <string name="settings_thanks_title">Thanks</string>
     <string name="settings_thanks_krog">Thanks to Krog for the assets : @Krogogo in instagram</string>
+    <string name="brush_achievement_dialog_title">Your new achievement(s)</string>
+    <string name="brush_achievement_dialog_confirm_button">Dismiss</string>
 </resources>

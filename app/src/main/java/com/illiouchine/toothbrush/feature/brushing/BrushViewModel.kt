@@ -28,13 +28,15 @@ class BrushViewModel @Inject constructor(
     override fun createInitialState(): State =
         State(
             timer = State.Timer.Idle,
-            event = null
+            event = null,
+            achievement = emptyList()
         )
 
     override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {
             Intent.StartBrushing -> Action.StartTimer
             Intent.ResetBrushing -> Action.ResetTimer
+            Intent.AchievementHandled -> Action.ClearAchievements
         }
     }
 
@@ -50,6 +52,9 @@ class BrushViewModel @Inject constructor(
                 )
             }
             Action.FinishTimer -> resetTimer()
+            Action.ClearAchievements -> {
+                setPartialState { PartialState.ClearAchievements }
+            }
         }
     }
 
@@ -76,8 +81,18 @@ class BrushViewModel @Inject constructor(
                     PartialState.TimerFinished -> {
                         currentState.copy(timer = State.Timer.Finished)
                     }
-                    is BrushContract.BrushPartialState.TimerIdle -> {
+                    is PartialState.TimerIdle -> {
                         currentState.copy(timer = State.Timer.Idle)
+                    }
+                    is PartialState.AchievementEarned -> {
+                        currentState.copy(
+                            achievement = partialState.achievements
+                        )
+                    }
+                    PartialState.ClearAchievements -> {
+                        currentState.copy(
+                            achievement = emptyList()
+                        )
                     }
                 }
             }
@@ -100,7 +115,20 @@ class BrushViewModel @Inject constructor(
                         }
                         launchVibrator()
                         saveBrushProgress()
-                        earnBrushAchievementUseCase()
+                        val earnedAchievementList = earnBrushAchievementUseCase()
+                        if (earnedAchievementList.isNotEmpty()) {
+                            setPartialState {
+                                PartialState.AchievementEarned(
+                                    achievements = earnedAchievementList.map { achievement ->
+                                        BrushContract.Achievement(
+                                            nameResId = achievement.nameResId,
+                                            descriptionResId = achievement.descriptionResId,
+                                            earned = achievement.earned
+                                        )
+                                    }
+                                )
+                            }
+                        }
                     } else {
                         setPartialState {
                             PartialState.TimerRunning(

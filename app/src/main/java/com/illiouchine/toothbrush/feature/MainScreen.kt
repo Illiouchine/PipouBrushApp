@@ -52,8 +52,10 @@ fun MainScreen() {
                     val brushState by brushViewModel.uiState.collectAsState()
                     BrushScreen(
                         timerState = brushState.timer,
+                        achievements = brushState.achievement,
                         onRestartClick = { brushViewModel.dispatchIntent(BrushContract.BrushIntent.ResetBrushing) },
-                        onStartClick = { brushViewModel.dispatchIntent(BrushContract.BrushIntent.StartBrushing) }
+                        onStartClick = { brushViewModel.dispatchIntent(BrushContract.BrushIntent.StartBrushing) },
+                        onAchievementsHandled = { brushViewModel.dispatchIntent(BrushContract.BrushIntent.AchievementHandled ) }
                     )
                 }
                 composable(Screen.Statistics.route) {

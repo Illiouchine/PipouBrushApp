@@ -35,7 +35,8 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - Testing with [mockito](https://developer.android.com/training/testing/local-tests)
 - Asynchronous with [Coroutine and Flow](https://developer.android.com/kotlin/flow)
 
-
+## Thanks
+- For the assets of Pipou thanks to krogogo : follow him on [instagram](https://www.instagram.com/krogogo/)
 
 ## TODO
 - [x] user can start a 3:00 countdown
@@ -47,13 +48,14 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [x] setup achievement ? 
 - [x] Setup I18n : en / fr
 - [x] Add Thanks section
-- [ ] Give feedback when earning achievement
+- [x] Give feedback when earning achievement
 - [ ] setup reminder of brushing : 
   - For Alarm -> see "Set a repeating alarm"
   - For notification -> 
 - [ ] Setup PlayStore and CD/CI
 - [ ] setup Mini game when brushing
-- [ ] Manage external link in Thanks section
+- [ ] Manage external link in Thanks section : https://www.instagram.com/krogogo/
+- [ ] Make the statistic and achievement section size dynamic 
 
 ## Screenshots
 ### Timer screen
@@ -62,6 +64,6 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 ![](screenshots/home-finished-pixel-4a.png)
 ### Statistics screen
 ![](screenshots/stat-pixel-4a.png)
-### Settings screen
+### Settings screen (update required)
 ![](screenshots/settings-pixel-4a.png)
 
