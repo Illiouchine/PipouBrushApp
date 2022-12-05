@@ -9,8 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import com.illiouchine.toothbrush.R
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import com.illiouchine.toothbrush.ui.composable.brushtimer.chrono.Chrono
 
@@ -37,7 +40,11 @@ fun RunningTimer(
                 modifier = Modifier
             )
         }
-        Text(text = "Brush your teeth !", color = MaterialTheme.colorScheme.secondary)
+        Text(
+            text = stringResource(R.string.brush_running_description),
+            color = MaterialTheme.colorScheme.secondary,
+            textAlign = TextAlign.Center
+        )
     }
 }
 

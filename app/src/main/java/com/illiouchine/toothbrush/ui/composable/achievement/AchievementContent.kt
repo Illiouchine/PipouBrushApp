@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.R
@@ -21,7 +22,7 @@ fun AchievementContent(
 ) {
     Column {
         Text(
-            text = "Achievement",
+            text = stringResource(R.string.achievement_title),
             style = MaterialTheme.typography.titleLarge,
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -29,7 +30,7 @@ fun AchievementContent(
         Row {
             when(achievementState){
                 AchievementState.Error -> {
-                    Text(text = "Error")
+                    Text(text = stringResource(R.string.achievement_error_description))
                 }
                 is AchievementState.Loaded -> {
                     LazyColumn {
@@ -39,7 +40,7 @@ fun AchievementContent(
                     }
                 }
                 AchievementState.Loading -> {
-                    Text(text = "Loading")
+                    Text(text = stringResource(R.string.achievement_loading_description))
                 }
             }
         }
@@ -62,7 +63,7 @@ fun AchievementRow(
             Icon(
                 modifier = Modifier.size(44.dp),
                 painter = painterResource(id = R.drawable.ic_achievement_trophy),
-                contentDescription = "",
+                contentDescription = null,
                 tint = if(achievement.earned){
                     MaterialTheme.colorScheme.secondary
                 } else {

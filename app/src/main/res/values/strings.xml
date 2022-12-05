@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Pipou Brush</string>
-    <string name="screen_brush_menu_title">brush</string>
-    <string name="screen_statistics_menu_title">statistics</string>
-    <string name="screen_settings_menu_title">settings</string>
+    <string name="screen_brush_menu_title">Brush</string>
+    <string name="screen_statistics_menu_title">Statistics</string>
+    <string name="screen_settings_menu_title">Settings</string>
     
     <string name="achievement_100_name">First brush</string>
     <string name="achievement_110_name">Ten brush</string>
@@ -10,10 +10,27 @@
     <string name="achievement_210_name">Ten full day</string>
     <string name="achievement_300_name">Three day in a row</string>
     <string name="achievement_310_name">Ten day in a row</string>
-    <string name="achievement_100_desc">Earned when completing one brush</string>
-    <string name="achievement_110_desc">Earned when completing ten brush</string>
-    <string name="achievement_200_desc">Earned when brushing three time on a single day</string>
-    <string name="achievement_210_desc">Earned when brushing three time on a ten day</string>
-    <string name="achievement_300_desc">Earned when brushing three day in a row</string>
-    <string name="achievement_310_desc">Earned when brushing ten day in a row</string>
+    <string name="achievement_100_desc">Earned by completing a tooth brushing</string>
+    <string name="achievement_110_desc">Earned by completing ten tooth brushing</string>
+    <string name="achievement_200_desc">Earned by tooth brushing three time on a single day</string>
+    <string name="achievement_210_desc">Earned by brushing teeth three times a day over ten days</string>
+    <string name="achievement_300_desc">Earned by brushing teeth three days in a row</string>
+    <string name="achievement_310_desc">Earned by brushing teeth ten day in a row</string>
+    <string name="achievement_title">Achievements</string>
+    <string name="achievement_error_description">An error occurred while loading achievements</string>
+    <string name="achievement_loading_description">Loading achievements in progress</string>
+    <string name="brush_finished_description">Well done !</string>
+    <string name="brush_start_description">Click to start !</string>
+    <string name="brush_running_description">Brush your teeth !</string>
+    <string name="history_title">History</string>
+    <string name="history_error_description">An error occurred while loading the history</string>
+    <string name="history_loading_description">Loading history in progress</string>
+    <string name="history_row_accessibility_description">%1$s : %2$d in three</string>
+    <string name="settings_brush_duration_title">Tooth brushing duration</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_reminder_title">Reminder</string>
+    <string name="misc_in_progress">In construction</string>
+    <string name="setting_toast_countdown_saved">Countdown duration saved</string>
+    <string name="setting_toast_countdown_loading_error">An error occurred while loading the countdown duration</string>
+    <string name="setting_toast_countdown_save_error">An error occurred while saving the countdown duration</string>
 </resources>

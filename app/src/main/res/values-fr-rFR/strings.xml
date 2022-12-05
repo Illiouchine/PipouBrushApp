@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pipou Brush</string>
+    <string name="screen_brush_menu_title">Brossage</string>
+    <string name="screen_statistics_menu_title">Statistiques</string>
+    <string name="screen_settings_menu_title">Paramètres</string>
+
+    <string name="achievement_100_name">Premier brossage</string>
+    <string name="achievement_110_name">Dix brossage</string>
+    <string name="achievement_200_name">Journée entière</string>
+    <string name="achievement_210_name">Dix journée entière</string>
+    <string name="achievement_300_name">Trois jour d\'affilés</string>
+    <string name="achievement_310_name">Dix fois trois jours d\'affilés</string>
+    <string name="achievement_100_desc">Gagné en terminant un brossage de dents</string>
+    <string name="achievement_110_desc">Gagné en effectuant dix brossages de dents</string>
+    <string name="achievement_200_desc">Gagné en se brossant les dents trois fois en une seule journée</string>
+    <string name="achievement_210_desc">Gagné en brossant les dents trois fois par jour sur dix jours</string>
+    <string name="achievement_300_desc">Gagné lors du brossage de dents trois jours de suite</string>
+    <string name="achievement_310_desc">Gagné en se brossant les dents dix jours de suite</string>
+    <string name="achievement_title">Succès</string>
+    <string name="achievement_error_description">Une erreur est survenu lors du chargement des succès</string>
+    <string name="achievement_loading_description">Chargement des succès en cours</string>
+    <string name="brush_finished_description">Bravo !</string>
+    <string name="brush_start_description">Cliquez pour commencer !</string>
+    <string name="brush_running_description">Brosse-toi les dents !</string>
+    <string name="history_title">Historiques</string>
+    <string name="history_error_description">Une erreur est survenu lors du chargement de l\'historique</string>
+    <string name="history_loading_description">Chargement des succès en cours</string>
+    <string name="history_row_accessibility_description">%1$s : %2$d sur trois</string>
+    <string name="settings_brush_duration_title">Durée de brossage des dents</string>
+    <string name="settings_title">Réglages</string>
+    <string name="settings_reminder_title">Rappel</string>
+    <string name="misc_in_progress">En construction</string>
+    <string name="setting_toast_countdown_saved">Durée du compte à rebours enregistrée</string>
+    <string name="setting_toast_countdown_loading_error">Une erreur est survenu lors du chargement de la durée du compte à rebours</string>
+    <string name="setting_toast_countdown_save_error">Une erreur est survenu lors de l\'enregistrement de la durée du compte à rebours</string>
+</resources>

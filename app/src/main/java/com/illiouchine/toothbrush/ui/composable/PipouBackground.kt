@@ -35,7 +35,7 @@ fun PipouBackground(
             Image(
                 modifier = modifier.fillMaxSize(),
                 bitmap = it,
-                contentDescription = "BG",
+                contentDescription = null,
                 contentScale = ContentScale.Crop
             )
         }

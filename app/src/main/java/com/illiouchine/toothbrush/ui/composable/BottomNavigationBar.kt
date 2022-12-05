@@ -30,7 +30,7 @@ fun BottomNavigationBar(
                     Column {
                         Icon(
                             painter = painterResource(id = screen.iconId),
-                            contentDescription = "",
+                            contentDescription = stringResource(id = screen.textId),
                             modifier = Modifier.fillMaxSize(.35f)
                         )
                         Spacer(modifier = Modifier.height(22.dp))

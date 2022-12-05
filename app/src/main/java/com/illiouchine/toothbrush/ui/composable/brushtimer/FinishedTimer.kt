@@ -8,6 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.illiouchine.toothbrush.R
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
@@ -30,7 +32,11 @@ fun FinishedTimer() {
                 tint = MaterialTheme.colorScheme.secondary
             )
         }
-        Text(text = "Bravo !", color = MaterialTheme.colorScheme.secondary)
+        Text(
+            text = stringResource(R.string.brush_finished_description),
+            color = MaterialTheme.colorScheme.secondary,
+            textAlign = TextAlign.Center
+        )
     }
 }
 

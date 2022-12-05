@@ -7,8 +7,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.illiouchine.toothbrush.R
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsState.CountDownSettings
 import com.illiouchine.toothbrush.ui.composable.PipouBackground
 import com.illiouchine.toothbrush.ui.composable.settings.CountDownSettingsView
@@ -27,7 +29,7 @@ fun SettingsScreen(
     PipouBackground(enableBlur = true){
         val context = LocalContext.current
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Settings", style = typography.titleLarge)
+            Text(text = stringResource(R.string.settings_title), style = typography.titleLarge)
             Row {
                 CountDownSettingsView(
                     countDownState = countDownSettings.toCountDownState(),
@@ -35,8 +37,8 @@ fun SettingsScreen(
                 )
             }
             Spacer(modifier = Modifier.height(2.dp))
-            Text(text = "Reminder", style = typography.titleLarge)
-            Text(text = "Alarme en construction",
+            Text(text = stringResource(R.string.settings_reminder_title), style = typography.titleLarge)
+            Text(text = stringResource(R.string.misc_in_progress),
                 modifier = Modifier.padding(8.dp),
                 style = MaterialTheme.typography.bodyMedium,
             )
@@ -45,13 +47,13 @@ fun SettingsScreen(
         if (event != null){
             when(event){
                 is SettingsContract.SettingsState.SettingsEvent.CountDownSaved -> {
-                    Toast.makeText(context, "CountDownSaved", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, stringResource(R.string.setting_toast_countdown_saved), Toast.LENGTH_LONG).show()
                 }
                 is SettingsContract.SettingsState.SettingsEvent.ErrorLoadingCountDownDuration -> {
-                    Toast.makeText(context, "ErrorLoadingCountDownDuration", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, stringResource(R.string.setting_toast_countdown_loading_error), Toast.LENGTH_LONG).show()
                 }
                 is SettingsContract.SettingsState.SettingsEvent.ErrorSavingCountDownDuration -> {
-                    Toast.makeText(context, "ErrorSavingCountDownDuration", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, stringResource(R.string.setting_toast_countdown_save_error), Toast.LENGTH_LONG).show()
                 }
             }
             onEventHandled(event)
