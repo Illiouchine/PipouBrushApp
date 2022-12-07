@@ -59,11 +59,11 @@ class SettingsViewModel @Inject constructor(
                         )
                     }
                     is SettingsContract.SettingsPartialState.EventHandled -> {
-                        if (currentState.event == partialState.settingsEvent){
+                        if (currentState.event == partialState.settingsEvent) {
                             currentState.copy(
                                 event = null
                             )
-                        }else {
+                        } else {
                             currentState
                         }
                     }
@@ -75,19 +75,35 @@ class SettingsViewModel @Inject constructor(
 
     override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {
-            is SettingsContract.SettingsIntent.UpdateCountDownDuration -> {
+            is Intent.UpdateCountDownDuration -> {
                 Action.UpdateCountDownDuration(
                     intent.duration
                 )
             }
-            is SettingsContract.SettingsIntent.EventHandled -> {
+            is Intent.EventHandled -> {
                 Action.EventHandled(intent.settingsEvent)
+            }
+            is Intent.AlarmChanged -> {
+                Action.ChangeAlarm(
+                    checked = intent.checked,
+                    reminderType = intent.reminderType,
+                    hour = intent.hour,
+                    min = intent.min
+                )
+            }
+            is Intent.NotificationChanged -> {
+                Action.ChangeNotification(
+                    checked = intent.checked,
+                    reminderType = intent.reminderType,
+                    hour = intent.hour,
+                    min = intent.min
+                )
             }
         }
     }
 
     override suspend fun handleAction(action: Action) {
-        when(action) {
+        when (action) {
             Action.LoadSettings -> loadSettings()
             is Action.UpdateCountDownDuration -> saveCountDownDuration(action.duration)
             is SettingsContract.SettingsAction.EventHandled -> {
@@ -95,7 +111,37 @@ class SettingsViewModel @Inject constructor(
                     PartialState.EventHandled(action.settingsEvent)
                 }
             }
+            is Action.ChangeAlarm -> updateNotification(
+                checked = action.checked,
+                reminderType = action.reminderType,
+                hour = action.hour,
+                min = action.min
+            )
+            is Action.ChangeNotification -> updateAlarm(
+                checked = action.checked,
+                reminderType = action.reminderType,
+                hour = action.hour,
+                min = action.min
+            )
         }
+    }
+
+    private fun updateAlarm(
+        checked: Boolean,
+        reminderType: SettingsContract.ReminderType,
+        hour: Int,
+        min: Int
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    private fun updateNotification(
+        checked: Boolean,
+        reminderType: SettingsContract.ReminderType,
+        hour: Int,
+        min: Int
+    ) {
+        TODO("Not yet implemented")
     }
 
     private suspend fun saveCountDownDuration(duration: Duration) {
@@ -104,7 +150,7 @@ class SettingsViewModel @Inject constructor(
             setPartialState {
                 PartialState.CountDownSaved(duration)
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             setPartialState {
                 PartialState.ErrorSavingCountDownDuration(exception = e)
             }
@@ -117,7 +163,7 @@ class SettingsViewModel @Inject constructor(
             setPartialState {
                 PartialState.CountDownDurationLoaded(countDownDuration = countDownDuration)
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             setPartialState {
                 PartialState.ErrorLoadingCountDownDuration(exception = e)
             }

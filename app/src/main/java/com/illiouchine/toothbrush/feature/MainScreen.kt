@@ -23,6 +23,7 @@ import com.illiouchine.toothbrush.feature.statistics.StatisticsContract
 import com.illiouchine.toothbrush.feature.statistics.StatisticsScreen
 import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
 import com.illiouchine.toothbrush.ui.composable.BottomNavigationBar
+import com.illiouchine.toothbrush.ui.composable.settings.reminder.ReminderType
 import kotlin.time.Duration
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -82,10 +83,32 @@ fun MainScreen() {
                             settingsViewModel.dispatchIntent(
                                 SettingsContract.SettingsIntent.EventHandled(settingsEvent)
                             )
-                        }
+                        },
+                        onAlarmCheckedChanged = { checked,reminderType,hour,min ->
+                            settingsViewModel.dispatchIntent(
+                                SettingsContract.SettingsIntent.AlarmChanged(
+                                    checked,reminderType.toVMData(),hour,min
+                                )
+                            )
+                        },
+                        onNotificationCheckedChanged = { checked,reminderType,hour,min ->
+                            settingsViewModel.dispatchIntent(
+                                SettingsContract.SettingsIntent.NotificationChanged(
+                                    checked,reminderType.toVMData(),hour,min
+                                )
+                            )
+                        },
                     )
                 }
             }
         }
+    }
+}
+
+private fun ReminderType.toVMData(): SettingsContract.ReminderType {
+    return when(this){
+        ReminderType.Evening -> SettingsContract.ReminderType.Evening
+        ReminderType.Midday -> SettingsContract.ReminderType.Midday
+        ReminderType.Morning -> SettingsContract.ReminderType.Morning
     }
 }

@@ -1,8 +1,10 @@
 package com.illiouchine.toothbrush.feature.settings
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +17,9 @@ import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsStat
 import com.illiouchine.toothbrush.ui.composable.PipouBackground
 import com.illiouchine.toothbrush.ui.composable.settings.CountDownSettingsView
 import com.illiouchine.toothbrush.ui.composable.settings.CountDownState
+import com.illiouchine.toothbrush.ui.composable.settings.ThanksView
+import com.illiouchine.toothbrush.ui.composable.settings.reminder.ReminderType
+import com.illiouchine.toothbrush.ui.composable.settings.reminder.ReminderView
 import com.illiouchine.toothbrush.ui.typography
 import kotlin.time.Duration
 
@@ -24,30 +29,27 @@ fun SettingsScreen(
     countDownSettings: CountDownSettings = CountDownSettings.Loading,
     event: SettingsContract.SettingsState.SettingsEvent? = null,
     onCountDownDurationChanged: (Duration) -> Unit = {},
-    onEventHandled: (SettingsContract.SettingsState.SettingsEvent) -> Unit = {}
-) {
+    onEventHandled: (SettingsContract.SettingsState.SettingsEvent) -> Unit = {},
+    onAlarmCheckedChanged: ((checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit) = { _, _, _, _ -> },
+    onNotificationCheckedChanged: ((checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit) = { _, _, _, _ -> },
+    ) {
     PipouBackground(enableBlur = true){
         val context = LocalContext.current
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = stringResource(R.string.settings_title), style = typography.titleLarge)
-            Row {
-                CountDownSettingsView(
-                    countDownState = countDownSettings.toCountDownState(),
-                    onCountDownDurationChanged = { onCountDownDurationChanged(it) }
-                )
-            }
+            CountDownSettingsView(
+                countDownState = countDownSettings.toCountDownState(),
+                onCountDownDurationChanged = { onCountDownDurationChanged(it) }
+            )
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = stringResource(R.string.settings_reminder_title), style = typography.titleLarge)
-            Text(text = stringResource(R.string.misc_in_progress),
-                modifier = Modifier.padding(8.dp),
-                style = MaterialTheme.typography.bodyMedium,
+            ReminderView(
+                onAlarmCheckedChanged = {_,_,_,_ -> /* TODO */ },
+                onNotificationCheckedChanged = {_,_,_,_ -> /* TODO */ }
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = stringResource(R.string.settings_thanks_title), style = typography.titleLarge)
-            Text(text = stringResource(R.string.settings_thanks_krog),
-                modifier = Modifier.padding(8.dp),
-                style = MaterialTheme.typography.bodyMedium,
-            )
+            ThanksView()
         }
 
         if (event != null){

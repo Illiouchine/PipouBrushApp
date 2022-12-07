@@ -8,11 +8,44 @@ interface SettingsContract {
     sealed class SettingsIntent : UiIntent {
         data class UpdateCountDownDuration(val duration: Duration) : SettingsIntent()
         data class EventHandled(val settingsEvent: SettingsState.SettingsEvent) : SettingsIntent()
+        data class AlarmChanged(
+            val checked: Boolean,
+            val reminderType: ReminderType,
+            val hour: Int,
+            val min: Int
+        ) : SettingsIntent()
+
+        class NotificationChanged(
+            val checked: Boolean,
+            val reminderType: ReminderType,
+            val hour: Int,
+            val min: Int
+        ) : SettingsIntent()
     }
 
     sealed class SettingsAction : UiAction {
-        data class UpdateCountDownDuration(val duration: Duration) : SettingsAction()
-        data class EventHandled(val settingsEvent: SettingsState.SettingsEvent) : SettingsAction()
+        data class UpdateCountDownDuration(
+            val duration: Duration
+        ) : SettingsAction()
+
+        data class EventHandled(
+            val settingsEvent: SettingsState.SettingsEvent
+        ) : SettingsAction()
+
+        data class ChangeNotification(
+            val checked: Boolean,
+            val reminderType: ReminderType,
+            val hour: Int,
+            val min: Int
+        ) : SettingsAction()
+
+        data class ChangeAlarm(
+            val checked: Boolean,
+            val reminderType: ReminderType,
+            val hour: Int,
+            val min: Int
+        ) : SettingsAction()
+
 
         object LoadSettings : SettingsAction()
     }
@@ -21,16 +54,18 @@ interface SettingsContract {
         val countDownSettings: CountDownSettings,
         override val event: SettingsEvent?,
     ) : UiState {
-        sealed class CountDownSettings{
+        sealed class CountDownSettings {
             object Loading : CountDownSettings()
             data class Loaded(
-                val countDownDuration : Duration
-            ): CountDownSettings()
+                val countDownDuration: Duration
+            ) : CountDownSettings()
         }
+
         sealed class SettingsEvent : UiEvent {
             data class ErrorLoadingCountDownDuration(
                 val exception: Exception
             ) : SettingsEvent()
+
             data class ErrorSavingCountDownDuration(val exception: Exception) : SettingsEvent()
             data class CountDownSaved(val duration: Duration) : SettingsEvent()
         }
@@ -44,6 +79,13 @@ interface SettingsContract {
         data class CountDownSaved(val duration: Duration) : SettingsPartialState()
         data class ErrorSavingCountDownDuration(val exception: Exception) : SettingsPartialState()
         data class ErrorLoadingCountDownDuration(val exception: Exception) : SettingsPartialState()
-        data class EventHandled(val settingsEvent: SettingsState.SettingsEvent) : SettingsPartialState()
+        data class EventHandled(val settingsEvent: SettingsState.SettingsEvent) :
+            SettingsPartialState()
+    }
+
+    sealed class ReminderType {
+        object Morning : ReminderType()
+        object Midday : ReminderType()
+        object Evening : ReminderType()
     }
 }
