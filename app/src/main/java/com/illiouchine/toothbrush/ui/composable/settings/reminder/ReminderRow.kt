@@ -11,14 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import java.util.*
 
 @Preview
 @Composable
 fun ReminderRow(
     reminderType: ReminderType = ReminderType.Morning,
-    onNotificationCheckedChanged: (checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit = { _,_,_,_ -> },
+    enabledSwitch: Boolean = true,
+    onNotificationCheckedChanged: (checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit = { _, _, _, _ -> },
 ) {
     // Declaring and initializing a calendar
     val mCalendar = Calendar.getInstance()
@@ -30,7 +30,7 @@ fun ReminderRow(
 
     val timePickerDialog = TimePickerDialog(
         /* context = */ LocalContext.current,
-        /* listener = */ { _, mHour : Int, mMinute: Int ->
+        /* listener = */ { _, mHour: Int, mMinute: Int ->
             mTime.value = "$mHour:$mMinute"
         },
         /* hourOfDay = */ mHour,
@@ -47,7 +47,7 @@ fun ReminderRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
-        ){
+        ) {
             Row {
                 ReminderRowTitle()
             }
@@ -75,7 +75,10 @@ fun ReminderRow(
                         .fillMaxHeight()
                         .weight(.4f)
                 ) {
-                    ReminderSwitch("Notification") { checked ->
+                    ReminderSwitch(
+                        text = "Notification",
+                        enabled = enabledSwitch
+                    ) { checked ->
                         onNotificationCheckedChanged(checked, reminderType, mHour, mMinute)
                     }
                 }
