@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import java.text.SimpleDateFormat
 import java.util.*
 
 @Preview
@@ -20,21 +21,25 @@ fun ReminderRow(
     enabledSwitch: Boolean = true,
     onNotificationCheckedChanged: (checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit = { _, _, _, _ -> },
 ) {
-    // Declaring and initializing a calendar
-    val mCalendar = Calendar.getInstance()
-    val mHour = mCalendar[Calendar.HOUR_OF_DAY]
-    val mMinute = mCalendar[Calendar.MINUTE]
 
-    // Value for storing time as a string
-    val mTime = remember { mutableStateOf("$mHour:$mMinute") }
+    val initialHour = when(reminderType){
+        ReminderType.Evening -> 19
+        ReminderType.Midday -> 12
+        ReminderType.Morning -> 8
+    }
+    val initialMin = 0
+
+    val hour = remember { mutableStateOf(initialHour) }
+    val min = remember { mutableStateOf(initialMin) }
 
     val timePickerDialog = TimePickerDialog(
         /* context = */ LocalContext.current,
-        /* listener = */ { _, mHour: Int, mMinute: Int ->
-            mTime.value = "$mHour:$mMinute"
+        /* listener = */ { _, selectedHour: Int, selectedMinute: Int ->
+            hour.value = selectedHour
+            min.value = selectedMinute
         },
-        /* hourOfDay = */ mHour,
-        /* minute = */ mMinute,
+        /* hourOfDay = */ hour.value,
+        /* minute = */ min.value,
         /* is24HourView = */ true
     )
     Row(
@@ -62,8 +67,13 @@ fun ReminderRow(
                         .fillMaxHeight()
                         .weight(.6f)
                 ) {
+                    val calendar = Calendar.getInstance().apply {
+                        set(Calendar.HOUR_OF_DAY, hour.value)
+                        set(Calendar.MINUTE, min.value)
+                    }
+                    val formattedTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(calendar.time)
                     Text(
-                        text = mTime.value,
+                        text = formattedTime,
                         modifier = Modifier
                             .padding(8.dp)
                             .fillMaxSize()
@@ -79,7 +89,7 @@ fun ReminderRow(
                         text = "Notification",
                         enabled = enabledSwitch
                     ) { checked ->
-                        onNotificationCheckedChanged(checked, reminderType, mHour, mMinute)
+                        onNotificationCheckedChanged(checked, reminderType, hour.value, min.value)
                     }
                 }
             }

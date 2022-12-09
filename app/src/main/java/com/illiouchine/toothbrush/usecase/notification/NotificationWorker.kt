@@ -32,18 +32,23 @@ class NotificationWorker(
     private fun sendNotification(id: Int) {
         val intent = Intent(context, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        intent.putExtra(NOTIFICATION_ID, id)
+        intent.putExtra(NotificationWorker.NOTIFICATION_ID, id)
 
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val titleNotification = "Time to brush your tooth" //applicationContext.getString(R.string.notification_title)
         val subtitleNotification = "subtitleNotification" //applicationContext.getString(R.string.notification_subtitle)
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
-        val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL)
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        } else {
+            PendingIntent.getActivity(context, 0, intent, 0)
+        }
+        val notification = NotificationCompat.Builder(context,
+            NotificationWorker.NOTIFICATION_CHANNEL
+        )
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle(titleNotification)
-            .setContentText(subtitleNotification)
+            .setContentTitle(titleNotification).setContentText(subtitleNotification)
             .setDefaults(Notification.DEFAULT_ALL)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
@@ -51,7 +56,7 @@ class NotificationWorker(
         notification.priority = JobInfo.PRIORITY_MAX
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notification.setChannelId(NOTIFICATION_CHANNEL)
+            notification.setChannelId(NotificationWorker.NOTIFICATION_CHANNEL)
 
             val ringtoneManager = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val audioAttributes = AudioAttributes.Builder()
@@ -60,7 +65,7 @@ class NotificationWorker(
                 .build()
 
             val channel =
-                NotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_NAME, NotificationManager.IMPORTANCE_HIGH)
+                NotificationChannel(NotificationWorker.NOTIFICATION_CHANNEL, NotificationWorker.NOTIFICATION_NAME, NotificationManager.IMPORTANCE_HIGH)
 
             channel.enableLights(true)
             channel.lightColor = Color.RED
