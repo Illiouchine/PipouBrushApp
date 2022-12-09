@@ -84,13 +84,6 @@ fun MainScreen() {
                                 SettingsContract.SettingsIntent.EventHandled(settingsEvent)
                             )
                         },
-                        onAlarmCheckedChanged = { checked,reminderType,hour,min ->
-                            settingsViewModel.dispatchIntent(
-                                SettingsContract.SettingsIntent.AlarmChanged(
-                                    checked,reminderType.toVMData(),hour,min
-                                )
-                            )
-                        },
                         onNotificationCheckedChanged = { checked,reminderType,hour,min ->
                             settingsViewModel.dispatchIntent(
                                 SettingsContract.SettingsIntent.NotificationChanged(

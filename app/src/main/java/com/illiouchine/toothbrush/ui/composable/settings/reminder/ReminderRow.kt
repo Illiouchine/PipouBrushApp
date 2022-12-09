@@ -11,14 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import java.util.*
-
 
 @Preview
 @Composable
 fun ReminderRow(
     reminderType: ReminderType = ReminderType.Morning,
-    onAlarmCheckedChanged: (checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit = { _,_,_,_ -> },
     onNotificationCheckedChanged: (checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit = { _,_,_,_ -> },
 ) {
     // Declaring and initializing a calendar
@@ -76,9 +75,6 @@ fun ReminderRow(
                         .fillMaxHeight()
                         .weight(.4f)
                 ) {
-                    ReminderSwitch("Alarm"){ checked ->
-                        onAlarmCheckedChanged(checked, reminderType, mHour, mMinute)
-                    }
                     ReminderSwitch("Notification") { checked ->
                         onNotificationCheckedChanged(checked, reminderType, mHour, mMinute)
                     }

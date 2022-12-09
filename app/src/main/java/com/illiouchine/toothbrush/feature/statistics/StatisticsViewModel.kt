@@ -3,7 +3,7 @@ package com.illiouchine.toothbrush.feature.statistics
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
-import com.illiouchine.toothbrush.usecase.GetAchievementsUseCase
+import com.illiouchine.toothbrush.usecase.achievement.GetAchievementsUseCase
 import com.illiouchine.toothbrush.usecase.GetBrushHistoryUseCase
 import com.illiouchine.toothbrush.usecase.datagateway.Achievement
 import dagger.hilt.android.lifecycle.HiltViewModel

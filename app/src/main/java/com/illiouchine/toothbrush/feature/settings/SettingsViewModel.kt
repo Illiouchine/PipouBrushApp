@@ -2,8 +2,9 @@ package com.illiouchine.toothbrush.feature.settings
 
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
-import com.illiouchine.toothbrush.usecase.GetCountDownDurationUseCase
-import com.illiouchine.toothbrush.usecase.SetCountDownDurationUseCase
+import com.illiouchine.toothbrush.usecase.countdown.GetCountDownDurationUseCase
+import com.illiouchine.toothbrush.usecase.notification.UpdateNotificationUseCase
+import com.illiouchine.toothbrush.usecase.countdown.SetCountDownDurationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.time.Duration
@@ -15,7 +16,8 @@ import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsStat
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val getCountDownDurationUseCase: GetCountDownDurationUseCase,
-    private val setCountDownDurationUseCase: SetCountDownDurationUseCase
+    private val setCountDownDurationUseCase: SetCountDownDurationUseCase,
+    private val updateNotificationUseCase: UpdateNotificationUseCase,
 ) : MviViewModel<Intent, Action, PartialState, State>() {
 
     init {
@@ -83,14 +85,6 @@ class SettingsViewModel @Inject constructor(
             is Intent.EventHandled -> {
                 Action.EventHandled(intent.settingsEvent)
             }
-            is Intent.AlarmChanged -> {
-                Action.ChangeAlarm(
-                    checked = intent.checked,
-                    reminderType = intent.reminderType,
-                    hour = intent.hour,
-                    min = intent.min
-                )
-            }
             is Intent.NotificationChanged -> {
                 Action.ChangeNotification(
                     checked = intent.checked,
@@ -111,28 +105,15 @@ class SettingsViewModel @Inject constructor(
                     PartialState.EventHandled(action.settingsEvent)
                 }
             }
-            is Action.ChangeAlarm -> updateNotification(
-                checked = action.checked,
-                reminderType = action.reminderType,
-                hour = action.hour,
-                min = action.min
-            )
-            is Action.ChangeNotification -> updateAlarm(
-                checked = action.checked,
-                reminderType = action.reminderType,
-                hour = action.hour,
-                min = action.min
-            )
+            is Action.ChangeNotification -> {
+                updateNotification(
+                    checked = action.checked,
+                    reminderType = action.reminderType,
+                    hour = action.hour,
+                    min = action.min
+                )
+            }
         }
-    }
-
-    private fun updateAlarm(
-        checked: Boolean,
-        reminderType: SettingsContract.ReminderType,
-        hour: Int,
-        min: Int
-    ) {
-        TODO("Not yet implemented")
     }
 
     private fun updateNotification(
@@ -141,7 +122,8 @@ class SettingsViewModel @Inject constructor(
         hour: Int,
         min: Int
     ) {
-        TODO("Not yet implemented")
+        updateNotificationUseCase(checked, reminderType.toDayPeriod(), hour, min)
+        //https://developer.android.com/develop/ui/views/notifications/time-sensitive
     }
 
     private suspend fun saveCountDownDuration(duration: Duration) {
@@ -168,5 +150,13 @@ class SettingsViewModel @Inject constructor(
                 PartialState.ErrorLoadingCountDownDuration(exception = e)
             }
         }
+    }
+}
+
+private fun SettingsContract.ReminderType.toDayPeriod(): UpdateNotificationUseCase.DayPeriod {
+    return when(this){
+        SettingsContract.ReminderType.Evening -> UpdateNotificationUseCase.DayPeriod.Evening
+        SettingsContract.ReminderType.Midday -> UpdateNotificationUseCase.DayPeriod.Midday
+        SettingsContract.ReminderType.Morning -> UpdateNotificationUseCase.DayPeriod.Morning
     }
 }

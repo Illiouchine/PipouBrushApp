@@ -8,12 +8,6 @@ interface SettingsContract {
     sealed class SettingsIntent : UiIntent {
         data class UpdateCountDownDuration(val duration: Duration) : SettingsIntent()
         data class EventHandled(val settingsEvent: SettingsState.SettingsEvent) : SettingsIntent()
-        data class AlarmChanged(
-            val checked: Boolean,
-            val reminderType: ReminderType,
-            val hour: Int,
-            val min: Int
-        ) : SettingsIntent()
 
         class NotificationChanged(
             val checked: Boolean,
@@ -38,14 +32,6 @@ interface SettingsContract {
             val hour: Int,
             val min: Int
         ) : SettingsAction()
-
-        data class ChangeAlarm(
-            val checked: Boolean,
-            val reminderType: ReminderType,
-            val hour: Int,
-            val min: Int
-        ) : SettingsAction()
-
 
         object LoadSettings : SettingsAction()
     }

@@ -1,10 +1,10 @@
-package com.illiouchine.toothbrush.usecase
+package com.illiouchine.toothbrush.usecase.achievement
 
+import com.illiouchine.toothbrush.usecase.GetBrushHistoryUseCase
 import com.illiouchine.toothbrush.usecase.datagateway.Achievement
 import com.illiouchine.toothbrush.usecase.datagateway.AchievementDataGateway
 import com.illiouchine.toothbrush.usecase.datagateway.AchievementReference
 import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
-import com.illiouchine.toothbrush.usecase.utils.countTenDayInRow
 import com.illiouchine.toothbrush.usecase.utils.countThreeDayInRow
 import java.util.*
 import javax.inject.Inject

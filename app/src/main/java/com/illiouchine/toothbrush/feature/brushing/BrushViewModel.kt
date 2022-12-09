@@ -4,6 +4,10 @@ import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
 import com.illiouchine.toothbrush.usecase.*
+import com.illiouchine.toothbrush.usecase.achievement.EarnBrushAchievementUseCase
+import com.illiouchine.toothbrush.usecase.countdown.GetCountDownDurationUseCase
+import com.illiouchine.toothbrush.usecase.countdown.LaunchVibratorUseCase
+import com.illiouchine.toothbrush.usecase.countdown.StartCountDownUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

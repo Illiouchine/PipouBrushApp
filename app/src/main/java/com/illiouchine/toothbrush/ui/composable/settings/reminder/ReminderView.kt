@@ -13,33 +13,23 @@ sealed class ReminderType{
 @Preview
 @Composable
 fun ReminderView(
-    onAlarmCheckedChanged: ((checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit) = { _,_,_,_ -> },
     onNotificationCheckedChanged: ((checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit) = { _,_,_,_ -> },
 ) {
     Column {
         ReminderRow(
             reminderType = ReminderType.Morning,
-            onAlarmCheckedChanged = { checked: Boolean, reminderType: ReminderType, hour: Int, min: Int ->
-                onAlarmCheckedChanged(checked, reminderType, hour, min)
-            },
             onNotificationCheckedChanged = { checked: Boolean, reminderType: ReminderType, hour: Int, min: Int ->
                 onNotificationCheckedChanged(checked, reminderType, hour, min)
             },
         )
         ReminderRow(
             reminderType = ReminderType.Midday,
-            onAlarmCheckedChanged = { checked: Boolean, reminderType: ReminderType, hour: Int, min: Int ->
-                onAlarmCheckedChanged(checked, reminderType, hour, min)
-            },
             onNotificationCheckedChanged = { checked: Boolean, reminderType: ReminderType, hour: Int, min: Int ->
                 onNotificationCheckedChanged(checked, reminderType, hour, min)
             },
         )
         ReminderRow(
             reminderType = ReminderType.Evening,
-            onAlarmCheckedChanged = { checked: Boolean, reminderType: ReminderType, hour: Int, min: Int ->
-                onAlarmCheckedChanged(checked, reminderType, hour, min)
-            },
             onNotificationCheckedChanged = { checked: Boolean, reminderType: ReminderType, hour: Int, min: Int ->
                 onNotificationCheckedChanged(checked, reminderType, hour, min)
             },

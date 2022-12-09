@@ -30,10 +30,9 @@ fun SettingsScreen(
     event: SettingsContract.SettingsState.SettingsEvent? = null,
     onCountDownDurationChanged: (Duration) -> Unit = {},
     onEventHandled: (SettingsContract.SettingsState.SettingsEvent) -> Unit = {},
-    onAlarmCheckedChanged: ((checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit) = { _, _, _, _ -> },
     onNotificationCheckedChanged: ((checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit) = { _, _, _, _ -> },
-    ) {
-    PipouBackground(enableBlur = true){
+) {
+    PipouBackground(enableBlur = true) {
         val context = LocalContext.current
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = stringResource(R.string.settings_title), style = typography.titleLarge)
@@ -42,26 +41,46 @@ fun SettingsScreen(
                 onCountDownDurationChanged = { onCountDownDurationChanged(it) }
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = stringResource(R.string.settings_reminder_title), style = typography.titleLarge)
+            Text(
+                text = stringResource(R.string.settings_reminder_title),
+                style = typography.titleLarge
+            )
             ReminderView(
-                onAlarmCheckedChanged = {_,_,_,_ -> /* TODO */ },
-                onNotificationCheckedChanged = {_,_,_,_ -> /* TODO */ }
+                onNotificationCheckedChanged = { activate, reminderType, hour, min ->
+                    onNotificationCheckedChanged(activate, reminderType, hour, min)
+
+                }
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = stringResource(R.string.settings_thanks_title), style = typography.titleLarge)
+            Text(
+                text = stringResource(R.string.settings_thanks_title),
+                style = typography.titleLarge
+            )
             ThanksView()
         }
 
-        if (event != null){
-            when(event){
+        if (event != null) {
+            when (event) {
                 is SettingsContract.SettingsState.SettingsEvent.CountDownSaved -> {
-                    Toast.makeText(context, stringResource(R.string.setting_toast_countdown_saved), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        stringResource(R.string.setting_toast_countdown_saved),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 is SettingsContract.SettingsState.SettingsEvent.ErrorLoadingCountDownDuration -> {
-                    Toast.makeText(context, stringResource(R.string.setting_toast_countdown_loading_error), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        stringResource(R.string.setting_toast_countdown_loading_error),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 is SettingsContract.SettingsState.SettingsEvent.ErrorSavingCountDownDuration -> {
-                    Toast.makeText(context, stringResource(R.string.setting_toast_countdown_save_error), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        stringResource(R.string.setting_toast_countdown_save_error),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
             onEventHandled(event)
@@ -70,7 +89,7 @@ fun SettingsScreen(
 }
 
 fun CountDownSettings.toCountDownState(): CountDownState {
-    return when (this){
+    return when (this) {
         CountDownSettings.Loading -> CountDownState.Loading
         is CountDownSettings.Loaded -> {
             CountDownState.Loaded(duration = countDownDuration)

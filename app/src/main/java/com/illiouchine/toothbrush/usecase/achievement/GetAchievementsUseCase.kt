@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.usecase
+package com.illiouchine.toothbrush.usecase.achievement
 
 import com.illiouchine.toothbrush.usecase.datagateway.Achievement
 import com.illiouchine.toothbrush.usecase.datagateway.AchievementDataGateway

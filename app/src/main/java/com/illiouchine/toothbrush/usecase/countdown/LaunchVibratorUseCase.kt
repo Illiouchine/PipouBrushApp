@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.usecase
+package com.illiouchine.toothbrush.usecase.countdown
 
 import android.content.Context
 import android.os.Build

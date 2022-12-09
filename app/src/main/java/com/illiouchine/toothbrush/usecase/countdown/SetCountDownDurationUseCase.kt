@@ -1,4 +1,4 @@
-package com.illiouchine.toothbrush.usecase
+package com.illiouchine.toothbrush.usecase.countdown
 
 import com.illiouchine.toothbrush.usecase.datagateway.CountDownDurationDataGateway
 import javax.inject.Inject
