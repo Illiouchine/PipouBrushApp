@@ -28,13 +28,13 @@ fun AchievementContent(
         Spacer(modifier = Modifier.height(8.dp))
 
         Row {
-            when(achievementState){
+            when (achievementState) {
                 AchievementState.Error -> {
                     Text(text = stringResource(R.string.achievement_error_description))
                 }
                 is AchievementState.Loaded -> {
                     LazyColumn {
-                        items(achievementState.achievements){ achievement ->
+                        items(achievementState.achievements) { achievement ->
                             AchievementRow(achievement)
                         }
                     }
@@ -64,7 +64,7 @@ fun AchievementRow(
                 modifier = Modifier.size(44.dp),
                 painter = painterResource(id = R.drawable.ic_achievement_trophy),
                 contentDescription = null,
-                tint = if(achievement.earned){
+                tint = if (achievement.earned) {
                     MaterialTheme.colorScheme.secondary
                 } else {
                     MaterialTheme.colorScheme.secondaryContainer

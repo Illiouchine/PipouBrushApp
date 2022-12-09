@@ -12,8 +12,8 @@ import com.illiouchine.toothbrush.ui.composable.achievement.AchievementContent
 import com.illiouchine.toothbrush.ui.composable.achievement.AchievementState
 import com.illiouchine.toothbrush.ui.composable.history.HistoryContent
 import com.illiouchine.toothbrush.ui.composable.history.HistoryState
-import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.HistoryState as VMHistoryState
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.AchievementState as VMAchievementState
+import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.HistoryState as VMHistoryState
 
 @Preview
 @Composable

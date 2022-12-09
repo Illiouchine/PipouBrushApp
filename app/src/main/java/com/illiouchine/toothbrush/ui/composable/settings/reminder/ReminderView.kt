@@ -1,6 +1,7 @@
 package com.illiouchine.toothbrush.ui.composable.settings.reminder
 
 import android.Manifest
+import android.os.Build
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -26,10 +27,13 @@ sealed class ReminderType{
 fun ReminderView(
     onNotificationCheckedChanged: ((checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit) = { _,_,_,_ -> },
 ) {
-    // TODO Manage < Tiramisu
-    val notificationPermissionState = rememberPermissionState(
-        permission = Manifest.permission.POST_NOTIFICATIONS
-    )
+    val notificationPermissionState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        rememberPermissionState(
+            permission = Manifest.permission.POST_NOTIFICATIONS
+        )
+    } else {
+        rememberPermissionState(permission ="android.permission.POST_NOTIFICATIONS")
+    }
 
     Column {
         if (!notificationPermissionState.status.isGranted) {
@@ -41,7 +45,8 @@ fun ReminderView(
                     // If the user has denied the permission but the rationale can be shown,
                     // then gently explain why the app requires this permission
                     Column(
-                        modifier = Modifier.wrapContentHeight()
+                        modifier = Modifier
+                            .wrapContentHeight()
                             .padding(8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {

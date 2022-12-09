@@ -56,7 +56,7 @@ fun MainScreen() {
                         achievements = brushState.achievement,
                         onRestartClick = { brushViewModel.dispatchIntent(BrushContract.BrushIntent.ResetBrushing) },
                         onStartClick = { brushViewModel.dispatchIntent(BrushContract.BrushIntent.StartBrushing) },
-                        onAchievementsHandled = { brushViewModel.dispatchIntent(BrushContract.BrushIntent.AchievementHandled ) }
+                        onAchievementsHandled = { brushViewModel.dispatchIntent(BrushContract.BrushIntent.AchievementHandled) }
                     )
                 }
                 composable(Screen.Statistics.route) {
@@ -74,7 +74,7 @@ fun MainScreen() {
                     SettingsScreen(
                         countDownSettings = settingsState.countDownSettings,
                         event = settingsState.event,
-                        onCountDownDurationChanged = { duration : Duration ->
+                        onCountDownDurationChanged = { duration: Duration ->
                             settingsViewModel.dispatchIntent(
                                 SettingsContract.SettingsIntent.UpdateCountDownDuration(duration)
                             )
@@ -84,10 +84,10 @@ fun MainScreen() {
                                 SettingsContract.SettingsIntent.EventHandled(settingsEvent)
                             )
                         },
-                        onNotificationCheckedChanged = { checked,reminderType,hour,min ->
+                        onNotificationCheckedChanged = { checked, reminderType, hour, min ->
                             settingsViewModel.dispatchIntent(
                                 SettingsContract.SettingsIntent.NotificationChanged(
-                                    checked,reminderType.toVMData(),hour,min
+                                    checked, reminderType.toVMData(), hour, min
                                 )
                             )
                         },
@@ -99,7 +99,7 @@ fun MainScreen() {
 }
 
 private fun ReminderType.toVMData(): SettingsContract.ReminderType {
-    return when(this){
+    return when (this) {
         ReminderType.Evening -> SettingsContract.ReminderType.Evening
         ReminderType.Midday -> SettingsContract.ReminderType.Midday
         ReminderType.Morning -> SettingsContract.ReminderType.Morning
