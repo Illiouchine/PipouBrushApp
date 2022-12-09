@@ -3,10 +3,14 @@ package com.illiouchine.toothbrush.ui.composable.settings.reminder
 import android.app.TimePickerDialog
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,7 +69,8 @@ fun ReminderRow(
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()
-                        .weight(.6f)
+                        .weight(.6f),
+                    verticalArrangement = Arrangement.Center
                 ) {
                     val calendar = Calendar.getInstance().apply {
                         set(Calendar.HOUR_OF_DAY, hour.value)
@@ -76,21 +81,24 @@ fun ReminderRow(
                         text = formattedTime,
                         modifier = Modifier
                             .padding(8.dp)
-                            .fillMaxSize()
                             .clickable { timePickerDialog.show() }
                     )
                 }
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()
-                        .weight(.4f)
+                        .weight(.4f),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    ReminderSwitch(
-                        text = "Notification",
-                        enabled = enabledSwitch
-                    ) { checked ->
-                        onNotificationCheckedChanged(checked, reminderType, hour.value, min.value)
-                    }
+                    Switch(
+                        enabled = enabledSwitch,
+                        modifier = Modifier.padding(end = 8.dp),
+                        checked = false,
+                        onCheckedChange = { onNotificationCheckedChanged(it, reminderType, hour.value, min.value) },
+                        colors = SwitchDefaults.colors(
+                            checkedTrackColor = MaterialTheme.colorScheme.secondary
+                        )
+                    )
                 }
             }
         }

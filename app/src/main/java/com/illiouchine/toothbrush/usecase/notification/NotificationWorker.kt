@@ -79,9 +79,8 @@ class NotificationWorker(
     }
 
     companion object {
-        const val NOTIFICATION_ID = "appName_notification_id"
-        const val NOTIFICATION_NAME = "appName"
-        const val NOTIFICATION_CHANNEL = "appName_channel_01"
-        const val NOTIFICATION_WORK = "appName_notification_work"
+        const val NOTIFICATION_ID = "PipouBrushApp_notification_id"
+        const val NOTIFICATION_NAME = "PipouBrushApp Daily Reminder"
+        const val NOTIFICATION_CHANNEL = "PipouBrushApp_channel_01"
     }
 }

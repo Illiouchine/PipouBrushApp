@@ -29,10 +29,10 @@ class UpdateNotificationUseCase @Inject constructor(
     private val context: Context
 ) {
 
-    sealed class DayPeriod {
-        object Morning : DayPeriod()
-        object Midday : DayPeriod()
-        object Evening : DayPeriod()
+    enum class DayPeriod(val workId: String, val notificationId: Int) {
+        Morning("appName_notification_work_morning", 100),
+        Midday("appName_notification_work_midday", 200),
+        Evening("appName_notification_work_evening", 300),
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
@@ -53,22 +53,23 @@ class UpdateNotificationUseCase @Inject constructor(
             triggerCalendar.add(Calendar.DAY_OF_YEAR, 1)
         }
 
-        val data = Data.Builder().putInt(NotificationWorker.NOTIFICATION_ID, 0).build()
+        val data = Data.Builder().putInt(NotificationWorker.NOTIFICATION_ID, dayPeriod.notificationId).build()
         val delay = triggerCalendar.timeInMillis - currentCalendar.timeInMillis
 
-        scheduleNotification(delay, data)
+        scheduleNotification(delay, data, dayPeriod.workId)
     }
 
-    private fun scheduleNotification(delay: Long, data: Data) {
+    private fun scheduleNotification(delay: Long, data: Data, workerId: String) {
         val notificationWork = PeriodicWorkRequest.Builder(
             NotificationWorker::class.java,
-            1, TimeUnit.DAYS
+            1,
+            TimeUnit.DAYS
         )
             .setInitialDelay(delay, TimeUnit.MILLISECONDS)
             .setInputData(data)
             .build()
 
         val instanceWorkManager = WorkManager.getInstance(context)
-        instanceWorkManager.enqueueUniquePeriodicWork(NotificationWorker.NOTIFICATION_WORK, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
+        instanceWorkManager.enqueueUniquePeriodicWork(workerId, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
     }
 }

@@ -11,19 +11,19 @@ fun ReminderRowTitle(reminderType: ReminderType = ReminderType.Morning) {
     when(reminderType){
         ReminderType.Evening -> {
             Text(
-                text = "Evening reminder",
+                text = "Evening notification",
                 style = MaterialTheme.typography.titleSmall,
             )
         }
         ReminderType.Midday -> {
             Text(
-                text = "Midday reminder",
+                text = "Midday notification",
                 style = MaterialTheme.typography.titleSmall,
             )
         }
         ReminderType.Morning -> {
             Text(
-                text = "Morning reminder",
+                text = "Morning notification",
                 style = MaterialTheme.typography.titleSmall,
             )
         }
