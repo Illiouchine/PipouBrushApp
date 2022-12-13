@@ -27,6 +27,8 @@ sealed class ReminderType{
 fun ReminderView(
     onNotificationCheckedChanged: ((checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit) = { _,_,_,_ -> },
 ) {
+
+    // Manage SCHEDULE_EXACT_ALARM permission too
     val notificationPermissionState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         rememberPermissionState(
             permission = Manifest.permission.POST_NOTIFICATIONS

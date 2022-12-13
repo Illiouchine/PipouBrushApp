@@ -1,13 +1,16 @@
 package com.illiouchine.toothbrush.usecase.notification
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import androidx.work.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-
 
 class SetupTimedNotificationUseCase @Inject constructor(
     @ApplicationContext
@@ -27,45 +30,76 @@ class SetupTimedNotificationUseCase @Inject constructor(
         hour: Int,
         min: Int
     ) {
-        val currentCalendar = Calendar.getInstance()
-
-        val triggerCalendar = Calendar.getInstance().apply {
+        // Set the alarm to start at 8:30 a.m.
+        val calendar: Calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
             set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, min)
         }
 
-        if (triggerCalendar.before(currentCalendar)) {
-            triggerCalendar.add(Calendar.DAY_OF_YEAR, 1)
+        scheduleAlarmManager(calendar, dayPeriod)
+    }
+
+    private fun scheduleAlarmManager(calendar: Calendar, dayPeriod: DayPeriod) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java).let {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PendingIntent.getBroadcast(context, 0, it, PendingIntent.FLAG_IMMUTABLE)
+            } else {
+                PendingIntent.getBroadcast(context, 0, it, 0)
+            }
+
         }
-
-        val delay = triggerCalendar.timeInMillis - currentCalendar.timeInMillis
-
-        scheduleNotificationWorker(delay, dayPeriod)
-    }
-
-    private fun scheduleNotificationWorker(delay: Long, dayPeriod: DayPeriod) {
-
-        val data = Data.Builder()
-            .putInt(
-                NotificationWorker.WORKER_NOTIFICATION_ID_KEY,
-                dayPeriod.notificationId
-            )
-            .build()
-
-        val notificationWork = PeriodicWorkRequest.Builder(
-            NotificationWorker::class.java,
-            1,
-            TimeUnit.DAYS
-        )
-            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-            .setInputData(data)
-            .build()
-
-        val instanceWorkManager = WorkManager.getInstance(context)
-        instanceWorkManager.enqueueUniquePeriodicWork(
-            dayPeriod.workId,
-            ExistingPeriodicWorkPolicy.REPLACE,
-            notificationWork
+        alarmManager?.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            intent
         )
     }
+
+    class AlarmReceiver: BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            context?.let {
+                val triggerNotification = TriggerNotificationUseCase(it)
+                triggerNotification(1)
+            }
+        }
+    }
+
+    // Trigger when device boot completed
+    class BootReceiver: BroadcastReceiver(){
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == "android.intent.action.BOOT_COMPLETED") {
+                // Set the alarm here.
+                // TODO
+            }
+        }
+    }
+
+    /**
+    Notice that in the manifest, the boot receiver is set to android:enabled="false". This means that the receiver will not be called unless the application explicitly enables it. This prevents the boot receiver from being called unnecessarily. You can enable a receiver (for example, if the user sets an alarm) as follows:
+    Kotlin
+    Java
+
+    val receiver = ComponentName(context, SampleBootReceiver::class.java)
+
+    context.packageManager.setComponentEnabledSetting(
+    receiver,
+    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+    PackageManager.DONT_KILL_APP
+    )
+
+    Once you enable the receiver this way, it will stay enabled, even if the user reboots the device. In other words, programmatically enabling the receiver overrides the manifest setting, even across reboots. The receiver will stay enabled until your app disables it. You can disable a receiver (for example, if the user cancels an alarm) as follows:
+    Kotlin
+    Java
+
+    val receiver = ComponentName(context, SampleBootReceiver::class.java)
+
+    context.packageManager.setComponentEnabledSetting(
+    receiver,
+    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+    PackageManager.DONT_KILL_APP
+    )
+**/
 }
