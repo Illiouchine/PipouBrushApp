@@ -3,7 +3,7 @@ package com.illiouchine.toothbrush.feature.settings
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
 import com.illiouchine.toothbrush.usecase.countdown.GetCountDownDurationUseCase
-import com.illiouchine.toothbrush.usecase.notification.UpdateNotificationUseCase
+import com.illiouchine.toothbrush.usecase.notification.SetupTimedNotificationUseCase
 import com.illiouchine.toothbrush.usecase.countdown.SetCountDownDurationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -17,7 +17,7 @@ import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsStat
 class SettingsViewModel @Inject constructor(
     private val getCountDownDurationUseCase: GetCountDownDurationUseCase,
     private val setCountDownDurationUseCase: SetCountDownDurationUseCase,
-    private val updateNotificationUseCase: UpdateNotificationUseCase,
+    private val setupTimedNotificationUseCase: SetupTimedNotificationUseCase,
 ) : MviViewModel<Intent, Action, PartialState, State>() {
 
     init {
@@ -122,7 +122,7 @@ class SettingsViewModel @Inject constructor(
         hour: Int,
         min: Int
     ) {
-        updateNotificationUseCase(checked, reminderType.toDayPeriod(), hour, min)
+        setupTimedNotificationUseCase(checked, reminderType.toDayPeriod(), hour, min)
         //https://developer.android.com/develop/ui/views/notifications/time-sensitive
     }
 
@@ -153,10 +153,10 @@ class SettingsViewModel @Inject constructor(
     }
 }
 
-private fun SettingsContract.ReminderType.toDayPeriod(): UpdateNotificationUseCase.DayPeriod {
+private fun SettingsContract.ReminderType.toDayPeriod(): SetupTimedNotificationUseCase.DayPeriod {
     return when(this){
-        SettingsContract.ReminderType.Evening -> UpdateNotificationUseCase.DayPeriod.Evening
-        SettingsContract.ReminderType.Midday -> UpdateNotificationUseCase.DayPeriod.Midday
-        SettingsContract.ReminderType.Morning -> UpdateNotificationUseCase.DayPeriod.Morning
+        SettingsContract.ReminderType.Evening -> SetupTimedNotificationUseCase.DayPeriod.Evening
+        SettingsContract.ReminderType.Midday -> SetupTimedNotificationUseCase.DayPeriod.Midday
+        SettingsContract.ReminderType.Morning -> SetupTimedNotificationUseCase.DayPeriod.Morning
     }
 }
