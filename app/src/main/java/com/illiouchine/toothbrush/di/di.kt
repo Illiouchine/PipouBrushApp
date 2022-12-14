@@ -6,14 +6,18 @@ import com.illiouchine.toothbrush.database.AchievementDataMapper
 import com.illiouchine.toothbrush.database.room.AppDatabase
 import com.illiouchine.toothbrush.database.BrushHistoryDataMapper
 import com.illiouchine.toothbrush.database.CountDownDurationDataMapper
+import com.illiouchine.toothbrush.database.ReminderDataMapper
 import com.illiouchine.toothbrush.database.datasource.achievement.AchievementDataSource
 import com.illiouchine.toothbrush.database.datasource.brushhistory.BrushHistoryDataSource
 import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSource
 import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSourceSharedPref
+import com.illiouchine.toothbrush.database.datasource.reminder.ReminderDataSource
+import com.illiouchine.toothbrush.database.datasource.reminder.ReminderDataSourceSharedPref
 import com.illiouchine.toothbrush.database.room.MigrationFrom1To2
 import com.illiouchine.toothbrush.usecase.datagateway.AchievementDataGateway
 import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
 import com.illiouchine.toothbrush.usecase.datagateway.CountDownDurationDataGateway
+import com.illiouchine.toothbrush.usecase.datagateway.ReminderDataGateway
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -69,6 +73,18 @@ class SettingsModule {
 
 @Module
 @InstallIn(SingletonComponent::class)
+class ReminderModule {
+
+    @Singleton
+    @Provides
+    fun provideReminderDataSource(@ApplicationContext appContext: Context): ReminderDataSource {
+        return ReminderDataSourceSharedPref(appContext)
+    }
+}
+
+
+@Module
+@InstallIn(SingletonComponent::class)
 object DataBaseModule {
 
     @Provides
@@ -92,6 +108,15 @@ object DataBaseModule {
     ): AchievementDataGateway {
         return AchievementDataMapper(
             achievementDataSource = achievementDataSource
+        )
+    }
+
+    @Provides
+    fun provideReminderDataGateway(
+        reminderDataSource: ReminderDataSource
+    ): ReminderDataGateway {
+        return ReminderDataMapper(
+            reminderDataSource = reminderDataSource
         )
     }
 

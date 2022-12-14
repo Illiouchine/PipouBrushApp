@@ -14,12 +14,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.R
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsState.CountDownSettings
+import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsState.ReminderState
 import com.illiouchine.toothbrush.ui.composable.PipouBackground
 import com.illiouchine.toothbrush.ui.composable.settings.CountDownSettingsView
 import com.illiouchine.toothbrush.ui.composable.settings.CountDownState
 import com.illiouchine.toothbrush.ui.composable.settings.ThanksView
-import com.illiouchine.toothbrush.ui.composable.settings.reminder.ReminderType
+import com.illiouchine.toothbrush.ui.composable.settings.reminder.ReminderDayPeriod
 import com.illiouchine.toothbrush.ui.composable.settings.reminder.ReminderView
+import com.illiouchine.toothbrush.ui.composable.settings.reminder.ReminderViewState
 import com.illiouchine.toothbrush.ui.typography
 import kotlin.time.Duration
 
@@ -27,10 +29,13 @@ import kotlin.time.Duration
 @Composable
 fun SettingsScreen(
     countDownSettings: CountDownSettings = CountDownSettings.Loading,
+    morningReminder: ReminderState = ReminderState.Loading,
+    middayReminder: ReminderState = ReminderState.Loading,
+    eveningReminder: ReminderState = ReminderState.Loading,
     event: SettingsContract.SettingsState.SettingsEvent? = null,
     onCountDownDurationChanged: (Duration) -> Unit = {},
     onEventHandled: (SettingsContract.SettingsState.SettingsEvent) -> Unit = {},
-    onNotificationCheckedChanged: ((checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit) = { _, _, _, _ -> },
+    onNotificationCheckedChanged: ((checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int) -> Unit) = { _, _, _, _ -> },
 ) {
     PipouBackground(enableBlur = true) {
         val context = LocalContext.current
@@ -46,9 +51,11 @@ fun SettingsScreen(
                 style = typography.titleLarge
             )
             ReminderView(
+                morningReminder = morningReminder.toViewState(),
+                middayReminder = middayReminder.toViewState(),
+                eveningReminder = eveningReminder.toViewState(),
                 onNotificationCheckedChanged = { activate, reminderType, hour, min ->
                     onNotificationCheckedChanged(activate, reminderType, hour, min)
-
                 }
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -82,13 +89,31 @@ fun SettingsScreen(
                         Toast.LENGTH_LONG
                     ).show()
                 }
+                is SettingsContract.SettingsState.SettingsEvent.ErrorLoadingReminder -> {
+                    Toast.makeText(
+                        context,
+                        stringResource(R.string.setting_toast_reminder_loading_error),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
             onEventHandled(event)
         }
     }
 }
 
-fun CountDownSettings.toCountDownState(): CountDownState {
+private fun ReminderState.toViewState(): ReminderViewState {
+    return when(this){
+        is ReminderState.Loaded -> ReminderViewState.Loaded(
+            checked = this.enabled,
+            hour = this.hour,
+            min = this.min
+        )
+        ReminderState.Loading -> ReminderViewState.Loading
+    }
+}
+
+private fun CountDownSettings.toCountDownState(): CountDownState {
     return when (this) {
         CountDownSettings.Loading -> CountDownState.Loading
         is CountDownSettings.Loaded -> {

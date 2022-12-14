@@ -18,10 +18,7 @@ import com.illiouchine.toothbrush.feature.MainActivity
 class TriggerNotificationUseCase(
     val context: Context,
 ) {
-    private val titleNotification =
-        "Time to brush your tooth" //applicationContext.getString(R.string.notification_title)
-    private val subtitleNotification =
-        "subtitleNotification" //applicationContext.getString(R.string.notification_subtitle)
+    private val titleNotification = context.getString(R.string.notification_brush_title)
 
     operator fun invoke(notificationId: Int) {
 
@@ -44,7 +41,7 @@ class TriggerNotificationUseCase(
             NOTIFICATION_CHANNEL
         )
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle(titleNotification).setContentText(subtitleNotification)
+            .setContentTitle(titleNotification)
             .setDefaults(Notification.DEFAULT_ALL)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)

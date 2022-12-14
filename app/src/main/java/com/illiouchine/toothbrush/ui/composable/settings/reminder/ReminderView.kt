@@ -15,18 +15,23 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 
-sealed class ReminderType{
-    object Morning : ReminderType()
-    object Midday : ReminderType()
-    object Evening : ReminderType()
+sealed class ReminderDayPeriod{
+    object Morning : ReminderDayPeriod()
+    object Midday : ReminderDayPeriod()
+    object Evening : ReminderDayPeriod()
 }
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Preview
 @Composable
 fun ReminderView(
-    onNotificationCheckedChanged: ((checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit) = { _,_,_,_ -> },
+    morningReminder: ReminderViewState = ReminderViewState.Loading,
+    middayReminder: ReminderViewState = ReminderViewState.Loading,
+    eveningReminder: ReminderViewState = ReminderViewState.Loading,
+    onNotificationCheckedChanged: ((checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int) -> Unit) = { _, _, _, _ -> },
 ) {
+
+    // Manage SCHEDULE_EXACT_ALARM permission too
     val notificationPermissionState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         rememberPermissionState(
             permission = Manifest.permission.POST_NOTIFICATIONS
@@ -72,24 +77,27 @@ fun ReminderView(
             }
         }
         ReminderRow(
-            reminderType = ReminderType.Morning,
+            reminderDayPeriod = ReminderDayPeriod.Morning,
+            reminderViewState = morningReminder,
             enabledSwitch = notificationPermissionState.status.isGranted,
-            onNotificationCheckedChanged = { checked: Boolean, reminderType: ReminderType, hour: Int, min: Int ->
-                onNotificationCheckedChanged(checked, reminderType, hour, min)
+            onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->
+                onNotificationCheckedChanged(checked, reminderDayPeriod, hour, min)
             },
         )
         ReminderRow(
-            reminderType = ReminderType.Midday,
+            reminderDayPeriod = ReminderDayPeriod.Midday,
+            reminderViewState = middayReminder,
             enabledSwitch = notificationPermissionState.status.isGranted,
-            onNotificationCheckedChanged = { checked: Boolean, reminderType: ReminderType, hour: Int, min: Int ->
-                onNotificationCheckedChanged(checked, reminderType, hour, min)
+            onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->
+                onNotificationCheckedChanged(checked, reminderDayPeriod, hour, min)
             },
         )
         ReminderRow(
-            reminderType = ReminderType.Evening,
+            reminderDayPeriod = ReminderDayPeriod.Evening,
+            reminderViewState = eveningReminder,
             enabledSwitch = notificationPermissionState.status.isGranted,
-            onNotificationCheckedChanged = { checked: Boolean, reminderType: ReminderType, hour: Int, min: Int ->
-                onNotificationCheckedChanged(checked, reminderType, hour, min)
+            onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->
+                onNotificationCheckedChanged(checked, reminderDayPeriod, hour, min)
             },
         )
     }

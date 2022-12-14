@@ -3,10 +3,7 @@ package com.illiouchine.toothbrush.ui.composable.settings.reminder
 import android.app.TimePickerDialog
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,31 +18,11 @@ import java.util.*
 @Preview
 @Composable
 fun ReminderRow(
-    reminderType: ReminderType = ReminderType.Morning,
+    reminderDayPeriod: ReminderDayPeriod = ReminderDayPeriod.Morning,
+    reminderViewState: ReminderViewState = ReminderViewState.Loading,
     enabledSwitch: Boolean = true,
-    onNotificationCheckedChanged: (checked: Boolean, reminderType: ReminderType, hour: Int, min: Int) -> Unit = { _, _, _, _ -> },
+    onNotificationCheckedChanged: (checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int) -> Unit = { _, _, _, _ -> },
 ) {
-
-    val initialHour = when(reminderType){
-        ReminderType.Evening -> 19
-        ReminderType.Midday -> 12
-        ReminderType.Morning -> 8
-    }
-    val initialMin = 0
-
-    val hour = remember { mutableStateOf(initialHour) }
-    val min = remember { mutableStateOf(initialMin) }
-
-    val timePickerDialog = TimePickerDialog(
-        /* context = */ LocalContext.current,
-        /* listener = */ { _, selectedHour: Int, selectedMinute: Int ->
-            hour.value = selectedHour
-            min.value = selectedMinute
-        },
-        /* hourOfDay = */ hour.value,
-        /* minute = */ min.value,
-        /* is24HourView = */ true
-    )
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,47 +37,83 @@ fun ReminderRow(
             Row {
                 ReminderRowTitle()
             }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(IntrinsicSize.Min),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .weight(.6f),
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    val calendar = Calendar.getInstance().apply {
-                        set(Calendar.HOUR_OF_DAY, hour.value)
-                        set(Calendar.MINUTE, min.value)
-                    }
-                    val formattedTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(calendar.time)
-                    Text(
-                        text = formattedTime,
+            when(reminderViewState){
+                is ReminderViewState.Loaded -> {
+
+                    val hour = remember { mutableStateOf(reminderViewState.hour) }
+                    val min = remember { mutableStateOf(reminderViewState.min) }
+
+                    val timePickerDialog = TimePickerDialog(
+                        /* context = */ LocalContext.current,
+                        /* listener = */ { _, selectedHour: Int, selectedMinute: Int ->
+                            hour.value = selectedHour
+                            min.value = selectedMinute
+                        },
+                        /* hourOfDay = */ hour.value,
+                        /* minute = */ min.value,
+                        /* is24HourView = */ true
+                    )
+
+                    Row(
                         modifier = Modifier
-                            .padding(8.dp)
-                            .clickable { timePickerDialog.show() }
-                    )
+                            .fillMaxWidth()
+                            .height(IntrinsicSize.Min),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .weight(.6f),
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            val calendar = Calendar.getInstance().apply {
+                                set(Calendar.HOUR_OF_DAY, hour.value)
+                                set(Calendar.MINUTE, min.value)
+                            }
+                            val formattedTime =
+                                SimpleDateFormat("HH:mm", Locale.getDefault()).format(calendar.time)
+                            Text(
+                                text = formattedTime,
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .clickable { timePickerDialog.show() }
+                            )
+                        }
+                        Column(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .weight(.4f),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Switch(
+                                enabled = enabledSwitch,
+                                modifier = Modifier.padding(end = 8.dp),
+                                checked = reminderViewState.checked,
+                                onCheckedChange = {
+                                    onNotificationCheckedChanged(
+                                        it,
+                                        reminderDayPeriod,
+                                        hour.value,
+                                        min.value
+                                    )
+                                },
+                                colors = SwitchDefaults.colors(
+                                    checkedTrackColor = MaterialTheme.colorScheme.secondary
+                                )
+                            )
+                        }
+                    }
                 }
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .weight(.4f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Switch(
-                        enabled = enabledSwitch,
-                        modifier = Modifier.padding(end = 8.dp),
-                        checked = false,
-                        onCheckedChange = { onNotificationCheckedChanged(it, reminderType, hour.value, min.value) },
-                        colors = SwitchDefaults.colors(
-                            checkedTrackColor = MaterialTheme.colorScheme.secondary
+                ReminderViewState.Loading -> {
+                    Row {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .fillMaxWidth()
                         )
-                    )
+                    }
                 }
             }
+
         }
     }
 }
