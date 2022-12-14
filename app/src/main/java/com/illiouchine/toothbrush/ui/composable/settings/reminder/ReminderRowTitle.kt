@@ -7,21 +7,21 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable
-fun ReminderRowTitle(reminderType: ReminderType = ReminderType.Morning) {
-    when(reminderType){
-        ReminderType.Evening -> {
+fun ReminderRowTitle(reminderDayPeriod: ReminderDayPeriod = ReminderDayPeriod.Morning) {
+    when(reminderDayPeriod){
+        ReminderDayPeriod.Evening -> {
             Text(
                 text = "Evening notification",
                 style = MaterialTheme.typography.titleSmall,
             )
         }
-        ReminderType.Midday -> {
+        ReminderDayPeriod.Midday -> {
             Text(
                 text = "Midday notification",
                 style = MaterialTheme.typography.titleSmall,
             )
         }
-        ReminderType.Morning -> {
+        ReminderDayPeriod.Morning -> {
             Text(
                 text = "Morning notification",
                 style = MaterialTheme.typography.titleSmall,

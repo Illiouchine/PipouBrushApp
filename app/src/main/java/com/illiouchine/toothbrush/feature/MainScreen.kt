@@ -23,7 +23,7 @@ import com.illiouchine.toothbrush.feature.statistics.StatisticsContract
 import com.illiouchine.toothbrush.feature.statistics.StatisticsScreen
 import com.illiouchine.toothbrush.feature.statistics.StatisticsViewModel
 import com.illiouchine.toothbrush.ui.composable.BottomNavigationBar
-import com.illiouchine.toothbrush.ui.composable.settings.reminder.ReminderType
+import com.illiouchine.toothbrush.ui.composable.settings.reminder.ReminderDayPeriod
 import kotlin.time.Duration
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -91,6 +91,9 @@ fun MainScreen() {
                                 )
                             )
                         },
+                        morningReminder = settingsState.morningReminderState,
+                        middayReminder = settingsState.middayReminderState,
+                        eveningReminder = settingsState.eveningReminderState,
                     )
                 }
             }
@@ -98,10 +101,10 @@ fun MainScreen() {
     }
 }
 
-private fun ReminderType.toVMData(): SettingsContract.ReminderDayPeriod {
+private fun ReminderDayPeriod.toVMData(): SettingsContract.ReminderDayPeriod {
     return when (this) {
-        ReminderType.Evening -> SettingsContract.ReminderDayPeriod.Evening
-        ReminderType.Midday -> SettingsContract.ReminderDayPeriod.Midday
-        ReminderType.Morning -> SettingsContract.ReminderDayPeriod.Morning
+        ReminderDayPeriod.Evening -> SettingsContract.ReminderDayPeriod.Evening
+        ReminderDayPeriod.Midday -> SettingsContract.ReminderDayPeriod.Midday
+        ReminderDayPeriod.Morning -> SettingsContract.ReminderDayPeriod.Morning
     }
 }

@@ -5,7 +5,7 @@ import com.illiouchine.toothbrush.database.dataobject.ReminderObject
 import javax.inject.Inject
 
 class ReminderDataSourceSharedPref @Inject constructor(
-    private val context: Context
+    context: Context
 ) : ReminderDataSource {
 
     private val preferencesFileKey = "ReminderPreferencesFileKey"
@@ -57,7 +57,7 @@ class ReminderDataSourceSharedPref @Inject constructor(
 
     private fun getMiddayReminder(): ReminderObject {
         val hour = getPref
-            .getInt(middayHourKey, 8)
+            .getInt(middayHourKey, 12)
         val min = getPref
             .getInt(middayMinKey, 0)
         val enabled = getPref
@@ -72,7 +72,7 @@ class ReminderDataSourceSharedPref @Inject constructor(
 
     private fun getEveningReminder(): ReminderObject {
         val hour = getPref
-            .getInt(eveningHourKey, 8)
+            .getInt(eveningHourKey, 18)
         val min = getPref
             .getInt(eveningMinKey, 0)
         val enabled = getPref
