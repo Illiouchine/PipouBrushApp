@@ -39,4 +39,5 @@
     <string name="brush_achievement_dialog_title">Nouveaux Succès !</string>
     <string name="brush_achievement_dialog_confirm_button">Fermer</string>
     <string name="setting_toast_reminder_loading_error">Une erreur est survenu lors du chargement des rappels</string>
+    <string name="notification_brush_title">C\'est l\'heure de se brosser les dents !</string>
 </resources>

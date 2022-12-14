@@ -6,6 +6,7 @@ import com.illiouchine.toothbrush.usecase.countdown.GetCountDownDurationUseCase
 import com.illiouchine.toothbrush.usecase.notification.UpdateTimedNotificationUseCase
 import com.illiouchine.toothbrush.usecase.countdown.SetCountDownDurationUseCase
 import com.illiouchine.toothbrush.usecase.datagateway.entities.Reminder
+import com.illiouchine.toothbrush.usecase.notification.NotificationDayPeriod
 import com.illiouchine.toothbrush.usecase.reminder.GetReminderUseCase
 import com.illiouchine.toothbrush.usecase.reminder.SaveReminderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -268,10 +269,10 @@ class SettingsViewModel @Inject constructor(
     }
 }
 
-private fun SettingsContract.ReminderDayPeriod.toDayPeriod(): UpdateTimedNotificationUseCase.DayPeriod {
+private fun SettingsContract.ReminderDayPeriod.toDayPeriod(): NotificationDayPeriod {
     return when (this) {
-        SettingsContract.ReminderDayPeriod.Evening -> UpdateTimedNotificationUseCase.DayPeriod.Evening
-        SettingsContract.ReminderDayPeriod.Midday -> UpdateTimedNotificationUseCase.DayPeriod.Midday
-        SettingsContract.ReminderDayPeriod.Morning -> UpdateTimedNotificationUseCase.DayPeriod.Morning
+        SettingsContract.ReminderDayPeriod.Evening -> NotificationDayPeriod.Evening
+        SettingsContract.ReminderDayPeriod.Midday -> NotificationDayPeriod.Midday
+        SettingsContract.ReminderDayPeriod.Morning -> NotificationDayPeriod.Morning
     }
 }

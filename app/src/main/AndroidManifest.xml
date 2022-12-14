@@ -26,7 +26,10 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".usecase.notification.UpdateTimedNotificationUseCase$AlarmReceiver"
+        <receiver android:name=".usecase.notification.broadcastreceiver.AlarmBroadcastReceiver"
+            android:exported="false">
+        </receiver>
+        <receiver android:name=".usecase.notification.broadcastreceiver.BootBroadcastReceiver"
             android:exported="false">
         </receiver>
     </application>
