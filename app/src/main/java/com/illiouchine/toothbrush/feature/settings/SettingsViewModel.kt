@@ -3,8 +3,11 @@ package com.illiouchine.toothbrush.feature.settings
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
 import com.illiouchine.toothbrush.usecase.countdown.GetCountDownDurationUseCase
-import com.illiouchine.toothbrush.usecase.notification.SetupTimedNotificationUseCase
+import com.illiouchine.toothbrush.usecase.notification.UpdateTimedNotificationUseCase
 import com.illiouchine.toothbrush.usecase.countdown.SetCountDownDurationUseCase
+import com.illiouchine.toothbrush.usecase.datagateway.entities.Reminder
+import com.illiouchine.toothbrush.usecase.reminder.GetReminderUseCase
+import com.illiouchine.toothbrush.usecase.reminder.SaveReminderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.time.Duration
@@ -17,7 +20,9 @@ import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsStat
 class SettingsViewModel @Inject constructor(
     private val getCountDownDurationUseCase: GetCountDownDurationUseCase,
     private val setCountDownDurationUseCase: SetCountDownDurationUseCase,
-    private val setupTimedNotificationUseCase: SetupTimedNotificationUseCase,
+    private val updateTimedNotificationUseCase: UpdateTimedNotificationUseCase,
+    private val getReminderUseCase: GetReminderUseCase,
+    private val saveReminderUseCase: SaveReminderUseCase
 ) : MviViewModel<Intent, Action, PartialState, State>() {
 
     init {
@@ -27,7 +32,10 @@ class SettingsViewModel @Inject constructor(
     override fun createInitialState(): State {
         return State(
             countDownSettings = State.CountDownSettings.Loading,
-            event = null
+            event = null,
+            morningReminderState = State.ReminderState.Loading,
+            middayReminderState = State.ReminderState.Loading,
+            eveningReminderState = State.ReminderState.Loading
         )
     }
 
@@ -69,9 +77,73 @@ class SettingsViewModel @Inject constructor(
                             currentState
                         }
                     }
+                    is PartialState.ErrorLoadingReminder -> currentState.copy(
+                        event = State.SettingsEvent.ErrorLoadingReminder(
+                            exception = partialState.exception,
+                            dailyPeriod = partialState.dayPeriod
+                        )
+                    )
+                    is PartialState.MorningReminderLoaded -> {
+                        currentState.copy(
+                            morningReminderState = State.ReminderState.Loaded(
+                                hour = partialState.reminder.hour,
+                                min = partialState.reminder.min,
+                                enabled = partialState.reminder.enabled
+                            )
+                        )
+                    }
+                    is PartialState.MiddayReminderLoaded -> {
+                        currentState.copy(
+                            middayReminderState = State.ReminderState.Loaded(
+                                hour = partialState.reminder.hour,
+                                min = partialState.reminder.min,
+                                enabled = partialState.reminder.enabled
+                            )
+                        )
+                    }
+                    is PartialState.EveningReminderLoaded -> {
+                        currentState.copy(
+                            eveningReminderState = State.ReminderState.Loaded(
+                                hour = partialState.reminder.hour,
+                                min = partialState.reminder.min,
+                                enabled = partialState.reminder.enabled
+                            )
+                        )
+                    }
+                    is PartialState.ReminderSaved -> {
+                        when(partialState.reminder.dayPeriod){
+                            Reminder.DayPeriod.Morning -> {
+                                currentState.copy(
+                                    morningReminderState = State.ReminderState.Loaded(
+                                        hour = partialState.reminder.hour,
+                                        min = partialState.reminder.min,
+                                        enabled = partialState.reminder.enabled
+                                    )
+                                )
+                            }
+                            Reminder.DayPeriod.Midday -> {
+                                    currentState.copy(
+                                        middayReminderState = State.ReminderState.Loaded(
+                                            hour = partialState.reminder.hour,
+                                            min = partialState.reminder.min,
+                                            enabled = partialState.reminder.enabled
+                                        )
+                                    )
+
+                            }
+                            Reminder.DayPeriod.Evening -> {
+                                currentState.copy(
+                                    eveningReminderState = State.ReminderState.Loaded(
+                                        hour = partialState.reminder.hour,
+                                        min = partialState.reminder.min,
+                                        enabled = partialState.reminder.enabled
+                                    )
+                                )
+                            }
+                        }
+                    }
                 }
             }
-
         }
     }
 
@@ -85,10 +157,10 @@ class SettingsViewModel @Inject constructor(
             is Intent.EventHandled -> {
                 Action.EventHandled(intent.settingsEvent)
             }
-            is Intent.NotificationChanged -> {
-                Action.ChangeNotification(
+            is Intent.ReminderChanged -> {
+                Action.ChangeReminder(
                     checked = intent.checked,
-                    reminderType = intent.reminderType,
+                    reminderDayPeriod = intent.reminderDayPeriod,
                     hour = intent.hour,
                     min = intent.min
                 )
@@ -105,10 +177,10 @@ class SettingsViewModel @Inject constructor(
                     PartialState.EventHandled(action.settingsEvent)
                 }
             }
-            is Action.ChangeNotification -> {
-                updateNotification(
+            is Action.ChangeReminder -> {
+                updateReminder(
                     checked = action.checked,
-                    reminderType = action.reminderType,
+                    reminderDayPeriod = action.reminderDayPeriod,
                     hour = action.hour,
                     min = action.min
                 )
@@ -116,13 +188,31 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    private fun updateNotification(
+    private suspend fun updateReminder(
         checked: Boolean,
-        reminderType: SettingsContract.ReminderType,
+        reminderDayPeriod: SettingsContract.ReminderDayPeriod,
         hour: Int,
         min: Int
     ) {
-        setupTimedNotificationUseCase(checked, reminderType.toDayPeriod(), hour, min)
+        val dayPeriod = when (reminderDayPeriod) {
+            SettingsContract.ReminderDayPeriod.Evening -> Reminder.DayPeriod.Evening
+            SettingsContract.ReminderDayPeriod.Midday -> Reminder.DayPeriod.Midday
+            SettingsContract.ReminderDayPeriod.Morning -> Reminder.DayPeriod.Morning
+        }
+        val reminder = Reminder(
+            dayPeriod = dayPeriod,
+            hour = hour,
+            min = min,
+            enabled = checked
+        )
+        saveReminderUseCase(
+            reminder = reminder
+        )
+        setPartialState {
+            PartialState.ReminderSaved(reminder)
+        }
+        updateTimedNotificationUseCase(checked, reminderDayPeriod.toDayPeriod(), hour, min)
+
         //https://developer.android.com/develop/ui/views/notifications/time-sensitive
     }
 
@@ -140,6 +230,31 @@ class SettingsViewModel @Inject constructor(
     }
 
     private suspend fun loadSettings() {
+        loadCountdownDuration()
+        loadReminder(Reminder.DayPeriod.Morning)
+        loadReminder(Reminder.DayPeriod.Midday)
+        loadReminder(Reminder.DayPeriod.Evening)
+    }
+
+    private suspend fun loadReminder(dayPeriod: Reminder.DayPeriod) {
+        try {
+            val reminder = getReminderUseCase(dayPeriod)
+            setPartialState {
+                when (dayPeriod) {
+                    Reminder.DayPeriod.Morning -> PartialState.MorningReminderLoaded(reminder = reminder)
+                    Reminder.DayPeriod.Midday -> PartialState.MiddayReminderLoaded(reminder = reminder)
+                    Reminder.DayPeriod.Evening -> PartialState.EveningReminderLoaded(reminder = reminder)
+                }
+
+            }
+        } catch (e: Exception) {
+            setPartialState {
+                PartialState.ErrorLoadingReminder(exception = e, dayPeriod = dayPeriod)
+            }
+        }
+    }
+
+    private suspend fun loadCountdownDuration() {
         try {
             val countDownDuration = getCountDownDurationUseCase()
             setPartialState {
@@ -153,10 +268,10 @@ class SettingsViewModel @Inject constructor(
     }
 }
 
-private fun SettingsContract.ReminderType.toDayPeriod(): SetupTimedNotificationUseCase.DayPeriod {
-    return when(this){
-        SettingsContract.ReminderType.Evening -> SetupTimedNotificationUseCase.DayPeriod.Evening
-        SettingsContract.ReminderType.Midday -> SetupTimedNotificationUseCase.DayPeriod.Midday
-        SettingsContract.ReminderType.Morning -> SetupTimedNotificationUseCase.DayPeriod.Morning
+private fun SettingsContract.ReminderDayPeriod.toDayPeriod(): UpdateTimedNotificationUseCase.DayPeriod {
+    return when (this) {
+        SettingsContract.ReminderDayPeriod.Evening -> UpdateTimedNotificationUseCase.DayPeriod.Evening
+        SettingsContract.ReminderDayPeriod.Midday -> UpdateTimedNotificationUseCase.DayPeriod.Midday
+        SettingsContract.ReminderDayPeriod.Morning -> UpdateTimedNotificationUseCase.DayPeriod.Morning
     }
 }

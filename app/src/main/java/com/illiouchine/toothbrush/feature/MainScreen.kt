@@ -86,7 +86,7 @@ fun MainScreen() {
                         },
                         onNotificationCheckedChanged = { checked, reminderType, hour, min ->
                             settingsViewModel.dispatchIntent(
-                                SettingsContract.SettingsIntent.NotificationChanged(
+                                SettingsContract.SettingsIntent.ReminderChanged(
                                     checked, reminderType.toVMData(), hour, min
                                 )
                             )
@@ -98,10 +98,10 @@ fun MainScreen() {
     }
 }
 
-private fun ReminderType.toVMData(): SettingsContract.ReminderType {
+private fun ReminderType.toVMData(): SettingsContract.ReminderDayPeriod {
     return when (this) {
-        ReminderType.Evening -> SettingsContract.ReminderType.Evening
-        ReminderType.Midday -> SettingsContract.ReminderType.Midday
-        ReminderType.Morning -> SettingsContract.ReminderType.Morning
+        ReminderType.Evening -> SettingsContract.ReminderDayPeriod.Evening
+        ReminderType.Midday -> SettingsContract.ReminderDayPeriod.Midday
+        ReminderType.Morning -> SettingsContract.ReminderDayPeriod.Morning
     }
 }

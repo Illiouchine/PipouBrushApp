@@ -82,6 +82,13 @@ fun SettingsScreen(
                         Toast.LENGTH_LONG
                     ).show()
                 }
+                is SettingsContract.SettingsState.SettingsEvent.ErrorLoadingReminder -> {
+                    Toast.makeText(
+                        context,
+                        stringResource(R.string.setting_toast_reminder_loading_error),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
             onEventHandled(event)
         }

@@ -12,7 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 import javax.inject.Inject
 
-class SetupTimedNotificationUseCase @Inject constructor(
+class UpdateTimedNotificationUseCase @Inject constructor(
     @ApplicationContext
     private val context: Context
 ) {
@@ -37,10 +37,10 @@ class SetupTimedNotificationUseCase @Inject constructor(
             set(Calendar.MINUTE, min)
         }
 
-        scheduleAlarmManager(calendar, dayPeriod)
+        scheduleAlarmManager(calendar, dayPeriod, activate)
     }
 
-    private fun scheduleAlarmManager(calendar: Calendar, dayPeriod: DayPeriod) {
+    private fun scheduleAlarmManager(calendar: Calendar, dayPeriod: DayPeriod, activate: Boolean) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java).let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -50,12 +50,16 @@ class SetupTimedNotificationUseCase @Inject constructor(
             }
 
         }
-        alarmManager?.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            intent
-        )
+        if (activate){
+            alarmManager?.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                AlarmManager.INTERVAL_DAY,
+                intent
+            )
+        } else {
+            alarmManager?.cancel(intent)
+        }
     }
 
     class AlarmReceiver: BroadcastReceiver() {

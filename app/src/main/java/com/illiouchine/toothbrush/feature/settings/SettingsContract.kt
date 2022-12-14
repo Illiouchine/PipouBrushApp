@@ -1,6 +1,7 @@
 package com.illiouchine.toothbrush.feature.settings
 
 import com.illiouchine.mvi.core.*
+import com.illiouchine.toothbrush.usecase.datagateway.entities.Reminder
 import kotlin.time.Duration
 
 interface SettingsContract {
@@ -9,9 +10,9 @@ interface SettingsContract {
         data class UpdateCountDownDuration(val duration: Duration) : SettingsIntent()
         data class EventHandled(val settingsEvent: SettingsState.SettingsEvent) : SettingsIntent()
 
-        class NotificationChanged(
+        class ReminderChanged(
             val checked: Boolean,
-            val reminderType: ReminderType,
+            val reminderDayPeriod: ReminderDayPeriod,
             val hour: Int,
             val min: Int
         ) : SettingsIntent()
@@ -26,9 +27,9 @@ interface SettingsContract {
             val settingsEvent: SettingsState.SettingsEvent
         ) : SettingsAction()
 
-        data class ChangeNotification(
+        data class ChangeReminder(
             val checked: Boolean,
-            val reminderType: ReminderType,
+            val reminderDayPeriod: ReminderDayPeriod,
             val hour: Int,
             val min: Int
         ) : SettingsAction()
@@ -38,6 +39,9 @@ interface SettingsContract {
 
     data class SettingsState(
         val countDownSettings: CountDownSettings,
+        val morningReminderState: ReminderState,
+        val middayReminderState: ReminderState,
+        val eveningReminderState: ReminderState,
         override val event: SettingsEvent?,
     ) : UiState {
         sealed class CountDownSettings {
@@ -47,6 +51,15 @@ interface SettingsContract {
             ) : CountDownSettings()
         }
 
+        sealed class ReminderState {
+            object Loading : ReminderState()
+            data class Loaded(
+                val hour: Int,
+                val min: Int,
+                val enabled: Boolean
+            ) : ReminderState()
+        }
+
         sealed class SettingsEvent : UiEvent {
             data class ErrorLoadingCountDownDuration(
                 val exception: Exception
@@ -54,6 +67,10 @@ interface SettingsContract {
 
             data class ErrorSavingCountDownDuration(val exception: Exception) : SettingsEvent()
             data class CountDownSaved(val duration: Duration) : SettingsEvent()
+            data class ErrorLoadingReminder(
+                val exception: Exception,
+                val dailyPeriod: Reminder.DayPeriod
+            ) : SettingsEvent()
         }
     }
 
@@ -67,11 +84,21 @@ interface SettingsContract {
         data class ErrorLoadingCountDownDuration(val exception: Exception) : SettingsPartialState()
         data class EventHandled(val settingsEvent: SettingsState.SettingsEvent) :
             SettingsPartialState()
+
+        data class MorningReminderLoaded(val reminder: Reminder) : SettingsPartialState()
+        data class MiddayReminderLoaded(val reminder: Reminder) : SettingsPartialState()
+        data class EveningReminderLoaded(val reminder: Reminder) : SettingsPartialState()
+        data class ErrorLoadingReminder(
+            val exception: Exception,
+            val dayPeriod: Reminder.DayPeriod
+        ) : SettingsPartialState()
+
+        data class ReminderSaved(val reminder: Reminder) : SettingsPartialState()
     }
 
-    sealed class ReminderType {
-        object Morning : ReminderType()
-        object Midday : ReminderType()
-        object Evening : ReminderType()
+    sealed class ReminderDayPeriod {
+        object Morning : ReminderDayPeriod()
+        object Midday : ReminderDayPeriod()
+        object Evening : ReminderDayPeriod()
     }
 }
