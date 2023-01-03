@@ -25,7 +25,6 @@ git submodule update --init --recursive
 This project use the MVI (Model View Intent) architecture and use a custom mvi library : 
 [https://github.com/Illiouchine/mvi-library](https://github.com/Illiouchine/mvi-library)
 
-
 ## Used Libraries
 - Mvi architecture with [mvi-library](https://github.com/Illiouchine/mvi-library)
 - Ui Rendering with [compose](https://developer.android.com/jetpack/compose)
@@ -49,13 +48,21 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [x] Setup I18n : en / fr
 - [x] Add Thanks section
 - [x] Give feedback when earning achievement
-- [ ] setup reminder of brushing : 
-  - For Alarm -> see "Set a repeating alarm"
-  - For notification -> 
+- [x] setup reminder of brushing 
 - [ ] Setup PlayStore and CD/CI
 - [ ] setup Mini game when brushing
 - [ ] Manage external link in Thanks section : https://www.instagram.com/krogogo/
 - [ ] Make the statistic and achievement section size dynamic 
+
+## Know issue
+- [ ] Remove blur effect on api lower than 11
+- [ ] Fix accessibility issue reported by the play console
+- [ ] Lock screen pause the timer
+- [ ] Fix timer positioning on other device
+
+## Join Pipou Tester
+- on Android [https://play.google.com/store/apps/details?id=com.illiouchine.toothbrush](https://play.google.com/store/apps/details?id=com.illiouchine.toothbrush)
+- on Web [https://play.google.com/apps/testing/com.illiouchine.toothbrush](https://play.google.com/apps/testing/com.illiouchine.toothbrush)
 
 ## Screenshots
 ### Timer screen
