@@ -53,6 +53,8 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [ ] setup Mini game when brushing
 - [ ] Manage external link in Thanks section : https://www.instagram.com/krogogo/
 - [ ] Make the statistic and achievement section size dynamic 
+- [ ] Setup tablet layout
+- [ ] Setup light/dark theme
 
 ## Know issue
 - [ ] Remove blur effect on api lower than 11
