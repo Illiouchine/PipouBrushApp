@@ -30,6 +30,7 @@ fun StatisticsScreen(
             Box(modifier = Modifier.fillMaxHeight(.5f)){
                 AchievementContent(achievementState = achievementState.toViewState())
             }
+            Spacer(modifier = Modifier.height(8.dp))
             Box(modifier = Modifier.fillMaxHeight(.5f)){
                 HistoryContent(historyState.toViewState())
             }
