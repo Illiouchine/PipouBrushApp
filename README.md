@@ -53,14 +53,15 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [ ] setup Mini game when brushing
 - [ ] Manage external link in Thanks section : https://www.instagram.com/krogogo/
 - [ ] Make the statistic and achievement section size dynamic 
-- [ ] Setup tablet layout
+- [ ] Setup tablet / Landscape layout
 - [ ] Setup light/dark theme
 
 ## Know issue
-- [ ] Remove blur effect on api lower than 11
+- [x] Remove blur effect, unsupported on api lower than 11
+- [x] Fix timer positioning on other device
 - [ ] Fix accessibility issue reported by the play console
-- [ ] Lock screen pause the timer
-- [ ] Fix timer positioning on other device
+- [ ] Lock screen pause the timer on some device (tester's feedback)
+
 
 ## Join Pipou Tester
 - on Android [https://play.google.com/store/apps/details?id=com.illiouchine.toothbrush](https://play.google.com/store/apps/details?id=com.illiouchine.toothbrush)
