@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.illiouchine.toothbrush.ui.composable.PipouBackground
+import com.illiouchine.toothbrush.ui.composable.PipouBackgroundV2
 import com.illiouchine.toothbrush.ui.composable.achievement.AchievementContent
 import com.illiouchine.toothbrush.ui.composable.achievement.AchievementState
 import com.illiouchine.toothbrush.ui.composable.history.HistoryContent
@@ -21,7 +21,7 @@ fun StatisticsScreen(
     historyState: VMHistoryState = VMHistoryState.Loaded(brushHistory = listOf()),
     achievementState: VMAchievementState = VMAchievementState.Loaded(achievements = listOf())
 ) {
-    PipouBackground(enableBlur = true){
+    PipouBackgroundV2{
         Column(
             modifier = Modifier
                 .fillMaxSize()
