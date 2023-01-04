@@ -30,7 +30,7 @@ fun CountDownSettingsView(
                 .wrapContentHeight()
                 .fillMaxWidth()
         ) {
-            Icon(painterResource(id = R.drawable.ic_timer), "")
+            Icon(painterResource(id = R.drawable.ic_timer), null)
             Spacer(modifier = Modifier.width(4.dp))
             Text(text = stringResource(R.string.settings_brush_duration_title), modifier = Modifier.align(Alignment.CenterVertically))
         }
@@ -44,6 +44,7 @@ fun CountDownSettingsView(
                 is CountDownState.Loaded -> {
                     var durationInSeconds by remember { mutableStateOf(countDownState.duration.inWholeSeconds.toFloat()) }
 
+                    // TODO manage accessibility
                     Text(text = DateUtils.formatElapsedTime(durationInSeconds.toLong()))
                     Spacer(modifier = Modifier.width(16.dp))
                     Slider(

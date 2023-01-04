@@ -87,7 +87,9 @@ fun ReminderRow(
                         ) {
                             Switch(
                                 enabled = enabledSwitch,
-                                modifier = Modifier.padding(end = 8.dp),
+                                modifier = Modifier.padding(end = 8.dp)
+                                // TODO Manage accessibility
+                                        ,
                                 checked = reminderViewState.checked,
                                 onCheckedChange = {
                                     onNotificationCheckedChanged(
