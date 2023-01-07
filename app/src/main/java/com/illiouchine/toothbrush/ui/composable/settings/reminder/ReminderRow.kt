@@ -10,6 +10,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import java.text.SimpleDateFormat
@@ -35,9 +38,9 @@ fun ReminderRow(
                 .wrapContentHeight(),
         ) {
             Row {
-                ReminderRowTitle()
+                ReminderRowTitle(reminderDayPeriod = reminderDayPeriod)
             }
-            when(reminderViewState){
+            when (reminderViewState) {
                 is ReminderViewState.Loaded -> {
 
                     val hour = remember { mutableStateOf(reminderViewState.hour) }
@@ -66,17 +69,21 @@ fun ReminderRow(
                                 .weight(.6f),
                             verticalArrangement = Arrangement.Center
                         ) {
-                            val calendar = Calendar.getInstance().apply {
-                                set(Calendar.HOUR_OF_DAY, hour.value)
-                                set(Calendar.MINUTE, min.value)
-                            }
-                            val formattedTime =
-                                SimpleDateFormat("HH:mm", Locale.getDefault()).format(calendar.time)
+                            val formattedTime = getFormattedTime(hour = hour.value, min = min.value)
                             Text(
                                 text = formattedTime,
                                 modifier = Modifier
                                     .padding(8.dp)
-                                    .clickable { timePickerDialog.show() }
+                                    .clickable(
+                                        onClick = { timePickerDialog.show() },
+                                        onClickLabel = "change time"
+                                    )
+                                    .semantics {
+                                        contentDescription = getTimeTextAccessibilityLabel(
+                                            reminderDayPeriod,
+                                            getFormattedTime(hour = hour.value, min = min.value),
+                                        )
+                                    }
                             )
                         }
                         Column(
@@ -87,9 +94,14 @@ fun ReminderRow(
                         ) {
                             Switch(
                                 enabled = enabledSwitch,
-                                modifier = Modifier.padding(end = 8.dp)
-                                // TODO Manage accessibility
-                                        ,
+                                modifier = Modifier
+                                    .padding(end = 8.dp)
+                                    .semantics {
+                                        stateDescription = getSwitchAccessibilityLabel(
+                                            reminderDayPeriod,
+                                            reminderViewState.checked
+                                        )
+                                    },
                                 checked = reminderViewState.checked,
                                 onCheckedChange = {
                                     onNotificationCheckedChanged(
@@ -115,7 +127,54 @@ fun ReminderRow(
                     }
                 }
             }
-
         }
     }
+}
+
+fun getTimeTextAccessibilityLabel(
+    reminderDayPeriod: ReminderDayPeriod,
+    formattedTime: String
+): String {
+    val dayPeriod = when(reminderDayPeriod){
+        ReminderDayPeriod.Evening -> {
+            "Evening"
+        }
+        ReminderDayPeriod.Midday -> {
+            "Midday"
+        }
+        ReminderDayPeriod.Morning -> {
+            "Morning"
+        }
+    }
+    return "$dayPeriod notification set to $formattedTime"
+}
+
+private fun getSwitchAccessibilityLabel(
+    reminderDayPeriod: ReminderDayPeriod = ReminderDayPeriod.Morning,
+    checked: Boolean
+): String {
+    val dayPeriod = when(reminderDayPeriod){
+        ReminderDayPeriod.Evening -> {
+            "Evening"
+        }
+        ReminderDayPeriod.Midday -> {
+            "Midday"
+        }
+        ReminderDayPeriod.Morning -> {
+            "Morning"
+        }
+    }
+    return if (checked){
+        "$dayPeriod notification is activated"
+    } else {
+        "$dayPeriod notification is disabled"
+    }
+}
+
+private fun getFormattedTime(hour: Int, min: Int): String {
+    val calendar = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, hour)
+        set(Calendar.MINUTE, min)
+    }
+    return SimpleDateFormat("HH:mm", Locale.getDefault()).format(calendar.time)
 }

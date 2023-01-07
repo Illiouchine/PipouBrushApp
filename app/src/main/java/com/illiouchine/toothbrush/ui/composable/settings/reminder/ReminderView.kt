@@ -75,31 +75,32 @@ fun ReminderView(
                     )
                 }
             }
+        } else {
+            ReminderRow(
+                reminderDayPeriod = ReminderDayPeriod.Morning,
+                reminderViewState = morningReminder,
+                enabledSwitch = notificationPermissionState.status.isGranted,
+                onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->
+                    onNotificationCheckedChanged(checked, reminderDayPeriod, hour, min)
+                },
+            )
+            ReminderRow(
+                reminderDayPeriod = ReminderDayPeriod.Midday,
+                reminderViewState = middayReminder,
+                enabledSwitch = notificationPermissionState.status.isGranted,
+                onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->
+                    onNotificationCheckedChanged(checked, reminderDayPeriod, hour, min)
+                },
+            )
+            ReminderRow(
+                reminderDayPeriod = ReminderDayPeriod.Evening,
+                reminderViewState = eveningReminder,
+                enabledSwitch = notificationPermissionState.status.isGranted,
+                onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->
+                    onNotificationCheckedChanged(checked, reminderDayPeriod, hour, min)
+                },
+            )
         }
-        ReminderRow(
-            reminderDayPeriod = ReminderDayPeriod.Morning,
-            reminderViewState = morningReminder,
-            enabledSwitch = notificationPermissionState.status.isGranted,
-            onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->
-                onNotificationCheckedChanged(checked, reminderDayPeriod, hour, min)
-            },
-        )
-        ReminderRow(
-            reminderDayPeriod = ReminderDayPeriod.Midday,
-            reminderViewState = middayReminder,
-            enabledSwitch = notificationPermissionState.status.isGranted,
-            onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->
-                onNotificationCheckedChanged(checked, reminderDayPeriod, hour, min)
-            },
-        )
-        ReminderRow(
-            reminderDayPeriod = ReminderDayPeriod.Evening,
-            reminderViewState = eveningReminder,
-            enabledSwitch = notificationPermissionState.status.isGranted,
-            onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->
-                onNotificationCheckedChanged(checked, reminderDayPeriod, hour, min)
-            },
-        )
     }
 }
 
