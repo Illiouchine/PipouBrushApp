@@ -27,13 +27,16 @@ fun StatisticsScreen(
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            Box(modifier = Modifier.fillMaxHeight(.5f)){
-                AchievementContent(achievementState = achievementState.toViewState())
-            }
+            AchievementContent(
+                    modifier = Modifier.fillMaxHeight(.5f),
+                    achievementState = achievementState.toViewState()
+                )
+
             Spacer(modifier = Modifier.height(8.dp))
-            Box(modifier = Modifier.fillMaxHeight(.5f)){
-                HistoryContent(historyState.toViewState())
-            }
+            HistoryContent(
+                modifier = Modifier.fillMaxHeight(.5f),
+                historyState = historyState.toViewState()
+            )
         }
     }
 }

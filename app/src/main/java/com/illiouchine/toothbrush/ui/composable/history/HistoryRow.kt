@@ -12,9 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.R
@@ -32,7 +32,11 @@ fun HistoryRow(
             .padding(8.dp)
     ) {
         items(brushHistory.sortedBy { it.date }) { element ->
-            val rowAccessibilityDescription = stringResource(id = R.string.history_row_accessibility_description, element.date.toFormattedDate(), element.brushCount)
+            val rowAccessibilityDescription = stringResource(
+                id = R.string.history_row_accessibility_description,
+                element.date.toFormattedDate(),
+                formattedBrushCount(element.brushCount)
+            )
             Row(
                 modifier = Modifier
                     .height(32.dp)
@@ -50,6 +54,7 @@ fun HistoryRow(
                     text = element.date.toFormattedDate(),
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(start = 8.dp)
+                        .clearAndSetSemantics {  }
                 )
                 ToothStar(
                     modifier = Modifier
@@ -59,6 +64,15 @@ fun HistoryRow(
                 )
             }
         }
+    }
+}
+
+fun formattedBrushCount(brushCount: Int): Int {
+    return when {
+        (0..3).contains(brushCount) -> brushCount
+        brushCount < 0 -> 0
+        brushCount > 3 -> 3
+        else -> brushCount
     }
 }
 

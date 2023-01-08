@@ -9,10 +9,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.R
@@ -20,12 +20,14 @@ import com.illiouchine.toothbrush.R
 @Preview
 @Composable
 fun AchievementContent(
+    modifier: Modifier = Modifier,
     achievementState: AchievementState = AchievementState.Loaded(
         achievements = previewDataAchievementList()
     )
 ) {
-    Column {
+    Column(modifier = modifier) {
         Text(
+            modifier = Modifier.semantics { heading() },
             text = stringResource(R.string.achievement_title),
             style = MaterialTheme.typography.titleLarge,
         )
@@ -58,6 +60,7 @@ fun AchievementRow(
     achievement: AchievementState.Achievement = previewDataAchievement()
 ) {
     ListItem(
+        modifier = Modifier.semantics(mergeDescendants = true) {},
         colors = ListItemDefaults.colors(
             containerColor = Color.Transparent
         ),
@@ -65,11 +68,16 @@ fun AchievementRow(
         supportingText = { Text(text = achievement.description) },
         leadingContent = {
             Icon(
-                modifier = Modifier.size(44.dp)
+                modifier = Modifier
+                    .size(44.dp)
                     .background(MaterialTheme.colorScheme.onSecondary, shape = CircleShape)
                     .padding(8.dp),
                 painter = painterResource(id = R.drawable.ic_achievement_trophy),
-                contentDescription = null,
+                contentDescription = if (achievement.earned) {
+                    "Achievement earned"
+                } else {
+                    "Achievement locked"
+                },
                 tint = if (achievement.earned) {
                     MaterialTheme.colorScheme.secondary
                 } else {

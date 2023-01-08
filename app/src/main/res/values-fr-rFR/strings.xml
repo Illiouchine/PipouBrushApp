@@ -26,7 +26,7 @@
     <string name="history_title">Historiques</string>
     <string name="history_error_description">Une erreur est survenu lors du chargement de l\'historique</string>
     <string name="history_loading_description">Chargement des succès en cours</string>
-    <string name="history_row_accessibility_description">%1$s : %2$d sur trois</string>
+    <string name="history_row_accessibility_description">%1$s, %2$d brossage</string>
     <string name="settings_brush_duration_title">Durée de brossage des dents</string>
     <string name="settings_title">Réglages</string>
     <string name="settings_reminder_title">Rappel</string>

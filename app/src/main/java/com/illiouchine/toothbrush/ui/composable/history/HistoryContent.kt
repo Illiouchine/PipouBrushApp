@@ -8,6 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.R
@@ -15,10 +17,12 @@ import com.illiouchine.toothbrush.R
 @Preview
 @Composable
 fun HistoryContent(
+    modifier: Modifier = Modifier,
     historyState: HistoryState = HistoryState.Loaded(data = previewDataHistoryList())
 ) {
-    Column {
+    Column(modifier = modifier) {
         Text(
+            modifier = Modifier.semantics { heading() },
             text = stringResource(R.string.history_title),
             style = MaterialTheme.typography.titleLarge,
         )

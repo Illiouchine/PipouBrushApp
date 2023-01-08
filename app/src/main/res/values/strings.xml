@@ -25,7 +25,7 @@
     <string name="history_title">History</string>
     <string name="history_error_description">An error occurred while loading the history</string>
     <string name="history_loading_description">Loading history in progress</string>
-    <string name="history_row_accessibility_description">%1$s : %2$d in three</string>
+    <string name="history_row_accessibility_description">%1$s, %2$d brushing</string>
     <string name="settings_brush_duration_title">Tooth brushing duration</string>
     <string name="settings_title">Settings</string>
     <string name="settings_reminder_title">Reminder</string>
