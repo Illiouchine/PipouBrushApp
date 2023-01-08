@@ -1,6 +1,7 @@
 package com.illiouchine.toothbrush.ui.composable.settings.reminder
 
 import android.app.TimePickerDialog
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -10,11 +11,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.illiouchine.toothbrush.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -57,6 +60,18 @@ fun ReminderRow(
                         /* is24HourView = */ true
                     )
 
+                    val timeTextAccessibilityLabel = getTimeTextAccessibilityLabel(
+                        context = LocalContext.current,
+                        reminderDayPeriod = reminderDayPeriod,
+                        formattedTime = getFormattedTime(hour = hour.value, min = min.value),
+                    )
+
+                    val switchAccessibilityLabel = getSwitchAccessibilityLabel(
+                        context = LocalContext.current,
+                        reminderDayPeriod = reminderDayPeriod,
+                        checked = enabledSwitch
+                    )
+
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -76,13 +91,10 @@ fun ReminderRow(
                                     .padding(8.dp)
                                     .clickable(
                                         onClick = { timePickerDialog.show() },
-                                        onClickLabel = "change time"
+                                        onClickLabel = stringResource(R.string.setting_notification_change_time_accessibility_label)
                                     )
                                     .semantics {
-                                        contentDescription = getTimeTextAccessibilityLabel(
-                                            reminderDayPeriod,
-                                            getFormattedTime(hour = hour.value, min = min.value),
-                                        )
+                                        contentDescription = timeTextAccessibilityLabel
                                     }
                             )
                         }
@@ -97,10 +109,7 @@ fun ReminderRow(
                                 modifier = Modifier
                                     .padding(end = 8.dp)
                                     .semantics {
-                                        stateDescription = getSwitchAccessibilityLabel(
-                                            reminderDayPeriod,
-                                            reminderViewState.checked
-                                        )
+                                        stateDescription = switchAccessibilityLabel
                                     },
                                 checked = reminderViewState.checked,
                                 onCheckedChange = {
@@ -131,43 +140,57 @@ fun ReminderRow(
     }
 }
 
-fun getTimeTextAccessibilityLabel(
+
+private fun getTimeTextAccessibilityLabel(
+    context: Context,
     reminderDayPeriod: ReminderDayPeriod,
     formattedTime: String
 ): String {
-    val dayPeriod = when(reminderDayPeriod){
+    val formattedDayPeriod =
+        getFormattedDayPeriod(context = context, reminderDayPeriod = reminderDayPeriod)
+    return context.getString(
+        R.string.setting_notification_full_time_accessibility_label,
+        formattedDayPeriod,
+        formattedTime
+    )
+}
+
+private fun getFormattedDayPeriod(
+    context: Context,
+    reminderDayPeriod: ReminderDayPeriod,
+): String {
+    return when (reminderDayPeriod) {
         ReminderDayPeriod.Evening -> {
-            "Evening"
+            context.getString(R.string.setting_notification_evening_time_accessibility_label)
         }
         ReminderDayPeriod.Midday -> {
-            "Midday"
+            context.getString(R.string.setting_notification_midday_time_accessibility_label)
         }
         ReminderDayPeriod.Morning -> {
-            "Morning"
+            context.getString(R.string.setting_notification_morning_time_accessibility_label)
         }
     }
-    return "$dayPeriod notification set to $formattedTime"
 }
 
 private fun getSwitchAccessibilityLabel(
+    context: Context,
     reminderDayPeriod: ReminderDayPeriod = ReminderDayPeriod.Morning,
     checked: Boolean
 ): String {
-    val dayPeriod = when(reminderDayPeriod){
-        ReminderDayPeriod.Evening -> {
-            "Evening"
-        }
-        ReminderDayPeriod.Midday -> {
-            "Midday"
-        }
-        ReminderDayPeriod.Morning -> {
-            "Morning"
-        }
-    }
-    return if (checked){
-        "$dayPeriod notification is activated"
+    val dayPeriod = getFormattedDayPeriod(
+        context = context,
+        reminderDayPeriod = reminderDayPeriod
+    )
+    return if (checked) {
+        context.getString(
+            R.string.setting_notification_switch_activated_accessibility_label,
+            dayPeriod
+        )
     } else {
-        "$dayPeriod notification is disabled"
+        context.getString(
+            R.string.setting_notification_switch_disabled_accessibility_label,
+            dayPeriod
+        )
     }
 }
 

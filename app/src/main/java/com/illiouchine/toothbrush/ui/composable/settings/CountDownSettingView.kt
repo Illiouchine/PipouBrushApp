@@ -47,6 +47,12 @@ fun CountDownSettingsView(
             is CountDownState.Loaded -> {
 
                 var durationInSeconds by remember { mutableStateOf(countDownState.duration.inWholeSeconds.toFloat()) }
+                val formattedDuration = durationInSeconds.toLong()
+                    .toDuration(DurationUnit.SECONDS)
+                    .toComponents { minutes, seconds, _ ->
+                        stringResource(id = R.string.settings_count_duration_accessibility_label, minutes, seconds)
+                    }
+                val sliderDurationAccessibilityLabel = stringResource(id = R.string.settings_count_full_duration_accessibility_label, formattedDuration)
 
                 Row(
                     modifier = Modifier
@@ -71,10 +77,7 @@ fun CountDownSettingsView(
                             thumbColor = MaterialTheme.colorScheme.secondary,
                         ),
                         modifier = Modifier.semantics{
-                            val formattedDuration = durationInSeconds.toLong()
-                                .toDuration(DurationUnit.SECONDS)
-                                .toComponents { minutes, seconds, _ -> "$minutes min, $seconds second" }
-                            contentDescription = "tooth brushing duration $formattedDuration"
+                            contentDescription = sliderDurationAccessibilityLabel
                         }
                     )
                 }

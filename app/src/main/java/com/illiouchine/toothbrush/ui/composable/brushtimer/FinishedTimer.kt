@@ -28,7 +28,7 @@ fun FinishedTimer() {
         ){
             Icon(
                 painter = painterResource(id = R.drawable.ic_achievement_star_2),
-                contentDescription = "",
+                contentDescription = null,
                 tint = MaterialTheme.colorScheme.secondary
             )
         }

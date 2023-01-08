@@ -8,12 +8,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
+import com.illiouchine.toothbrush.R
 
 sealed class ReminderDayPeriod{
     object Morning : ReminderDayPeriod()
@@ -56,13 +58,13 @@ fun ReminderView(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "The Notification permission is important for this app. Please grant the permission."
+                            text = stringResource(R.string.settings_reminder_permission_request)
                         )
                         Button(
                             onClick = { notificationPermissionState.launchPermissionRequest() },
                             modifier = Modifier.padding(8.dp)
                         ) {
-                            Text("Request Permission")
+                            Text(stringResource(R.string.settings_reminder_permission_action))
                         }
                     }
                 } else {
@@ -70,8 +72,7 @@ fun ReminderView(
                     // doesn't want to be asked again for this permission, explain that the
                     // permission is required
                     Text(
-                        text = "The Notification permission required for this feature to be available. " +
-                                "Please grant the permission in phone settings."
+                        text = stringResource(R.string.settings_reminder_permission_request_in_settings)
                     )
                 }
             }

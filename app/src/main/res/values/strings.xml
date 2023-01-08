@@ -39,4 +39,23 @@
     <string name="brush_achievement_dialog_confirm_button">Dismiss</string>
     <string name="setting_toast_reminder_loading_error">An error occurred while loading reminders</string>
     <string name="notification_brush_title">It\'s toothbrush time !</string>
+    <string name="settings_reminder_evening_notification">Evening notification</string>
+    <string name="settings_reminder_midday_notification">Midday notification</string>
+    <string name="settings_reminder_morning_notification">Morning notification</string>
+    <string name="achievement_content_achievement_earned_icon_accessibility_label">Achievement earned</string>
+    <string name="achievement_content_achievement_locked_icon_accessibility_label">Achievement locked</string>
+    <string name="brush_timer_finished_accessibility_label">reset timer</string>
+    <string name="brush_timer_idle_accessibility_label">start timer</string>
+    <string name="settings_count_duration_accessibility_label">%1$d min, %2$d second</string>
+    <string name="settings_count_full_duration_accessibility_label">tooth brushing duration %1$s</string>
+    <string name="setting_notification_change_time_accessibility_label">change time</string>
+    <string name="setting_notification_evening_time_accessibility_label">Evening</string>
+    <string name="setting_notification_midday_time_accessibility_label">Midday</string>
+    <string name="setting_notification_morning_time_accessibility_label">Morning</string>
+    <string name="setting_notification_full_time_accessibility_label">%1$s notification set to %2$s</string>
+    <string name="setting_notification_switch_activated_accessibility_label">%1$s notification is activated</string>
+    <string name="setting_notification_switch_disabled_accessibility_label">%1$s notification is disabled</string>
+    <string name="settings_reminder_permission_request">The Notification permission is important for this app. Please grant the permission.</string>
+    <string name="settings_reminder_permission_action">Request Permission</string>
+    <string name="settings_reminder_permission_request_in_settings">The Notification permission required for this feature to be available. Please grant the permission in phone settings.</string>
 </resources>

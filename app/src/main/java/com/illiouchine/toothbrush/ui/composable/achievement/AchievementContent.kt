@@ -74,9 +74,9 @@ fun AchievementRow(
                     .padding(8.dp),
                 painter = painterResource(id = R.drawable.ic_achievement_trophy),
                 contentDescription = if (achievement.earned) {
-                    "Achievement earned"
+                    stringResource(R.string.achievement_content_achievement_earned_icon_accessibility_label)
                 } else {
-                    "Achievement locked"
+                    stringResource(R.string.achievement_content_achievement_locked_icon_accessibility_label)
                 },
                 tint = if (achievement.earned) {
                     MaterialTheme.colorScheme.secondary
