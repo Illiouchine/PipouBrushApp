@@ -40,4 +40,23 @@
     <string name="brush_achievement_dialog_confirm_button">Fermer</string>
     <string name="setting_toast_reminder_loading_error">Une erreur est survenu lors du chargement des rappels</string>
     <string name="notification_brush_title">C\'est l\'heure de se brosser les dents !</string>
+    <string name="settings_reminder_evening_notification">Notification du soir</string>
+    <string name="settings_reminder_midday_notification">Notification de midi</string>
+    <string name="settings_reminder_morning_notification">notification du matin</string>
+    <string name="achievement_content_achievement_earned_icon_accessibility_label">Succès gagné</string>
+    <string name="achievement_content_achievement_locked_icon_accessibility_label">Succès verrouillé</string>
+    <string name="brush_timer_finished_accessibility_label">Réinitialiser le compte à rebour</string>
+    <string name="brush_timer_idle_accessibility_label">Démarer le compte à rebour</string>
+    <string name="settings_count_duration_accessibility_label">%1$d min, %2$d second</string>
+    <string name="settings_count_full_duration_accessibility_label">Durée du brossage de dents %1$s</string>
+    <string name="setting_notification_change_time_accessibility_label">changer la durée</string>
+    <string name="setting_notification_evening_time_accessibility_label">soir</string>
+    <string name="setting_notification_midday_time_accessibility_label">midi</string>
+    <string name="setting_notification_morning_time_accessibility_label">matin</string>
+    <string name="setting_notification_full_time_accessibility_label">Rappel du %1$s prévu pour %2$s</string>
+    <string name="setting_notification_switch_activated_accessibility_label">Rappel du %1$s activé</string>
+    <string name="setting_notification_switch_disabled_accessibility_label">Rappel du %1$s désactivé</string>
+    <string name="settings_reminder_permission_request">L\'autorisation de notification est importante pour cette application. Veuillez accorder la permission.</string>
+    <string name="settings_reminder_permission_action">Demander la permission</string>
+    <string name="settings_reminder_permission_request_in_settings">L\'autorisation de notification requise pour que cette fonctionnalité soit disponible. Veuillez accorder l\'autorisation dans les paramètres du téléphone.</string>
 </resources>
