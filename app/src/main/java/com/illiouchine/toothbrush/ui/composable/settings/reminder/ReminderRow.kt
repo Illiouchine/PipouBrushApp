@@ -69,7 +69,7 @@ fun ReminderRow(
                     val switchAccessibilityLabel = getSwitchAccessibilityLabel(
                         context = LocalContext.current,
                         reminderDayPeriod = reminderDayPeriod,
-                        checked = enabledSwitch
+                        checked = reminderViewState.checked
                     )
 
                     Row(
