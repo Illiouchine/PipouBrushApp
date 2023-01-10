@@ -36,6 +36,7 @@ fun SettingsScreen(
     onCountDownDurationChanged: (Duration) -> Unit = {},
     onEventHandled: (SettingsContract.SettingsState.SettingsEvent) -> Unit = {},
     onNotificationCheckedChanged: ((checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int) -> Unit) = { _, _, _, _ -> },
+    onThanksClicked: ()-> Unit = {}
 ) {
     PipouBackgroundV2 {
         val context = LocalContext.current
@@ -63,7 +64,7 @@ fun SettingsScreen(
                 text = stringResource(R.string.settings_thanks_title),
                 style = typography.titleLarge
             )
-            ThanksView()
+            ThanksView(onKrogogoClicked = { onThanksClicked() })
         }
 
         if (event != null) {
@@ -95,6 +96,9 @@ fun SettingsScreen(
                         stringResource(R.string.setting_toast_reminder_loading_error),
                         Toast.LENGTH_LONG
                     ).show()
+                }
+                is SettingsContract.SettingsState.SettingsEvent.GoToExternalLink -> {
+                    LocalContext.current.startActivity(event.intent)
                 }
             }
             onEventHandled(event)

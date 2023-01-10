@@ -1,5 +1,6 @@
 package com.illiouchine.toothbrush.feature.settings
 
+import android.net.Uri
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
 import com.illiouchine.toothbrush.usecase.countdown.GetCountDownDurationUseCase
@@ -143,6 +144,11 @@ class SettingsViewModel @Inject constructor(
                             }
                         }
                     }
+                    is PartialState.GoToExternalLink -> {
+                        currentState.copy(
+                            event = SettingsContract.SettingsState.SettingsEvent.GoToExternalLink(intent = partialState.intent)
+                        )
+                    }
                 }
             }
         }
@@ -166,6 +172,9 @@ class SettingsViewModel @Inject constructor(
                     min = intent.min
                 )
             }
+            Intent.ThanksClicked -> {
+                Action.GoToExternalLink
+            }
         }
     }
 
@@ -185,6 +194,14 @@ class SettingsViewModel @Inject constructor(
                     hour = action.hour,
                     min = action.min
                 )
+            }
+            Action.GoToExternalLink -> {
+                val intent = android.content.Intent(android.content.Intent.ACTION_VIEW).setData(
+                    Uri.parse("https://www.instagram.com/krogogo/")
+                )
+                setPartialState {
+                    PartialState.GoToExternalLink(intent = intent)
+                }
             }
         }
     }

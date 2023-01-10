@@ -1,5 +1,6 @@
 package com.illiouchine.toothbrush.feature.settings
 
+import android.content.Intent
 import com.illiouchine.mvi.core.*
 import com.illiouchine.toothbrush.usecase.datagateway.entities.Reminder
 import kotlin.time.Duration
@@ -10,12 +11,14 @@ interface SettingsContract {
         data class UpdateCountDownDuration(val duration: Duration) : SettingsIntent()
         data class EventHandled(val settingsEvent: SettingsState.SettingsEvent) : SettingsIntent()
 
-        class ReminderChanged(
+        data class ReminderChanged(
             val checked: Boolean,
             val reminderDayPeriod: ReminderDayPeriod,
             val hour: Int,
             val min: Int
         ) : SettingsIntent()
+
+        object ThanksClicked : SettingsIntent()
     }
 
     sealed class SettingsAction : UiAction {
@@ -33,6 +36,8 @@ interface SettingsContract {
             val hour: Int,
             val min: Int
         ) : SettingsAction()
+
+        object GoToExternalLink : SettingsAction()
 
         object LoadSettings : SettingsAction()
     }
@@ -61,6 +66,7 @@ interface SettingsContract {
         }
 
         sealed class SettingsEvent : UiEvent {
+            data class GoToExternalLink(val intent: Intent): SettingsEvent()
             data class ErrorLoadingCountDownDuration(
                 val exception: Exception
             ) : SettingsEvent()
@@ -94,6 +100,7 @@ interface SettingsContract {
         ) : SettingsPartialState()
 
         data class ReminderSaved(val reminder: Reminder) : SettingsPartialState()
+        data class GoToExternalLink(val intent: Intent) : SettingsPartialState()
     }
 
     sealed class ReminderDayPeriod {

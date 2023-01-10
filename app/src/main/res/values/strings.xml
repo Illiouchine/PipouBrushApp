@@ -35,7 +35,7 @@
     <string name="setting_toast_countdown_loading_error">An error occurred while loading the countdown duration</string>
     <string name="setting_toast_countdown_save_error">An error occurred while saving the countdown duration</string>
     <string name="settings_thanks_title">Thanks</string>
-    <string name="settings_thanks_krog">Thanks to Krog for the assets : @Krogogo in instagram</string>
+    <string name="settings_thanks_krog">To Krogogo for pipou image</string>
     <string name="brush_achievement_dialog_title">Your new achievement(s)</string>
     <string name="brush_achievement_dialog_confirm_button">Dismiss</string>
     <string name="setting_toast_reminder_loading_error">An error occurred while loading reminders</string>
@@ -60,4 +60,5 @@
     <string name="settings_reminder_permission_action">Request Permission</string>
     <string name="settings_reminder_permission_request_in_settings">The Notification permission required for this feature to be available. Please grant the permission in phone settings.</string>
     <string name="brush_timer_accessibility_label">count down timer</string>
+    <string name="settings_thanks_krog_action">Instagram</string>
 </resources>

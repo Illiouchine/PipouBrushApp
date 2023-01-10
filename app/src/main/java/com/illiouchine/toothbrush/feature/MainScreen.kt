@@ -104,6 +104,11 @@ fun MainScreen() {
                         morningReminder = settingsState.morningReminderState,
                         middayReminder = settingsState.middayReminderState,
                         eveningReminder = settingsState.eveningReminderState,
+                        onThanksClicked = {
+                            settingsViewModel.dispatchIntent(
+                                SettingsContract.SettingsIntent.ThanksClicked
+                            )
+                        }
                     )
                 }
             }
