@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(tableName = "brush_history")
-data class BrushHistoryObject(
+data class StatisticObject(
     @PrimaryKey val date: Date
 )

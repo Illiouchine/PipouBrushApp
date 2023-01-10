@@ -3,9 +3,7 @@ package com.illiouchine.toothbrush.feature.statistics
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
-import com.illiouchine.toothbrush.usecase.achievement.GetAchievementsUseCase
-import com.illiouchine.toothbrush.usecase.GetBrushHistoryUseCase
-import com.illiouchine.toothbrush.usecase.datagateway.Achievement
+import com.illiouchine.toothbrush.usecase.GetStatisticsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,18 +15,16 @@ import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.Statisti
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
-    private val getBrushHistory: GetBrushHistoryUseCase,
-    private val getAchievements: GetAchievementsUseCase
+    private val getBrushHistory: GetStatisticsUseCase,
 ) : MviViewModel<Intent, Action, PartialState, State>() {
 
     init {
-        setAction { Action.LoadHistoryAndAchievement }
+        setAction { Action.LoadStatistics }
     }
 
     override fun createInitialState(): State {
         return State(
-            historyState = State.HistoryState.Loading,
-            achievementState = State.AchievementState.Loading,
+            statisticsState = State.StatisticsState.Loading,
             event = null
         )
     }
@@ -41,27 +37,15 @@ class StatisticsViewModel @Inject constructor(
                 partialState: PartialState
             ): State {
                 return when (partialState) {
-                    PartialState.HistoryError -> {
+                    PartialState.StatisticsError -> {
                         currentState.copy(
-                            historyState = State.HistoryState.Error
+                            statisticsState = State.StatisticsState.Error
                         )
                     }
-                    is PartialState.HistoryLoaded -> {
+                    is PartialState.StatisticsLoaded -> {
                         currentState.copy(
-                            historyState = State.HistoryState.Loaded(
+                            statisticsState = State.StatisticsState.Loaded(
                                 brushHistory = partialState.data
-                            )
-                        )
-                    }
-                    PartialState.AchievementError -> {
-                        currentState.copy(
-                            achievementState = State.AchievementState.Error
-                        )
-                    }
-                    is PartialState.AchievementLoaded -> {
-                        currentState.copy(
-                            achievementState = State.AchievementState.Loaded(
-                                achievements = partialState.data
                             )
                         )
                     }
@@ -73,33 +57,15 @@ class StatisticsViewModel @Inject constructor(
     override fun handleUserIntent(intent: Intent): Action {
         return when (intent) {
             Intent.LoadScreen -> {
-                Action.LoadHistoryAndAchievement
+                Action.LoadStatistics
             }
         }
     }
 
     override suspend fun handleAction(action: Action) {
         return when (action) {
-            Action.LoadHistoryAndAchievement -> {
+            Action.LoadStatistics -> {
                 loadHistory()
-                loadAchievement()
-            }
-        }
-    }
-
-    private fun loadAchievement() {
-        viewModelScope.launch {
-            try {
-                val achievements = getAchievements()
-                setPartialState {
-                    PartialState.AchievementLoaded(
-                        data = achievements.toVMDataAchievement()
-                    )
-                }
-            } catch (e: Exception) {
-                setPartialState {
-                    PartialState.AchievementError
-                }
             }
         }
     }
@@ -109,34 +75,24 @@ class StatisticsViewModel @Inject constructor(
             try {
                 val brushHistory = getBrushHistory()
                 setPartialState {
-                    PartialState.HistoryLoaded(
+                    PartialState.StatisticsLoaded(
                         data = brushHistory.toVMDataHistory()
                     )
                 }
             } catch (e: Exception) {
                 setPartialState {
-                    PartialState.HistoryError
+                    PartialState.StatisticsError
                 }
             }
         }
     }
 }
 
-private fun List<GetBrushHistoryUseCase.BrushHistory>.toVMDataHistory(): List<StatisticsContract.History> {
+private fun List<GetStatisticsUseCase.Statistics>.toVMDataHistory(): List<StatisticsContract.Statistics> {
     return this.map {
-        StatisticsContract.History(
+        StatisticsContract.Statistics(
             date = it.date,
             brushCount = it.brushCount
-        )
-    }
-}
-
-private fun List<Achievement>.toVMDataAchievement(): List<StatisticsContract.Achievement> {
-    return this.map {
-        StatisticsContract.Achievement(
-            nameResId = it.nameResId,
-            descriptionResId = it.descriptionResId,
-            earned = it.earned
         )
     }
 }

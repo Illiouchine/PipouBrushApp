@@ -25,7 +25,7 @@ class ReminderDataSourceSharedPref @Inject constructor(
     private val eveningEnabledKey = "eveningEnabledKey"
 
     override suspend fun getReminder(dayPeriod: ReminderObject.DayPeriod): ReminderObject {
-        return when(dayPeriod){
+        return when (dayPeriod) {
             ReminderObject.DayPeriod.Morning -> getMorningReminder()
             ReminderObject.DayPeriod.Midday -> getMiddayReminder()
             ReminderObject.DayPeriod.Evening -> getEveningReminder()
@@ -33,7 +33,7 @@ class ReminderDataSourceSharedPref @Inject constructor(
     }
 
     override suspend fun setReminder(reminderObject: ReminderObject) {
-        when(reminderObject.dayPeriod){
+        when (reminderObject.dayPeriod) {
             ReminderObject.DayPeriod.Morning -> setMorningReminder(reminderObject)
             ReminderObject.DayPeriod.Midday -> setMiddayReminder(reminderObject)
             ReminderObject.DayPeriod.Evening -> setEveningReminder(reminderObject)

@@ -1,14 +1,13 @@
 package com.illiouchine.toothbrush.usecase.utils
 
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
 fun isSameDay(calendar: Calendar, anotherCalendar: Calendar): Boolean {
     return calendar.get(Calendar.DAY_OF_YEAR) == anotherCalendar.get(Calendar.DAY_OF_YEAR) &&
             calendar.get(Calendar.YEAR) == anotherCalendar.get(Calendar.YEAR)
 }
 
-fun <T: Date> List<T>.countThreeDayInRow(): Int {
+fun <T : Date> List<T>.countThreeDayInRow(): Int {
     val calendarList: List<Calendar> = this.map {
         Calendar.getInstance().apply { time = it }
     }
@@ -51,7 +50,7 @@ fun <T: Date> List<T>.countThreeDayInRow(): Int {
     return result
 }
 
-fun <T: Date> List<T>.groupByDayAndCountOccurrence(): List<Pair<T, Int>> {
+fun <T : Date> List<T>.groupByDayAndCountOccurrence(): List<Pair<T, Int>> {
     return this
         .map { date: T ->
             date to date.getYearAndDay()
@@ -65,13 +64,13 @@ fun <T: Date> List<T>.groupByDayAndCountOccurrence(): List<Pair<T, Int>> {
         }.toList()
 }
 
-fun Date.getYearAndDay():Pair<Int,Int>{
+fun Date.getYearAndDay(): Pair<Int, Int> {
     val dateCalendar = Calendar.getInstance().apply { time = this@getYearAndDay }
     return dateCalendar.get(Calendar.YEAR) to dateCalendar.get(Calendar.DAY_OF_YEAR)
 }
 
 
-fun <T: Date> List<T>.countTenDayInRow(): Int {
+fun <T : Date> List<T>.countTenDayInRow(): Int {
     val calendarList: List<Calendar> = this.map {
         Calendar.getInstance().apply { time = it }
     }
@@ -129,17 +128,72 @@ fun <T: Date> List<T>.countTenDayInRow(): Int {
         ) {
             result++
             val calendarElementsToRemove: MutableList<Calendar> = mutableListOf()
-            calendarElementsToRemove.addAll(calendarMutableList.filter { isSameDay(it, currentDay) })
-            calendarElementsToRemove.addAll(calendarMutableList.filter { isSameDay(it, dayPlusOne) })
-            calendarElementsToRemove.addAll(calendarMutableList.filter { isSameDay(it, dayPlusTwo) })
-            calendarElementsToRemove.addAll(calendarMutableList.filter { isSameDay(it, dayPlusThree) })
-            calendarElementsToRemove.addAll(calendarMutableList.filter { isSameDay(it, dayPlusFour) })
-            calendarElementsToRemove.addAll(calendarMutableList.filter { isSameDay(it, dayPlusFive) })
-            calendarElementsToRemove.addAll(calendarMutableList.filter { isSameDay(it, dayPlusSix) })
-            calendarElementsToRemove.addAll(calendarMutableList.filter { isSameDay(it, dayPlusSeven) })
-            calendarElementsToRemove.addAll(calendarMutableList.filter { isSameDay(it, dayPlusHeight) })
-            calendarElementsToRemove.addAll(calendarMutableList.filter { isSameDay(it, dayPlusNine) })
-            calendarElementsToRemove.addAll(calendarMutableList.filter { isSameDay(it, dayPlusTen) })
+            calendarElementsToRemove.addAll(calendarMutableList.filter {
+                isSameDay(
+                    it,
+                    currentDay
+                )
+            })
+            calendarElementsToRemove.addAll(calendarMutableList.filter {
+                isSameDay(
+                    it,
+                    dayPlusOne
+                )
+            })
+            calendarElementsToRemove.addAll(calendarMutableList.filter {
+                isSameDay(
+                    it,
+                    dayPlusTwo
+                )
+            })
+            calendarElementsToRemove.addAll(calendarMutableList.filter {
+                isSameDay(
+                    it,
+                    dayPlusThree
+                )
+            })
+            calendarElementsToRemove.addAll(calendarMutableList.filter {
+                isSameDay(
+                    it,
+                    dayPlusFour
+                )
+            })
+            calendarElementsToRemove.addAll(calendarMutableList.filter {
+                isSameDay(
+                    it,
+                    dayPlusFive
+                )
+            })
+            calendarElementsToRemove.addAll(calendarMutableList.filter {
+                isSameDay(
+                    it,
+                    dayPlusSix
+                )
+            })
+            calendarElementsToRemove.addAll(calendarMutableList.filter {
+                isSameDay(
+                    it,
+                    dayPlusSeven
+                )
+            })
+            calendarElementsToRemove.addAll(calendarMutableList.filter {
+                isSameDay(
+                    it,
+                    dayPlusHeight
+                )
+            })
+            calendarElementsToRemove.addAll(calendarMutableList.filter {
+                isSameDay(
+                    it,
+                    dayPlusNine
+                )
+            })
+            calendarElementsToRemove.addAll(calendarMutableList.filter {
+                isSameDay(
+                    it,
+                    dayPlusTen
+                )
+            })
             calendarMutableList.removeAll(calendarElementsToRemove)
         }
     }

@@ -48,5 +48,5 @@ fun ChronoPreview() {
     Chrono(
         seconds = 240,
         totalSeconds = 500
-    ){}
+    ) {}
 }

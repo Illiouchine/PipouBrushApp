@@ -17,7 +17,7 @@ import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import com.illiouchine.toothbrush.R
 
-sealed class ReminderDayPeriod{
+sealed class ReminderDayPeriod {
     object Morning : ReminderDayPeriod()
     object Midday : ReminderDayPeriod()
     object Evening : ReminderDayPeriod()
@@ -39,14 +39,15 @@ fun ReminderView(
             permission = Manifest.permission.POST_NOTIFICATIONS
         )
     } else {
-        rememberPermissionState(permission ="android.permission.POST_NOTIFICATIONS")
+        rememberPermissionState(permission = "android.permission.POST_NOTIFICATIONS")
     }
 
     Column {
         if (!notificationPermissionState.status.isGranted) {
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
             ) {
                 if (notificationPermissionState.status.shouldShowRationale) {
                     // If the user has denied the permission but the rationale can be shown,

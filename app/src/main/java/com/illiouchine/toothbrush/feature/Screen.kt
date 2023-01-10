@@ -7,6 +7,7 @@ import com.illiouchine.toothbrush.R
 val screenList = listOf(
     Screen.Brush,
     Screen.Statistics,
+    Screen.Achievement,
     Screen.Settings
 )
 
@@ -24,6 +25,12 @@ sealed class Screen(
     object Statistics : Screen(
         route = "Statistics",
         textId = R.string.screen_statistics_menu_title,
+        iconId = R.drawable.ic_chart
+    )
+
+    object Achievement : Screen(
+        route = "Achievement",
+        textId = R.string.screen_achievements_menu_title,
         iconId = R.drawable.ic_achievement_trophy
     )
 

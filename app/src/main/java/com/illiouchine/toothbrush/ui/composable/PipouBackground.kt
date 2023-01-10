@@ -19,7 +19,7 @@ import com.illiouchine.toothbrush.ui.utils.assetsToBitmap
 @Composable
 fun PipouBackground(
     enableBlur: Boolean = false,
-    content: @Composable ()-> Unit = {}
+    content: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
     val bitmap: ImageBitmap? = remember {
@@ -46,7 +46,7 @@ fun PipouBackground(
 @Preview
 @Composable
 fun PipouBackgroundWithBlur(
-){
+) {
     PipouBackground(
         enableBlur = true
     )

@@ -30,7 +30,7 @@ private fun Reminder.toReminderObject(): ReminderObject {
 }
 
 private fun Reminder.DayPeriod.toObjectDayPeriod(): ReminderObject.DayPeriod {
-    return when (this){
+    return when (this) {
         Reminder.DayPeriod.Morning -> ReminderObject.DayPeriod.Morning
         Reminder.DayPeriod.Midday -> ReminderObject.DayPeriod.Midday
         Reminder.DayPeriod.Evening -> ReminderObject.DayPeriod.Evening
@@ -47,7 +47,7 @@ private fun ReminderObject.toReminderEntity(): Reminder {
 }
 
 private fun ReminderObject.DayPeriod.toEntityDayPeriod(): Reminder.DayPeriod {
-    return when(this){
+    return when (this) {
         ReminderObject.DayPeriod.Morning -> Reminder.DayPeriod.Morning
         ReminderObject.DayPeriod.Midday -> Reminder.DayPeriod.Midday
         ReminderObject.DayPeriod.Evening -> Reminder.DayPeriod.Evening

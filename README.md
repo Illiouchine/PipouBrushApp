@@ -48,18 +48,19 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [x] Setup I18n : en / fr
 - [x] Add Thanks section
 - [x] Give feedback when earning achievement
-- [x] setup reminder of brushing 
+- [x] setup reminder of brushing
 - [ ] Setup PlayStore and CD/CI
 - [ ] setup Mini game when brushing
 - [ ] Manage external link in Thanks section : https://www.instagram.com/krogogo/
-- [ ] Make the statistic and achievement section size dynamic 
-- [ ] Setup tablet / Landscape layout
+- [ ] Split the statistic and achievement section
+- [ ] Setup tablet
+- [ ] Landscape layout
 - [ ] Setup light/dark theme
 
 ## Know issue
 - [x] Remove blur effect, unsupported on api lower than 11
 - [x] Fix timer positioning on other device
-- [ ] Fix accessibility issue reported by the play console
+- [x] Fix accessibility issue reported by the play console
 - [ ] Lock screen pause the timer on some device (tester's feedback)
 
 

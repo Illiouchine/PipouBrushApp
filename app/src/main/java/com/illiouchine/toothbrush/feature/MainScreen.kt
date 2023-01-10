@@ -13,6 +13,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.illiouchine.toothbrush.feature.achievements.AchievementsContract
+import com.illiouchine.toothbrush.feature.achievements.AchievementsScreen
+import com.illiouchine.toothbrush.feature.achievements.AchievementsViewModel
 import com.illiouchine.toothbrush.feature.brushing.BrushContract
 import com.illiouchine.toothbrush.feature.brushing.BrushScreen
 import com.illiouchine.toothbrush.feature.brushing.BrushViewModel
@@ -64,8 +67,15 @@ fun MainScreen() {
                     val statisticsState by statisticsViewModel.uiState.collectAsState()
                     statisticsViewModel.dispatchIntent(StatisticsContract.StatisticsIntent.LoadScreen)
                     StatisticsScreen(
-                        historyState = statisticsState.historyState,
-                        achievementState = statisticsState.achievementState
+                        statisticsState = statisticsState.statisticsState,
+                    )
+                }
+                composable(Screen.Achievement.route) {
+                    val achievementsViewModel = hiltViewModel<AchievementsViewModel>()
+                    val achievementsState by achievementsViewModel.uiState.collectAsState()
+                    achievementsViewModel.dispatchIntent(AchievementsContract.AchievementsIntent.LoadScreen)
+                    AchievementsScreen(
+                        achievementState = achievementsState.achievementState
                     )
                 }
                 composable(Screen.Settings.route) {

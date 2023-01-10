@@ -3,7 +3,7 @@ package com.illiouchine.toothbrush.feature.brushing
 import androidx.lifecycle.viewModelScope
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
-import com.illiouchine.toothbrush.usecase.*
+import com.illiouchine.toothbrush.usecase.SaveBrushProgressUseCase
 import com.illiouchine.toothbrush.usecase.achievement.EarnBrushAchievementUseCase
 import com.illiouchine.toothbrush.usecase.countdown.GetCountDownDurationUseCase
 import com.illiouchine.toothbrush.usecase.countdown.LaunchVibratorUseCase

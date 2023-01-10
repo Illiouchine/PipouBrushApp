@@ -3,21 +3,21 @@ package com.illiouchine.toothbrush.di
 import android.content.Context
 import androidx.room.Room
 import com.illiouchine.toothbrush.database.AchievementDataMapper
-import com.illiouchine.toothbrush.database.room.AppDatabase
-import com.illiouchine.toothbrush.database.BrushHistoryDataMapper
 import com.illiouchine.toothbrush.database.CountDownDurationDataMapper
 import com.illiouchine.toothbrush.database.ReminderDataMapper
+import com.illiouchine.toothbrush.database.StatisticsDataMapper
 import com.illiouchine.toothbrush.database.datasource.achievement.AchievementDataSource
-import com.illiouchine.toothbrush.database.datasource.brushhistory.BrushHistoryDataSource
 import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSource
 import com.illiouchine.toothbrush.database.datasource.coundown.CountDownDataSourceSharedPref
 import com.illiouchine.toothbrush.database.datasource.reminder.ReminderDataSource
 import com.illiouchine.toothbrush.database.datasource.reminder.ReminderDataSourceSharedPref
+import com.illiouchine.toothbrush.database.datasource.statistics.StatisticsDataSource
+import com.illiouchine.toothbrush.database.room.AppDatabase
 import com.illiouchine.toothbrush.database.room.MigrationFrom1To2
 import com.illiouchine.toothbrush.usecase.datagateway.AchievementDataGateway
-import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
 import com.illiouchine.toothbrush.usecase.datagateway.CountDownDurationDataGateway
 import com.illiouchine.toothbrush.usecase.datagateway.ReminderDataGateway
+import com.illiouchine.toothbrush.usecase.datagateway.StatisticsDataGateway
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,8 +47,8 @@ class StatisticsModule {
     fun bindStatisticsDataSource(
         //statisticsInMemory: BrushHistoryInMemory
         appDatabase: AppDatabase
-    ): BrushHistoryDataSource {
-        return appDatabase.brushHistoryDao()
+    ): StatisticsDataSource {
+        return appDatabase.statisticDao()
     }
 }
 
@@ -122,10 +122,10 @@ object DataBaseModule {
 
     @Provides
     fun bindStatisticsDataGateway(
-        brushHistoryDataSource: BrushHistoryDataSource
-    ): BrushHistoryDataGateway {
-        return BrushHistoryDataMapper(
-            brushHistoryDataSource = brushHistoryDataSource
+        statisticsDataSource: StatisticsDataSource
+    ): StatisticsDataGateway {
+        return StatisticsDataMapper(
+            statisticsDataSource = statisticsDataSource
         )
     }
 

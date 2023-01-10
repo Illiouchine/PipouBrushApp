@@ -45,16 +45,16 @@ fun HistoryRow(
                         mergeDescendants = true
                     ) {
                         contentDescription = rowAccessibilityDescription
-                    }
-                ,
+                    },
                 verticalAlignment = CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
                     text = element.date.toFormattedDate(),
                     style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(start = 8.dp)
-                        .clearAndSetSemantics {  }
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .clearAndSetSemantics { }
                 )
                 ToothStar(
                     modifier = Modifier

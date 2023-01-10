@@ -33,6 +33,6 @@ fun previewDataHistory(
     )
 }
 
-private val d10: Date = Calendar.getInstance().apply { set(1999, 12, 29, 12, 0,0) }.time
-private val d20: Date = Calendar.getInstance().apply { set(1999, 12, 31, 12, 0,0) }.time
-private val d30: Date = Calendar.getInstance().apply { set(1999, 12, 12, 12, 0,0) }.time
+private val d10: Date = Calendar.getInstance().apply { set(1999, 12, 29, 12, 0, 0) }.time
+private val d20: Date = Calendar.getInstance().apply { set(1999, 12, 31, 12, 0, 0) }.time
+private val d30: Date = Calendar.getInstance().apply { set(1999, 12, 12, 12, 0, 0) }.time

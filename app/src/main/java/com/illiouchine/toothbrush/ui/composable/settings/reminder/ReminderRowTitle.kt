@@ -12,25 +12,25 @@ import com.illiouchine.toothbrush.R
 @Preview
 @Composable
 fun ReminderRowTitle(reminderDayPeriod: ReminderDayPeriod = ReminderDayPeriod.Morning) {
-    when(reminderDayPeriod){
+    when (reminderDayPeriod) {
         ReminderDayPeriod.Evening -> {
             Text(
-                modifier = Modifier.clearAndSetSemantics {  },
+                modifier = Modifier.clearAndSetSemantics { },
                 text = stringResource(R.string.settings_reminder_evening_notification),
                 style = MaterialTheme.typography.titleSmall,
 
-            )
+                )
         }
         ReminderDayPeriod.Midday -> {
             Text(
-                modifier = Modifier.clearAndSetSemantics {  },
+                modifier = Modifier.clearAndSetSemantics { },
                 text = stringResource(R.string.settings_reminder_midday_notification),
                 style = MaterialTheme.typography.titleSmall,
             )
         }
         ReminderDayPeriod.Morning -> {
             Text(
-                modifier = Modifier.clearAndSetSemantics {  },
+                modifier = Modifier.clearAndSetSemantics { },
                 text = stringResource(R.string.settings_reminder_morning_notification),
                 style = MaterialTheme.typography.titleSmall,
             )

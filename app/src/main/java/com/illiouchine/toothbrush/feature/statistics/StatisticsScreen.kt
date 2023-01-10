@@ -1,87 +1,52 @@
 package com.illiouchine.toothbrush.feature.statistics
 
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.StatisticsState
 import com.illiouchine.toothbrush.ui.composable.PipouBackgroundV2
-import com.illiouchine.toothbrush.ui.composable.achievement.AchievementContent
-import com.illiouchine.toothbrush.ui.composable.achievement.AchievementState
 import com.illiouchine.toothbrush.ui.composable.history.HistoryContent
 import com.illiouchine.toothbrush.ui.composable.history.HistoryState
-import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.AchievementState as VMAchievementState
-import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.HistoryState as VMHistoryState
 
 @Preview
 @Composable
 fun StatisticsScreen(
-    historyState: VMHistoryState = VMHistoryState.Loaded(brushHistory = listOf()),
-    achievementState: VMAchievementState = VMAchievementState.Loaded(achievements = listOf())
+    statisticsState: StatisticsState = StatisticsState.Loaded(brushHistory = listOf()),
 ) {
-    PipouBackgroundV2{
+    PipouBackgroundV2 {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            AchievementContent(
-                    modifier = Modifier.fillMaxHeight(.5f),
-                    achievementState = achievementState.toViewState()
-                )
-
-            Spacer(modifier = Modifier.height(8.dp))
             HistoryContent(
-                modifier = Modifier.fillMaxHeight(.5f),
-                historyState = historyState.toViewState()
+                modifier = Modifier,
+                historyState = statisticsState.toViewState()
             )
         }
     }
 }
 
-@Composable // I don't know if this is a code smell ?
-private fun VMAchievementState.toViewState(): AchievementState {
-    return when(this){
-        VMAchievementState.Error -> {
-            AchievementState.Error
+private fun StatisticsState.toViewState(): HistoryState {
+    return when (this) {
+        StatisticsState.Error -> {
+            HistoryState.Error
         }
-        is VMAchievementState.Loaded -> {
-            AchievementState.Loaded(
-                achievements = this.achievements.toViewModel()
-            )
-        }
-        VMAchievementState.Loading -> {
-            AchievementState.Loading
-        }
-    }
-}
-
-@Composable
-private fun List<StatisticsContract.Achievement>.toViewModel(): List<AchievementState.Achievement> {
-    return this.map { vmAchievement ->
-        AchievementState.Achievement(
-            name = stringResource(id = vmAchievement.nameResId),
-            description = stringResource(vmAchievement.descriptionResId),
-            earned = vmAchievement.earned
-        )
-    }
-}
-
-private fun VMHistoryState.toViewState(): HistoryState {
-    return when(this){
-        VMHistoryState.Error -> { HistoryState.Error }
-        is VMHistoryState.Loaded -> {
+        is StatisticsState.Loaded -> {
             HistoryState.Loaded(data = this.brushHistory.toViewData())
         }
-        VMHistoryState.Loading -> {
+        StatisticsState.Loading -> {
             HistoryState.Loading
         }
     }
 }
 
-private fun List<StatisticsContract.History>.toViewData(): List<HistoryState.History> {
+private fun List<StatisticsContract.Statistics>.toViewData(): List<HistoryState.History> {
     return this.map {
         HistoryState.History(
             date = it.date,

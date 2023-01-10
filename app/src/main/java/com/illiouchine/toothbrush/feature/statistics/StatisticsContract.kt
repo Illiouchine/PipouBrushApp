@@ -10,51 +10,33 @@ interface StatisticsContract {
     }
 
     sealed class StatisticsAction : UiAction {
-        object LoadHistoryAndAchievement : StatisticsAction()
+        object LoadStatistics : StatisticsAction()
     }
 
     data class StatisticsState(
-        val historyState: HistoryState,
-        val achievementState: AchievementState,
+        val statisticsState: StatisticsState,
         override val event: StatisticsEvent?
     ) : UiState {
         sealed class StatisticsEvent : UiEvent {}
-        sealed class HistoryState {
-            object Loading : HistoryState()
-            object Error : HistoryState()
+        sealed class StatisticsState {
+            object Loading : StatisticsState()
+            object Error : StatisticsState()
             data class Loaded(
-                val brushHistory: List<History>
-            ) : HistoryState()
-        }
-        sealed class AchievementState{
-            object Loading : AchievementState()
-            object Error : AchievementState()
-            data class Loaded(
-                val achievements: List<Achievement>
-            ) : AchievementState()
-
+                val brushHistory: List<Statistics>
+            ) : StatisticsState()
         }
     }
 
     sealed class StatisticsPartialState : UiPartialState {
-        data class HistoryLoaded(
-            val data: List<History>
+        data class StatisticsLoaded(
+            val data: List<Statistics>
         ) : StatisticsPartialState()
-        object HistoryError : StatisticsPartialState()
-        data class AchievementLoaded(
-            val data: List<Achievement>
-        ) : StatisticsPartialState()
-        object AchievementError : StatisticsPartialState()
+
+        object StatisticsError : StatisticsPartialState()
     }
 
-    data class History(
+    data class Statistics(
         val date: Date,
         val brushCount: Int
-    )
-
-    data class Achievement(
-        val nameResId: Int,
-        val descriptionResId: Int,
-        val earned: Boolean
     )
 }

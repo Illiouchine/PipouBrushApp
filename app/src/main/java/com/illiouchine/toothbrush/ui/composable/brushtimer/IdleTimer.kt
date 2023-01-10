@@ -21,7 +21,7 @@ import com.illiouchine.toothbrush.ui.composable.brushtimer.chrono.Chrono
 import com.illiouchine.toothbrush.ui.composable.brushtimer.chrono.StartIcon
 
 @Composable
-fun IdleTimer(totalSeconds: Long = 180L, ) {
+fun IdleTimer(totalSeconds: Long = 180L) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -29,10 +29,11 @@ fun IdleTimer(totalSeconds: Long = 180L, ) {
         Chrono(
             seconds = totalSeconds,
             totalSeconds = totalSeconds,
-        ){
-            StartIcon(modifier = Modifier
-                .size(100.dp)
-                .padding(32.dp)
+        ) {
+            StartIcon(
+                modifier = Modifier
+                    .size(100.dp)
+                    .padding(32.dp)
             )
         }
         val countDownAccessibility = stringResource(R.string.brush_timer_accessibility_label)
@@ -46,7 +47,6 @@ fun IdleTimer(totalSeconds: Long = 180L, ) {
         )
     }
 }
-
 
 
 @Preview

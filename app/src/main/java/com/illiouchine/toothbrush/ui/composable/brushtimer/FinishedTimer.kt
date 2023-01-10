@@ -25,7 +25,7 @@ fun FinishedTimer() {
         Chrono(
             seconds = 180,
             totalSeconds = 180,
-        ){
+        ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_achievement_star_2),
                 contentDescription = null,
@@ -39,7 +39,6 @@ fun FinishedTimer() {
         )
     }
 }
-
 
 
 @Preview

@@ -12,13 +12,22 @@ sealed class AchievementState {
     )
 }
 
-fun previewDataAchievementList() : List<AchievementState.Achievement> {
+fun previewDataAchievementList(): List<AchievementState.Achievement> {
     return listOf(
         previewDataAchievement("Achievement 1", "Achievement description", false),
-        previewDataAchievement("Achievement 2", "Achievement description, this could be long and be display on 5 lines", false),
-        previewDataAchievement("Achievement 3", "Achievement description, this could be long and be display on 5 lines, i say extremely long", false),
+        previewDataAchievement(
+            "Achievement 2",
+            "Achievement description, this could be long and be display on 5 lines",
+            false
+        ),
+        previewDataAchievement(
+            "Achievement 3",
+            "Achievement description, this could be long and be display on 5 lines, i say extremely long",
+            false
+        ),
     )
 }
+
 fun previewDataAchievement(
     name: String = "Preview Achievement",
     description: String = "Achievement description, this could be long and be display on 5 lines",

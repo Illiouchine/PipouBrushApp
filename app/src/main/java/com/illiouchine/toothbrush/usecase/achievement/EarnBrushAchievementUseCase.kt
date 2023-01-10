@@ -1,21 +1,21 @@
 package com.illiouchine.toothbrush.usecase.achievement
 
-import com.illiouchine.toothbrush.usecase.GetBrushHistoryUseCase
+import com.illiouchine.toothbrush.usecase.GetStatisticsUseCase
 import com.illiouchine.toothbrush.usecase.datagateway.Achievement
 import com.illiouchine.toothbrush.usecase.datagateway.AchievementDataGateway
 import com.illiouchine.toothbrush.usecase.datagateway.AchievementReference
-import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
+import com.illiouchine.toothbrush.usecase.datagateway.StatisticsDataGateway
 import com.illiouchine.toothbrush.usecase.utils.countThreeDayInRow
 import java.util.*
 import javax.inject.Inject
 
 class EarnBrushAchievementUseCase @Inject constructor(
     private val achievementDataGateway: AchievementDataGateway,
-    private val brushHistoryDataGateway: BrushHistoryDataGateway,
-    private val getBrushHistoryUseCase: GetBrushHistoryUseCase
+    private val statisticsDataGateway: StatisticsDataGateway,
+    private val getStatisticsUseCase: GetStatisticsUseCase
 ) {
 
-    private val justEarnedAchievements : MutableList<Achievement> = mutableListOf()
+    private val justEarnedAchievements: MutableList<Achievement> = mutableListOf()
 
     // Should be lunched after brush saved in history
     // Iterate over achievement list and check if new achievements are earned
@@ -32,38 +32,38 @@ class EarnBrushAchievementUseCase @Inject constructor(
 
         //  Iterate over not earned achievement and check with brush history if the user unlock a new achievement
         achievementRefNotEarned.onEach { notEarnedAchievement ->
-            when(notEarnedAchievement.code){
+            when (notEarnedAchievement.code) {
                 100 -> { // First Brush
                     // check if we should give this achievement
-                    shouldGive(notEarnedAchievement){
-                        brushHistoryDataGateway.getBrushHistory().brushDates.any()
+                    shouldGive(notEarnedAchievement) {
+                        statisticsDataGateway.getStatistics().brushDates.any()
                     }
                 }
                 110 -> { // 10 Brush
-                    shouldGive(notEarnedAchievement){
-                        brushHistoryDataGateway.getBrushHistory().brushDates.size >= 10
+                    shouldGive(notEarnedAchievement) {
+                        statisticsDataGateway.getStatistics().brushDates.size >= 10
                     }
                 }
                 200 -> { // Fullday
                     shouldGive(notEarnedAchievement) {
-                        getBrushHistoryUseCase().any { it.brushCount >= 3 }
+                        getStatisticsUseCase().any { it.brushCount >= 3 }
                     }
                 }
                 220 -> { // 10 Fullday
                     shouldGive(notEarnedAchievement) {
-                        getBrushHistoryUseCase().count { it.brushCount >= 3 } >= 10
+                        getStatisticsUseCase().count { it.brushCount >= 3 } >= 10
                     }
                 }
                 300 -> { // Three Day in a row
                     shouldGive(notEarnedAchievement) {
-                        getBrushHistoryUseCase()
+                        getStatisticsUseCase()
                             .map { it.date }
                             .countThreeDayInRow() >= 1
                     }
                 }
                 310 -> { // 10 Three Day in a row
                     shouldGive(notEarnedAchievement) {
-                        getBrushHistoryUseCase()
+                        getStatisticsUseCase()
                             .map { it.date }
                             .countThreeDayInRow() >= 10
                     }
@@ -78,9 +78,9 @@ class EarnBrushAchievementUseCase @Inject constructor(
 
     private suspend fun shouldGive(
         achievement: AchievementReference,
-        predicate: suspend ()-> Boolean
-    ){
-        if (predicate()){
+        predicate: suspend () -> Boolean
+    ) {
+        if (predicate()) {
             // Save it
             achievementDataGateway.saveAchievements(
                 achievement = AchievementDataGateway.AchievementEntity(

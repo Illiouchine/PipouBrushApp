@@ -1,11 +1,9 @@
 package com.illiouchine.toothbrush.feature
 
-import android.Manifest
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
-import com.google.accompanist.permissions.rememberPermissionState
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import dagger.hilt.android.AndroidEntryPoint
 

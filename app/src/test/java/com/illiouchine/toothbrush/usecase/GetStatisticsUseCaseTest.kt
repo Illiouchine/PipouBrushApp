@@ -1,6 +1,6 @@
 package com.illiouchine.toothbrush.usecase
 
-import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
+import com.illiouchine.toothbrush.usecase.datagateway.StatisticsDataGateway
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -8,7 +8,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import java.util.*
 
-class GetBrushHistoryUseCaseTest {
+class GetStatisticsUseCaseTest {
 
     private val d10: Date = Calendar.getInstance().apply { set(1999, 12, 29, 12, 0, 0) }.time
     private val d11: Date = Calendar.getInstance().apply { set(1999, 12, 29, 15, 0, 0) }.time
@@ -22,19 +22,19 @@ class GetBrushHistoryUseCaseTest {
     )
 
     private val expectedData = listOf(
-        GetBrushHistoryUseCase.BrushHistory(d10, 3),
-        GetBrushHistoryUseCase.BrushHistory(d20, 2),
-        GetBrushHistoryUseCase.BrushHistory(d30, 1),
+        GetStatisticsUseCase.Statistics(d10, 3),
+        GetStatisticsUseCase.Statistics(d20, 2),
+        GetStatisticsUseCase.Statistics(d30, 1),
     )
 
-    private val dataGateway: BrushHistoryDataGateway = mock()
+    private val dataGateway: StatisticsDataGateway = mock()
 
     @Test
     fun test() = runBlocking {
-        whenever(dataGateway.getBrushHistory())
-            .thenReturn(BrushHistoryDataGateway.BrushHistoryEntity(initialData))
+        whenever(dataGateway.getStatistics())
+            .thenReturn(StatisticsDataGateway.StatisticsEntity(initialData))
 
-        val getBrushStatistic = GetBrushHistoryUseCase(dataGateway)
+        val getBrushStatistic = GetStatisticsUseCase(dataGateway)
 
         val result = getBrushStatistic()
         assertEquals(expectedData, result)

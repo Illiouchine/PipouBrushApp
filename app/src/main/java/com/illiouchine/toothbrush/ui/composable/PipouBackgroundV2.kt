@@ -79,7 +79,9 @@ fun PipouBackgroundV2(
                                 contentScale = ContentScale.FillBounds
                             )
                     ) {
-                        if (mirrorContent != null) { mirrorContent() }
+                        if (mirrorContent != null) {
+                            mirrorContent()
+                        }
                     }
                     Box(
                         Modifier
@@ -109,9 +111,10 @@ fun PipouBackgroundV2(
             ) {}
         }
         if (fullScreenContent != null) {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.9f))
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.9f))
             ) {
                 fullScreenContent()
             }

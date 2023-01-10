@@ -6,7 +6,7 @@ import kotlin.time.Duration
 
 class GetCountDownDurationUseCase @Inject constructor(
     private val countDownDurationDataGateway: CountDownDurationDataGateway
-){
+) {
     suspend operator fun invoke(): Duration {
         return countDownDurationDataGateway.getCountDownDuration()
     }

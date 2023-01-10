@@ -22,41 +22,41 @@ data class AlertDialogAchievement(
 
 @Composable
 fun AchievementAlertDialog(
-    onAchievementsHandled: ()-> Unit = {},
+    onAchievementsHandled: () -> Unit = {},
     achievements: List<AlertDialogAchievement> = emptyList(),
 ) {
     AlertDialog(
-    onDismissRequest = {
-        onAchievementsHandled()
-    },
-    icon = {
-        Icon(
-            modifier = Modifier.size(50.dp),
-            painter = painterResource(id = R.drawable.ic_achievement_trophy),
-            contentDescription = null
-        )
-    },
-    title = {
-        Text(text = stringResource(R.string.brush_achievement_dialog_title))
-    },
-    text = {
-        LazyColumn {
-            items(achievements) { achievement ->
-                Row {
-                    Text(text = stringResource(id = achievement.nameResId))
+        onDismissRequest = {
+            onAchievementsHandled()
+        },
+        icon = {
+            Icon(
+                modifier = Modifier.size(50.dp),
+                painter = painterResource(id = R.drawable.ic_achievement_trophy),
+                contentDescription = null
+            )
+        },
+        title = {
+            Text(text = stringResource(R.string.brush_achievement_dialog_title))
+        },
+        text = {
+            LazyColumn {
+                items(achievements) { achievement ->
+                    Row {
+                        Text(text = stringResource(id = achievement.nameResId))
+                    }
                 }
             }
-        }
-    },
-    confirmButton = {
-        TextButton(
-            onClick = {
-                onAchievementsHandled()
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    onAchievementsHandled()
+                }
+            ) {
+                Text(text = stringResource(R.string.brush_achievement_dialog_confirm_button))
             }
-        ) {
-            Text(text = stringResource(R.string.brush_achievement_dialog_confirm_button))
-        }
-    },
-    dismissButton = {}
+        },
+        dismissButton = {}
     )
 }

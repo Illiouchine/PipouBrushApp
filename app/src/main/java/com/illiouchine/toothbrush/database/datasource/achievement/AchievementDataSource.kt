@@ -9,6 +9,7 @@ import com.illiouchine.toothbrush.database.dataobject.AchievementObject
 interface AchievementDataSource {
     @Query("SELECT * FROM achievement")
     suspend fun getAchievements(): List<AchievementObject>
+
     @Insert
     suspend fun addAchievement(date: AchievementObject)
 }

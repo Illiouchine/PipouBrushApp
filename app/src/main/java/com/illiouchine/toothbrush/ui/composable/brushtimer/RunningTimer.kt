@@ -32,7 +32,7 @@ fun RunningTimer(
         Chrono(
             seconds = current,
             totalSeconds = total,
-        ){
+        ) {
             Text(
                 text = DateUtils.formatElapsedTime(current),
                 style = textStyle,
@@ -47,7 +47,6 @@ fun RunningTimer(
         )
     }
 }
-
 
 
 @Preview

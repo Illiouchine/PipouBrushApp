@@ -14,19 +14,43 @@ class AchievementDataMapper @Inject constructor(
     override val achievementsReference: List<AchievementReference>
         get() = listOf(
             // First brush : Earned when completing one brush
-            AchievementReference(code = 100, nameResId = R.string.achievement_100_name, descriptionResId = R.string.achievement_100_desc),
+            AchievementReference(
+                code = 100,
+                nameResId = R.string.achievement_100_name,
+                descriptionResId = R.string.achievement_100_desc
+            ),
             // 10 brush : Earned when completing ten brush
-            AchievementReference(code = 110, nameResId = R.string.achievement_110_name, descriptionResId = R.string.achievement_110_desc),
+            AchievementReference(
+                code = 110,
+                nameResId = R.string.achievement_110_name,
+                descriptionResId = R.string.achievement_110_desc
+            ),
             //  --------------------
             // first Full Day : Earned when brushing three time on a single day
-            AchievementReference(code = 200, nameResId = R.string.achievement_200_name, descriptionResId = R.string.achievement_200_desc),
+            AchievementReference(
+                code = 200,
+                nameResId = R.string.achievement_200_name,
+                descriptionResId = R.string.achievement_200_desc
+            ),
             // 10 Full Day : Earned when brushing three time on a ten day
-            AchievementReference(code = 210, nameResId = R.string.achievement_210_name, descriptionResId = R.string.achievement_210_desc),
+            AchievementReference(
+                code = 210,
+                nameResId = R.string.achievement_210_name,
+                descriptionResId = R.string.achievement_210_desc
+            ),
             //  --------------------
             // Three Day in a row : Earned when brushing three day in a row
-            AchievementReference(code = 300, nameResId = R.string.achievement_300_name, descriptionResId = R.string.achievement_300_desc),
+            AchievementReference(
+                code = 300,
+                nameResId = R.string.achievement_300_name,
+                descriptionResId = R.string.achievement_300_desc
+            ),
             // Ten Day in a row : Earned when brushing ten day in a row
-            AchievementReference(code = 310, nameResId = R.string.achievement_310_name, descriptionResId = R.string.achievement_310_desc),
+            AchievementReference(
+                code = 310,
+                nameResId = R.string.achievement_310_name,
+                descriptionResId = R.string.achievement_310_desc
+            ),
         )
 
     override suspend fun getEarnedAchievements(): List<AchievementDataGateway.AchievementEntity> {

@@ -1,25 +1,25 @@
 package com.illiouchine.toothbrush.usecase
 
-import com.illiouchine.toothbrush.usecase.datagateway.BrushHistoryDataGateway
+import com.illiouchine.toothbrush.usecase.datagateway.StatisticsDataGateway
 import com.illiouchine.toothbrush.usecase.utils.groupByDayAndCountOccurrence
 import java.util.*
 import javax.inject.Inject
 
-class GetBrushHistoryUseCase @Inject constructor(
-    private val brushHistoryDataGateway: BrushHistoryDataGateway,
+class GetStatisticsUseCase @Inject constructor(
+    private val statisticsDataGateway: StatisticsDataGateway,
 ) {
-    suspend operator fun invoke(): List<BrushHistory> {
-        val brushDates: List<Date> = brushHistoryDataGateway.getBrushHistory().brushDates
+    suspend operator fun invoke(): List<Statistics> {
+        val brushDates: List<Date> = statisticsDataGateway.getStatistics().brushDates
         return brushDates.groupByDayAndCountOccurrence()
             .map {
-                BrushHistory(
+                Statistics(
                     date = it.first,
                     brushCount = it.second
                 )
             }.toList()
     }
 
-    data class BrushHistory(
+    data class Statistics(
         val date: Date,
         val brushCount: Int
     )

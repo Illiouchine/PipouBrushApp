@@ -103,7 +103,7 @@ fun SettingsScreen(
 }
 
 private fun ReminderState.toViewState(): ReminderViewState {
-    return when(this){
+    return when (this) {
         is ReminderState.Loaded -> ReminderViewState.Loaded(
             checked = this.enabled,
             hour = this.hour,

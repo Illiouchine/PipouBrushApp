@@ -13,7 +13,8 @@ import com.illiouchine.toothbrush.R
 @Preview
 @Composable
 fun ThanksView() {
-    Text(text = stringResource(R.string.settings_thanks_krog),
+    Text(
+        text = stringResource(R.string.settings_thanks_krog),
         modifier = Modifier.padding(8.dp),
         style = MaterialTheme.typography.bodyMedium,
     )

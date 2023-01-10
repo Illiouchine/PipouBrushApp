@@ -23,7 +23,7 @@ interface BrushContract {
         val achievement: List<Achievement> = emptyList()
     ) : UiState {
         sealed class Timer {
-            object Idle: Timer()
+            object Idle : Timer()
             object Finished : Timer()
 
             data class Running(
@@ -31,6 +31,7 @@ interface BrushContract {
                 val total: Long
             ) : Timer()
         }
+
         sealed class BrushEvent : UiEvent {
             data class ShowToast(val message: String) : BrushEvent() // TODO : should pass a resId
         }

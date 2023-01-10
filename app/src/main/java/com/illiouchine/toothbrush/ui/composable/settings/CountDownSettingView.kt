@@ -8,7 +8,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.*
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.R
@@ -50,9 +52,16 @@ fun CountDownSettingsView(
                 val formattedDuration = durationInSeconds.toLong()
                     .toDuration(DurationUnit.SECONDS)
                     .toComponents { minutes, seconds, _ ->
-                        stringResource(id = R.string.settings_count_duration_accessibility_label, minutes, seconds)
+                        stringResource(
+                            id = R.string.settings_count_duration_accessibility_label,
+                            minutes,
+                            seconds
+                        )
                     }
-                val sliderDurationAccessibilityLabel = stringResource(id = R.string.settings_count_full_duration_accessibility_label, formattedDuration)
+                val sliderDurationAccessibilityLabel = stringResource(
+                    id = R.string.settings_count_full_duration_accessibility_label,
+                    formattedDuration
+                )
 
                 Row(
                     modifier = Modifier
@@ -62,7 +71,7 @@ fun CountDownSettingsView(
                 ) {
                     Text(
                         text = DateUtils.formatElapsedTime(durationInSeconds.toLong()),
-                        modifier = Modifier.clearAndSetSemantics {  }
+                        modifier = Modifier.clearAndSetSemantics { }
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                     Slider(
@@ -76,7 +85,7 @@ fun CountDownSettingsView(
                             activeTickColor = MaterialTheme.colorScheme.secondary,
                             thumbColor = MaterialTheme.colorScheme.secondary,
                         ),
-                        modifier = Modifier.semantics{
+                        modifier = Modifier.semantics {
                             contentDescription = sliderDurationAccessibilityLabel
                         }
                     )

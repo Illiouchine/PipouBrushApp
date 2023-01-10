@@ -2,11 +2,11 @@ package com.illiouchine.toothbrush.usecase.datagateway
 
 import java.util.*
 
-interface BrushHistoryDataGateway {
-    suspend fun getBrushHistory(): BrushHistoryEntity
+interface StatisticsDataGateway {
+    suspend fun getStatistics(): StatisticsEntity
     suspend fun saveBrushHistory()
 
-    data class BrushHistoryEntity(
+    data class StatisticsEntity(
         val brushDates: List<Date>,
     )
 }

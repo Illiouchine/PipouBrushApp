@@ -1,6 +1,7 @@
 package com.illiouchine.toothbrush.ui.composable
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -10,7 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -27,15 +27,11 @@ fun BottomNavigationBar(
         items.forEach { screen ->
             NavigationBarItem(
                 icon = {
-                    Column {
-                        Icon(
-                            painter = painterResource(id = screen.iconId),
-                            contentDescription = stringResource(id = screen.textId),
-                            modifier = Modifier.fillMaxSize(.35f)
-                        )
-                        Spacer(modifier = Modifier.height(22.dp))
-                    }
-                    
+                    Icon(
+                        painter = painterResource(id = screen.iconId),
+                        contentDescription = stringResource(id = screen.textId),
+                        modifier = Modifier.fillMaxSize(.35f)
+                    )
                 },
                 label = {
                     Text(
@@ -49,7 +45,7 @@ fun BottomNavigationBar(
                         launchSingleTop = true
                     }
                 },
-                alwaysShowLabel = false
+                alwaysShowLabel = true
             )
         }
     }

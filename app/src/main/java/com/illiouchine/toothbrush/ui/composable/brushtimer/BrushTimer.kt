@@ -17,9 +17,9 @@ import com.illiouchine.toothbrush.R
 fun BrushTimer(
     modifier: Modifier = Modifier,
     timerState: BrushTimerState = BrushTimerState.Idle,
-    onStartClick : () -> Unit = {},
-    onRestartClick : () -> Unit = {},
-    onRunningClick : () -> Unit = {},
+    onStartClick: () -> Unit = {},
+    onRestartClick: () -> Unit = {},
+    onRunningClick: () -> Unit = {},
 ) {
     Box(
         modifier = Modifier
@@ -40,10 +40,11 @@ fun BrushTimer(
             ),
     ) {
         Box(
-            modifier = modifier.width(150.dp)
+            modifier = modifier
+                .width(150.dp)
                 .align(Alignment.Center)
                 .wrapContentHeight()
-        ){
+        ) {
             when (timerState) {
                 BrushTimerState.Idle -> {
                     IdleTimer()
@@ -65,7 +66,7 @@ fun BrushTimer(
 
 @Preview
 @Composable
-fun BrushTimerIdle(){
+fun BrushTimerIdle() {
     BrushTimer(
         timerState = BrushTimerState.Idle
     )
@@ -73,7 +74,7 @@ fun BrushTimerIdle(){
 
 @Preview
 @Composable
-fun BrushTimerRunning20(){
+fun BrushTimerRunning20() {
     BrushTimer(
         timerState = BrushTimerState.Running(
             current = 20,
@@ -84,7 +85,7 @@ fun BrushTimerRunning20(){
 
 @Preview
 @Composable
-fun BrushTimerRunning60(){
+fun BrushTimerRunning60() {
     BrushTimer(
         timerState = BrushTimerState.Running(
             current = 60,
@@ -95,7 +96,7 @@ fun BrushTimerRunning60(){
 
 @Preview
 @Composable
-fun BrushTimerRunning120(){
+fun BrushTimerRunning120() {
     BrushTimer(
         timerState = BrushTimerState.Running(
             current = 120,
@@ -106,7 +107,7 @@ fun BrushTimerRunning120(){
 
 @Preview
 @Composable
-fun BrushTimerFinished(){
+fun BrushTimerFinished() {
     BrushTimer(
         timerState = BrushTimerState.Finished
     )

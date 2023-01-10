@@ -3,10 +3,10 @@ package com.illiouchine.toothbrush.feature.settings
 import com.illiouchine.mvi.core.MviViewModel
 import com.illiouchine.mvi.core.Reducer
 import com.illiouchine.toothbrush.usecase.countdown.GetCountDownDurationUseCase
-import com.illiouchine.toothbrush.usecase.notification.UpdateTimedNotificationUseCase
 import com.illiouchine.toothbrush.usecase.countdown.SetCountDownDurationUseCase
 import com.illiouchine.toothbrush.usecase.datagateway.entities.Reminder
 import com.illiouchine.toothbrush.usecase.notification.NotificationDayPeriod
+import com.illiouchine.toothbrush.usecase.notification.UpdateTimedNotificationUseCase
 import com.illiouchine.toothbrush.usecase.reminder.GetReminderUseCase
 import com.illiouchine.toothbrush.usecase.reminder.SaveReminderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -112,7 +112,7 @@ class SettingsViewModel @Inject constructor(
                         )
                     }
                     is PartialState.ReminderSaved -> {
-                        when(partialState.reminder.dayPeriod){
+                        when (partialState.reminder.dayPeriod) {
                             Reminder.DayPeriod.Morning -> {
                                 currentState.copy(
                                     morningReminderState = State.ReminderState.Loaded(
@@ -123,13 +123,13 @@ class SettingsViewModel @Inject constructor(
                                 )
                             }
                             Reminder.DayPeriod.Midday -> {
-                                    currentState.copy(
-                                        middayReminderState = State.ReminderState.Loaded(
-                                            hour = partialState.reminder.hour,
-                                            min = partialState.reminder.min,
-                                            enabled = partialState.reminder.enabled
-                                        )
+                                currentState.copy(
+                                    middayReminderState = State.ReminderState.Loaded(
+                                        hour = partialState.reminder.hour,
+                                        min = partialState.reminder.min,
+                                        enabled = partialState.reminder.enabled
                                     )
+                                )
 
                             }
                             Reminder.DayPeriod.Evening -> {
