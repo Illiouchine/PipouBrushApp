@@ -38,7 +38,7 @@ fun SettingsScreen(
     onNotificationCheckedChanged: ((checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int) -> Unit) = { _, _, _, _ -> },
     onThanksClicked: ()-> Unit = {}
 ) {
-    PipouBackground {
+    PipouBackground(blurOrAlphaBackground = true) {
         val context = LocalContext.current
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = stringResource(R.string.settings_title), style = typography.titleLarge)

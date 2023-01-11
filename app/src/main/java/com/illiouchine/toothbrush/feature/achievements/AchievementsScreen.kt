@@ -20,7 +20,7 @@ fun AchievementsScreen(
         achievements = listOf()
     )
 ) {
-    PipouBackground {
+    PipouBackground(blurOrAlphaBackground = true) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

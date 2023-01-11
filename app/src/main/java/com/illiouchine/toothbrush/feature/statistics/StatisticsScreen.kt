@@ -18,7 +18,7 @@ import com.illiouchine.toothbrush.ui.composable.history.HistoryState
 fun StatisticsScreen(
     statisticsState: StatisticsState = StatisticsState.Loaded(brushHistory = listOf()),
 ) {
-    PipouBackground {
+    PipouBackground(blurOrAlphaBackground = true) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

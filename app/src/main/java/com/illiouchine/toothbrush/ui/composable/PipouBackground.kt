@@ -1,16 +1,20 @@
 package com.illiouchine.toothbrush.ui.composable
 
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.R
 
 @Preview(name = "NEXUS_7", device = Devices.NEXUS_7)
@@ -29,8 +33,9 @@ import com.illiouchine.toothbrush.R
 @Preview(name = "AUTOMOTIVE_1024p", device = Devices.AUTOMOTIVE_1024p)
 @Composable
 fun PipouBackground(
+    blurOrAlphaBackground: Boolean = false,
     mirrorContent: @Composable (() -> Unit)? = null,
-    fullScreenContent: @Composable (() -> Unit)? = null
+    fullScreenContent: @Composable (() -> Unit)? = null,
 ) {
     BoxWithConstraints {
         Column(
@@ -39,44 +44,43 @@ fun PipouBackground(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.Cyan)
                     .height(this@BoxWithConstraints.maxHeight * 0.1316f)
-                    .paint(
-                        painterResource(
+                    .paintWithBlurOrColorTint(
+                        painter = painterResource(
                             id = R.drawable.pipou_bg_top
                         ),
-                        contentScale = ContentScale.FillBounds
+                        applyBlurOrColor = blurOrAlphaBackground,
+                        color = MaterialTheme.colorScheme.secondaryContainer,
                     )
             ) { }
             BoxWithConstraints(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.LightGray)
                     .height(this@BoxWithConstraints.maxHeight * 0.3234f)
             ) {
                 Row() {
                     Box(
                         Modifier
-                            .background(Color.Green)
                             .fillMaxHeight()
                             .width(this@BoxWithConstraints.maxWidth * 0.1388f)
-                            .paint(
-                                painterResource(
+                            .paintWithBlurOrColorTint(
+                                painter = painterResource(
                                     id = R.drawable.pipou_bg_left
                                 ),
-                                contentScale = ContentScale.FillBounds
+                                applyBlurOrColor = blurOrAlphaBackground,
+                                color = MaterialTheme.colorScheme.secondaryContainer,
                             )
                     )
                     Box(
                         Modifier
-                            .background(Color.Yellow)
                             .fillMaxHeight()
                             .width(this@BoxWithConstraints.maxWidth * 0.7229f)
-                            .paint(
-                                painterResource(
+                            .paintWithBlurOrColorTint(
+                                painter = painterResource(
                                     id = R.drawable.pipou_bg_center
                                 ),
-                                contentScale = ContentScale.FillBounds
+                                applyBlurOrColor = blurOrAlphaBackground,
+                                color = MaterialTheme.colorScheme.secondaryContainer,
                             )
                     ) {
                         if (mirrorContent != null) {
@@ -85,40 +89,64 @@ fun PipouBackground(
                     }
                     Box(
                         Modifier
-                            .background(Color.Red)
                             .fillMaxHeight()
                             .width(this@BoxWithConstraints.maxWidth * 0.1388f)
-                            .paint(
-                                painterResource(
+                            .paintWithBlurOrColorTint(
+                                painter = painterResource(
                                     id = R.drawable.pipou_bg_right
                                 ),
-                                contentScale = ContentScale.FillBounds
+                                applyBlurOrColor = blurOrAlphaBackground,
+                                color = MaterialTheme.colorScheme.secondaryContainer,
                             )
                     )
                 }
             }
             Row(
                 modifier = Modifier
-                    .background(Color.Blue)
                     .fillMaxWidth()
                     .height(this@BoxWithConstraints.maxHeight * 0.5449f)
-                    .paint(
-                        painterResource(
+                    .paintWithBlurOrColorTint(
+                        painter = painterResource(
                             id = R.drawable.pipou_bg_bottom
                         ),
-                        contentScale = ContentScale.FillBounds
-                    ),
+                        applyBlurOrColor = blurOrAlphaBackground,
+                        color = MaterialTheme.colorScheme.secondaryContainer,
+                    )
             ) {}
         }
         if (fullScreenContent != null) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.9f))
             ) {
                 fullScreenContent()
             }
         }
+    }
+}
+
+private fun Modifier.paintWithBlurOrColorTint(painter: Painter, applyBlurOrColor: Boolean, color: Color): Modifier {
+    return if(applyBlurOrColor){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            this
+                .graphicsLayer(
+                renderEffect = BlurEffect(20f, 20f, edgeTreatment = TileMode.Decal)
+            )
+                .paint(painter = painter, contentScale = ContentScale.FillBounds)
+
+        } else {
+            this.paint(
+                painter = painter,
+                contentScale = ContentScale.FillBounds,
+                colorFilter = ColorFilter.tint(color, blendMode = BlendMode.DstOver),
+                alpha = 0.1f
+            )
+        }
+    } else {
+        this.paint(
+            painter = painter,
+            contentScale = ContentScale.FillBounds,
+        )
     }
 }
 
