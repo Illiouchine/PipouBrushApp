@@ -74,3 +74,6 @@ val md_theme_dark_scrim = Color(0xFF000000)
 
 val seed = Color(0xFFD6E6FD)
 
+val jaune_instagram = Color(0xFFffdf86)
+val bleu_instagram = Color(0xff4768d6)
+val magenta_instagram = Color(0xffd63087)

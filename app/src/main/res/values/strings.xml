@@ -60,5 +60,5 @@
     <string name="settings_reminder_permission_action">Request Permission</string>
     <string name="settings_reminder_permission_request_in_settings">The Notification permission required for this feature to be available. Please grant the permission in phone settings.</string>
     <string name="brush_timer_accessibility_label">count down timer</string>
-    <string name="settings_thanks_krog_action">Instagram</string>
+    <string name="settings_thanks_krog_action">go to Krogogo\'s Instagram profile</string>
 </resources>

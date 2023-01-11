@@ -61,5 +61,5 @@
     <string name="settings_reminder_permission_request_in_settings">L\'autorisation de notification requise pour que cette fonctionnalité soit disponible. Veuillez accorder l\'autorisation dans les paramètres du téléphone.</string>
     <string name="brush_timer_accessibility_label">Compte à rebour</string>
     <string name="screen_achievements_menu_title">Achievements</string>
-    <string name="settings_thanks_krog_action">Instagram</string>
+    <string name="settings_thanks_krog_action">aller sur le profil Instagram de Krogogo</string>
 </resources>
