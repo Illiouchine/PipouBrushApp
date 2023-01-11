@@ -2,7 +2,7 @@ package com.illiouchine.toothbrush.feature.brushing
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.illiouchine.toothbrush.ui.composable.PipouBackgroundV2
+import com.illiouchine.toothbrush.ui.composable.PipouBackground
 import com.illiouchine.toothbrush.ui.composable.achievement.AchievementAlertDialog
 import com.illiouchine.toothbrush.ui.composable.achievement.AlertDialogAchievement
 import com.illiouchine.toothbrush.ui.composable.brushtimer.BrushTimer
@@ -17,7 +17,7 @@ fun BrushScreen(
     onStartClick: () -> Unit = {},
     onAchievementsHandled: () -> Unit = {}
 ) {
-    PipouBackgroundV2(
+    PipouBackground(
         mirrorContent = {
             BrushTimer(
                 timerState = timerState.toBrushTimerState(),

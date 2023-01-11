@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.R
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsState.CountDownSettings
 import com.illiouchine.toothbrush.feature.settings.SettingsContract.SettingsState.ReminderState
-import com.illiouchine.toothbrush.ui.composable.PipouBackgroundV2
+import com.illiouchine.toothbrush.ui.composable.PipouBackground
 import com.illiouchine.toothbrush.ui.composable.settings.CountDownSettingsView
 import com.illiouchine.toothbrush.ui.composable.settings.CountDownState
 import com.illiouchine.toothbrush.ui.composable.settings.ThanksView
@@ -38,7 +38,7 @@ fun SettingsScreen(
     onNotificationCheckedChanged: ((checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int) -> Unit) = { _, _, _, _ -> },
     onThanksClicked: ()-> Unit = {}
 ) {
-    PipouBackgroundV2 {
+    PipouBackground {
         val context = LocalContext.current
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = stringResource(R.string.settings_title), style = typography.titleLarge)

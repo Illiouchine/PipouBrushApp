@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.feature.statistics.StatisticsContract.StatisticsState.StatisticsState
-import com.illiouchine.toothbrush.ui.composable.PipouBackgroundV2
+import com.illiouchine.toothbrush.ui.composable.PipouBackground
 import com.illiouchine.toothbrush.ui.composable.history.HistoryContent
 import com.illiouchine.toothbrush.ui.composable.history.HistoryState
 
@@ -18,7 +18,7 @@ import com.illiouchine.toothbrush.ui.composable.history.HistoryState
 fun StatisticsScreen(
     statisticsState: StatisticsState = StatisticsState.Loaded(brushHistory = listOf()),
 ) {
-    PipouBackgroundV2 {
+    PipouBackground {
         Column(
             modifier = Modifier
                 .fillMaxSize()

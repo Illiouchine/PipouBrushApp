@@ -1,53 +1,131 @@
 package com.illiouchine.toothbrush.ui.composable
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.illiouchine.toothbrush.ui.utils.assetsToBitmap
+import com.illiouchine.toothbrush.R
 
-@Preview
+@Preview(name = "NEXUS_7", device = Devices.NEXUS_7)
+@Preview(name = "NEXUS_7_2013", device = Devices.NEXUS_7_2013)
+@Preview(name = "NEXUS_5", device = Devices.NEXUS_5)
+@Preview(name = "NEXUS_9", device = Devices.NEXUS_9)
+@Preview(name = "NEXUS_10", device = Devices.NEXUS_10)
+@Preview(name = "NEXUS_5X", device = Devices.NEXUS_5X)
+@Preview(name = "PIXEL_C", device = Devices.PIXEL_C)
+@Preview(name = "PIXEL", device = Devices.PIXEL)
+@Preview(name = "PIXEL_2", device = Devices.PIXEL_2)
+@Preview(name = "PIXEL_3", device = Devices.PIXEL_3)
+@Preview(name = "PIXEL_3A", device = Devices.PIXEL_3A)
+@Preview(name = "PIXEL_3A_XL", device = Devices.PIXEL_3A_XL)
+@Preview(name = "PIXEL_4", device = Devices.PIXEL_4)
+@Preview(name = "AUTOMOTIVE_1024p", device = Devices.AUTOMOTIVE_1024p)
 @Composable
 fun PipouBackground(
-    enableBlur: Boolean = false,
-    content: @Composable () -> Unit = {}
+    mirrorContent: @Composable (() -> Unit)? = null,
+    fullScreenContent: @Composable (() -> Unit)? = null
 ) {
-    val context = LocalContext.current
-    val bitmap: ImageBitmap? = remember {
-        context
-            .assetsToBitmap("brossage_dents_redimension.jpg")
-            ?.asImageBitmap()
-    }
-
-    val modifier = if (enableBlur) Modifier.blur(radius = 40.dp) else Modifier
-
-    Surface {
-        bitmap?.let {
-            Image(
-                modifier = modifier.fillMaxSize(),
-                bitmap = it,
-                contentDescription = null,
-                contentScale = ContentScale.Crop
-            )
+    BoxWithConstraints {
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Cyan)
+                    .height(this@BoxWithConstraints.maxHeight * 0.1316f)
+                    .paint(
+                        painterResource(
+                            id = R.drawable.pipou_bg_top
+                        ),
+                        contentScale = ContentScale.FillBounds
+                    )
+            ) { }
+            BoxWithConstraints(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.LightGray)
+                    .height(this@BoxWithConstraints.maxHeight * 0.3234f)
+            ) {
+                Row() {
+                    Box(
+                        Modifier
+                            .background(Color.Green)
+                            .fillMaxHeight()
+                            .width(this@BoxWithConstraints.maxWidth * 0.1388f)
+                            .paint(
+                                painterResource(
+                                    id = R.drawable.pipou_bg_left
+                                ),
+                                contentScale = ContentScale.FillBounds
+                            )
+                    )
+                    Box(
+                        Modifier
+                            .background(Color.Yellow)
+                            .fillMaxHeight()
+                            .width(this@BoxWithConstraints.maxWidth * 0.7229f)
+                            .paint(
+                                painterResource(
+                                    id = R.drawable.pipou_bg_center
+                                ),
+                                contentScale = ContentScale.FillBounds
+                            )
+                    ) {
+                        if (mirrorContent != null) {
+                            mirrorContent()
+                        }
+                    }
+                    Box(
+                        Modifier
+                            .background(Color.Red)
+                            .fillMaxHeight()
+                            .width(this@BoxWithConstraints.maxWidth * 0.1388f)
+                            .paint(
+                                painterResource(
+                                    id = R.drawable.pipou_bg_right
+                                ),
+                                contentScale = ContentScale.FillBounds
+                            )
+                    )
+                }
+            }
+            Row(
+                modifier = Modifier
+                    .background(Color.Blue)
+                    .fillMaxWidth()
+                    .height(this@BoxWithConstraints.maxHeight * 0.5449f)
+                    .paint(
+                        painterResource(
+                            id = R.drawable.pipou_bg_bottom
+                        ),
+                        contentScale = ContentScale.FillBounds
+                    ),
+            ) {}
         }
-        content()
+        if (fullScreenContent != null) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.9f))
+            ) {
+                fullScreenContent()
+            }
+        }
     }
 }
 
 @Preview
 @Composable
-fun PipouBackgroundWithBlur(
-) {
+fun WithFullContent() {
     PipouBackground(
-        enableBlur = true
+        fullScreenContent = {}
     )
 }

@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.illiouchine.toothbrush.ui.composable.PipouBackgroundV2
+import com.illiouchine.toothbrush.ui.composable.PipouBackground
 import com.illiouchine.toothbrush.ui.composable.achievement.AchievementContent
 import com.illiouchine.toothbrush.ui.composable.achievement.AchievementState
 
@@ -20,7 +20,7 @@ fun AchievementsScreen(
         achievements = listOf()
     )
 ) {
-    PipouBackgroundV2 {
+    PipouBackground {
         Column(
             modifier = Modifier
                 .fillMaxSize()
