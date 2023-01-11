@@ -50,10 +50,9 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [x] Give feedback when earning achievement
 - [x] setup reminder of brushing
 - [x] Split the statistic and achievement section
+- [x] Manage external link in Thanks section : https://www.instagram.com/krogogo/
 - [ ] Setup PlayStore and CD/CI
 - [ ] setup Mini game when brushing
-- [ ] Manage external link in Thanks section : https://www.instagram.com/krogogo/
-
 - [ ] Setup tablet
 - [ ] Landscape layout
 - [ ] Setup light/dark theme
