@@ -26,8 +26,7 @@ fun ThanksView(
     ) {
         Text(
             text = stringResource(R.string.settings_thanks_krog),
-            modifier = Modifier
-                .padding(8.dp),
+            modifier = Modifier,
             style = MaterialTheme.typography.bodyMedium,
         )
         InstagramIcon(
