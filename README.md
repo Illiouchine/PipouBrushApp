@@ -52,6 +52,8 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [x] Split the statistic and achievement section
 - [x] Manage external link in Thanks section : https://www.instagram.com/krogogo/
 - [x] Change pipou background image from png to webp
+- [x] Some Ui improvement Reminder + Thanks View
+- [ ] Add some animation
 - [ ] Setup PlayStore and CD/CI
 - [ ] setup Mini game when brushing
 - [ ] Setup tablet
