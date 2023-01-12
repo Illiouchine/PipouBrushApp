@@ -35,7 +35,7 @@ fun Chrono(
     ) {
         CircleMarkers(
             totalSeconds = totalSeconds,
-            seconds = seconds
+            remainingSeconds = seconds
         )
         content()
     }

@@ -61,6 +61,7 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [ ] Setup light/dark theme
 
 ## Know issue
+- [ ] Fix Chono issue when timer set to more than 3min
 - [x] Remove blur effect, unsupported on api lower than 11
 - [x] Fix timer positioning on other device
 - [x] Fix accessibility issue reported by the play console
