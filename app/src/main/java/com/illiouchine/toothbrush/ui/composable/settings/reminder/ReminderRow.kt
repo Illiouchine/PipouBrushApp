@@ -21,122 +21,115 @@ import com.illiouchine.toothbrush.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun ReminderRow(
-    reminderDayPeriod: ReminderDayPeriod = ReminderDayPeriod.Morning,
-    reminderViewState: ReminderViewState = ReminderViewState.Loading,
+    dayPeriod: ReminderDayPeriod = ReminderDayPeriod.Morning,
+    reminderViewState: ReminderViewState = ReminderViewState.Loaded(
+        checked = true,
+        hour = 7,
+        min = 30
+    ),
     enabledSwitch: Boolean = true,
     onNotificationCheckedChanged: (checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int) -> Unit = { _, _, _, _ -> },
 ) {
+    when (reminderViewState) {
+        is ReminderViewState.Loaded -> {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                val hour = remember { mutableStateOf(reminderViewState.hour) }
+                val min = remember { mutableStateOf(reminderViewState.min) }
+
+                val timePickerDialog = TimePickerDialog(
+                    /* context = */ LocalContext.current,
+                    /* listener = */ { _, selectedHour: Int, selectedMinute: Int ->
+                        hour.value = selectedHour
+                        min.value = selectedMinute
+                    },
+                    /* hourOfDay = */ hour.value,
+                    /* minute = */ min.value,
+                    /* is24HourView = */ true
+                )
+
+                val timeTextAccessibilityLabel = getTimeTextAccessibilityLabel(
+                    context = LocalContext.current,
+                    reminderDayPeriod = dayPeriod,
+                    formattedTime = getFormattedTime(hour = hour.value, min = min.value),
+                )
+
+                Column(
+                    modifier = Modifier
+                        .clickable(
+                            onClick = { timePickerDialog.show() },
+                            onClickLabel = stringResource(R.string.setting_notification_change_time_accessibility_label)
+                        )
+                        .semantics {
+                            contentDescription = timeTextAccessibilityLabel
+                        }
+                ) {
+                    ReminderRowTitle(dayPeriod = dayPeriod)
+                    Spacer(modifier = Modifier.size(4.dp))
+                    val formattedTime = getFormattedTime(hour = hour.value, min = min.value)
+                    Text(
+                        text = formattedTime,
+                        modifier = Modifier
+                    )
+                }
+                val switchAccessibilityLabel = getSwitchAccessibilityLabel(
+                    context = LocalContext.current,
+                    reminderDayPeriod = dayPeriod,
+                    checked = reminderViewState.checked
+                )
+                Switch(
+                    enabled = enabledSwitch,
+                    modifier = Modifier
+                        .semantics {
+                            stateDescription = switchAccessibilityLabel
+                        },
+                    checked = reminderViewState.checked,
+                    onCheckedChange = {
+                        onNotificationCheckedChanged(
+                            it,
+                            dayPeriod,
+                            hour.value,
+                            min.value
+                        )
+                    },
+                    colors = SwitchDefaults.colors(
+                        checkedTrackColor = MaterialTheme.colorScheme.secondary
+                    )
+                )
+            }
+        }
+        ReminderViewState.Loading -> {
+            ReminderRowLoadingState(dayPeriod = dayPeriod)
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ReminderRowLoadingState(dayPeriod: ReminderDayPeriod = ReminderDayPeriod.Morning) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(
+        ReminderRowTitle(dayPeriod = dayPeriod)
+        CircularProgressIndicator(
             modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-        ) {
-            Row {
-                ReminderRowTitle(reminderDayPeriod = reminderDayPeriod)
-            }
-            when (reminderViewState) {
-                is ReminderViewState.Loaded -> {
-
-                    val hour = remember { mutableStateOf(reminderViewState.hour) }
-                    val min = remember { mutableStateOf(reminderViewState.min) }
-
-                    val timePickerDialog = TimePickerDialog(
-                        /* context = */ LocalContext.current,
-                        /* listener = */ { _, selectedHour: Int, selectedMinute: Int ->
-                            hour.value = selectedHour
-                            min.value = selectedMinute
-                        },
-                        /* hourOfDay = */ hour.value,
-                        /* minute = */ min.value,
-                        /* is24HourView = */ true
-                    )
-
-                    val timeTextAccessibilityLabel = getTimeTextAccessibilityLabel(
-                        context = LocalContext.current,
-                        reminderDayPeriod = reminderDayPeriod,
-                        formattedTime = getFormattedTime(hour = hour.value, min = min.value),
-                    )
-
-                    val switchAccessibilityLabel = getSwitchAccessibilityLabel(
-                        context = LocalContext.current,
-                        reminderDayPeriod = reminderDayPeriod,
-                        checked = reminderViewState.checked
-                    )
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(IntrinsicSize.Min),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .weight(.6f),
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            val formattedTime = getFormattedTime(hour = hour.value, min = min.value)
-                            Text(
-                                text = formattedTime,
-                                modifier = Modifier
-                                    .padding(8.dp)
-                                    .clickable(
-                                        onClick = { timePickerDialog.show() },
-                                        onClickLabel = stringResource(R.string.setting_notification_change_time_accessibility_label)
-                                    )
-                                    .semantics {
-                                        contentDescription = timeTextAccessibilityLabel
-                                    }
-                            )
-                        }
-                        Column(
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .weight(.4f),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Switch(
-                                enabled = enabledSwitch,
-                                modifier = Modifier
-                                    .padding(end = 8.dp)
-                                    .semantics {
-                                        stateDescription = switchAccessibilityLabel
-                                    },
-                                checked = reminderViewState.checked,
-                                onCheckedChange = {
-                                    onNotificationCheckedChanged(
-                                        it,
-                                        reminderDayPeriod,
-                                        hour.value,
-                                        min.value
-                                    )
-                                },
-                                colors = SwitchDefaults.colors(
-                                    checkedTrackColor = MaterialTheme.colorScheme.secondary
-                                )
-                            )
-                        }
-                    }
-                }
-                ReminderViewState.Loading -> {
-                    Row {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        )
-                    }
-                }
-            }
-        }
+                .size(44.dp)
+        )
     }
 }
 

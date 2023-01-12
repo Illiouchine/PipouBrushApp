@@ -79,7 +79,7 @@ fun ReminderView(
             }
         } else {
             ReminderRow(
-                reminderDayPeriod = ReminderDayPeriod.Morning,
+                dayPeriod = ReminderDayPeriod.Morning,
                 reminderViewState = morningReminder,
                 enabledSwitch = notificationPermissionState.status.isGranted,
                 onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->
@@ -87,7 +87,7 @@ fun ReminderView(
                 },
             )
             ReminderRow(
-                reminderDayPeriod = ReminderDayPeriod.Midday,
+                dayPeriod = ReminderDayPeriod.Midday,
                 reminderViewState = middayReminder,
                 enabledSwitch = notificationPermissionState.status.isGranted,
                 onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->
@@ -95,7 +95,7 @@ fun ReminderView(
                 },
             )
             ReminderRow(
-                reminderDayPeriod = ReminderDayPeriod.Evening,
+                dayPeriod = ReminderDayPeriod.Evening,
                 reminderViewState = eveningReminder,
                 enabledSwitch = notificationPermissionState.status.isGranted,
                 onNotificationCheckedChanged = { checked: Boolean, reminderDayPeriod: ReminderDayPeriod, hour: Int, min: Int ->

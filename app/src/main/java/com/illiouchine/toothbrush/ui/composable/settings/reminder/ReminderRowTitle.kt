@@ -11,8 +11,8 @@ import com.illiouchine.toothbrush.R
 
 @Preview
 @Composable
-fun ReminderRowTitle(reminderDayPeriod: ReminderDayPeriod = ReminderDayPeriod.Morning) {
-    when (reminderDayPeriod) {
+fun ReminderRowTitle(dayPeriod: ReminderDayPeriod = ReminderDayPeriod.Morning) {
+    when (dayPeriod) {
         ReminderDayPeriod.Evening -> {
             Text(
                 modifier = Modifier.clearAndSetSemantics { },

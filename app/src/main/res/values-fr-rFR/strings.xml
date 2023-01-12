@@ -42,7 +42,7 @@
     <string name="notification_brush_title">C\'est l\'heure de se brosser les dents !</string>
     <string name="settings_reminder_evening_notification">Notification du soir</string>
     <string name="settings_reminder_midday_notification">Notification de midi</string>
-    <string name="settings_reminder_morning_notification">notification du matin</string>
+    <string name="settings_reminder_morning_notification">Notification du matin</string>
     <string name="achievement_content_achievement_earned_icon_accessibility_label">Succès gagné</string>
     <string name="achievement_content_achievement_locked_icon_accessibility_label">Succès verrouillé</string>
     <string name="brush_timer_finished_accessibility_label">Réinitialiser le compte à rebour</string>
