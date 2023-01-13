@@ -130,9 +130,14 @@ private fun Modifier.paintWithBlurOrColorTint(painter: Painter, applyBlurOrColor
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
             this
                 .graphicsLayer(
-                renderEffect = BlurEffect(20f, 20f, edgeTreatment = TileMode.Decal)
-            )
-                .paint(painter = painter, contentScale = ContentScale.FillBounds)
+                    renderEffect = BlurEffect(20f, 20f, edgeTreatment = TileMode.Decal),
+                )
+                .paint(
+                    painter = painter,
+                    contentScale = ContentScale.FillBounds,
+                    colorFilter = ColorFilter.tint(Color.White, blendMode = BlendMode.DstOver),
+                    alpha = 0.5f
+                )
 
         } else {
             this.paint(
