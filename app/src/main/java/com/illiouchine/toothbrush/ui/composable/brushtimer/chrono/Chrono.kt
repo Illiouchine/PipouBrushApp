@@ -12,12 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 
 
-/**
- * All credit to GerardPaligot
- * Github : https://github.com/GerardPaligot/android-countdown
- * Article : https://medium.com/@GerardPaligot/jetpack-compose-how-to-play-with-canvas-36d3638996b6
- */
-
 @Composable
 fun Chrono(
     seconds: Long,
@@ -33,7 +27,7 @@ fun Chrono(
             .background(Brush.radialGradient(listOf(Color.LightGray, backgroundColor))),
         contentAlignment = Alignment.Center
     ) {
-        CircleMarkers2(
+        CircleMarkers(
             totalSeconds = totalSeconds,
             remainingSeconds = seconds
         )

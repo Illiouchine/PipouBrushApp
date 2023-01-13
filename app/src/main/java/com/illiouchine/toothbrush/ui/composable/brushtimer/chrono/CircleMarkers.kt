@@ -1,19 +1,23 @@
 package com.illiouchine.toothbrush.ui.composable.brushtimer.chrono
 
+
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.tooling.preview.Preview
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.sin
+import androidx.compose.ui.unit.dp
+import kotlin.math.min
 
-private const val NB_MARKER = 180
+private const val NB_MARKER = 100
+private const val rotationAngle: Float = -(360f / NB_MARKER)
 
 @Composable
 internal fun CircleMarkers(
@@ -23,81 +27,83 @@ internal fun CircleMarkers(
     activeMarkerColor: Color = MaterialTheme.colorScheme.secondary,
 ) {
     Canvas(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .aspectRatio(1f)
+            .fillMaxSize(),
     ) {
+        val sizeUnit = min(size.height, size.width) / 20
 
-        for (i in 0 until NB_MARKER) {
+        for (i in 1 until NB_MARKER + 1) {
 
-            val angle = -i * (360 / NB_MARKER)
-            val theta = (angle - 90) * PI.toFloat() / 180f
-            val startRadius = size.width / 2 * .72f
-            val endRadius = size.width / 2 * .8f
-            val startPos = Offset(cos(theta) * startRadius, sin(theta) * startRadius)
-            val endPos = Offset(cos(theta) * endRadius, sin(theta) * endRadius)
+            rotate(degrees = (rotationAngle * i)) {
 
-            val isActive = i > ((NB_MARKER.toFloat() / totalSeconds) * remainingSeconds)
+                val isActive = i < ((NB_MARKER.toFloat() / totalSeconds) * remainingSeconds)
+                drawLine(
+                    color = if (isActive) activeMarkerColor else markerColor,
+                    start = center.copy(y = sizeUnit),
+                    end = center.copy(y = sizeUnit * 2),
+                    strokeWidth = sizeUnit / 5,
+                    cap = StrokeCap.Round
+                )
 
-            drawLine(
-                color = if (isActive) activeMarkerColor else markerColor,
-                start = center + startPos,
-                end = center + endPos,
-                strokeWidth = 4f,
-                cap = StrokeCap.Round
-            )
+            }
         }
     }
 }
 
 @Composable
 @Preview(showBackground = true, heightDp = 100, widthDp = 100)
-fun IssueCircleMarkerPreview() {
+fun Quarter100CircleMarkerPreview2() {
+    Box(modifier = Modifier.size(300.dp)) {
+        CircleMarkers(
+            totalSeconds = 180,
+            remainingSeconds = 45
+        )
+    }
+}
+
+@Composable
+@Preview(showBackground = true, heightDp = 100, widthDp = 100)
+fun Mid100CircleMarkerPreview2() {
     CircleMarkers(
         totalSeconds = 180,
-        remainingSeconds = 40
+        remainingSeconds = 90
     )
 }
 
 @Composable
 @Preview(showBackground = true, heightDp = 100, widthDp = 100)
-fun FullCircleMarkerPreview() {
+fun Quarter200CircleMarkerPreview2() {
+    CircleMarkers(
+        totalSeconds = 200,
+        remainingSeconds = 50
+    )
+}
+
+@Composable
+@Preview(showBackground = true, heightDp = 100, widthDp = 100)
+fun Mid200CircleMarkerPreview2() {
+    CircleMarkers(
+        totalSeconds = 200,
+        remainingSeconds = 100
+    )
+}
+
+@Composable
+@Preview(showBackground = true, heightDp = 100, widthDp = 100)
+fun Quarter360CircleMarkerPreview2() {
     CircleMarkers(
         totalSeconds = 360,
-        remainingSeconds = 360
+        remainingSeconds = 90
     )
 }
 
 @Composable
 @Preview(showBackground = true, heightDp = 100, widthDp = 100)
-fun MidCircleMarkerPreview() {
+fun Mid360CircleMarkerPreview2() {
     CircleMarkers(
         totalSeconds = 360,
         remainingSeconds = 180
     )
 }
 
-@Composable
-@Preview(showBackground = true, heightDp = 100, widthDp = 100)
-fun EmptyCircleMarkerPreview() {
-    CircleMarkers(
-        totalSeconds = 360,
-        remainingSeconds = 0
-    )
-}
-
-@Composable
-@Preview(showBackground = true, heightDp = 100, widthDp = 100)
-fun OneMinCircleMarkerPreview() {
-    CircleMarkers(
-        totalSeconds = 60,
-        remainingSeconds = 46
-    )
-}
-
-@Composable
-@Preview(showBackground = true, heightDp = 100, widthDp = 100)
-fun ShouldBeFullCircleMarkerPreview() {
-    CircleMarkers(
-        totalSeconds = 120,
-        remainingSeconds = 120
-    )
-}
