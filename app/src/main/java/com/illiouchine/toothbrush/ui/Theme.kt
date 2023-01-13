@@ -17,7 +17,8 @@ fun ToothBrushTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compos
 
     MaterialTheme(
         colorScheme = LightColors,
-        content = content
+        content = content,
+        typography = typography,
     )
 }
 
