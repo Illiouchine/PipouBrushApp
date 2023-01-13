@@ -104,7 +104,6 @@ dependencies {
     kaptTest 'com.google.dagger:hilt-compiler:2.44.2'
 
     // JUNIT
-    androidTestImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'

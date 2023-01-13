@@ -19,37 +19,26 @@ private const val NB_MARKER = 180
 internal fun CircleMarkers(
     totalSeconds: Long,
     remainingSeconds: Long,
-    markerColor: Color = MaterialTheme.colorScheme.secondary,
+    markerColor: Color = MaterialTheme.colorScheme.secondary.copy(alpha = .1f),
     activeMarkerColor: Color = MaterialTheme.colorScheme.secondary,
 ) {
     Canvas(
         modifier = Modifier.fillMaxSize(),
     ) {
-        println("---------------")
-        println("---------  Start Print Marker -------")
-        // i = 0 .. 180
+
         for (i in 0 until NB_MARKER) {
 
             val angle = -i * (360 / NB_MARKER)
-
-            // FIXME : don't work properly
-            // issue with totalSeconds > 180 ?
-
-            // TEST with totalSeconds 200
-            // isActive = 1 < 1 * (180/200) => 1 < 0.9
-            // isActive = 1 < 2 * (180/200) => 1 < 1.8
-            val isActive = i < (remainingSeconds * (NB_MARKER / totalSeconds))
-            println("isActive = i < remainingSeconds * (NB_MARKER/totalSeconds) ")
-            println("$isActive = $i < ${(remainingSeconds * (NB_MARKER / totalSeconds))}")
-
             val theta = (angle - 90) * PI.toFloat() / 180f
             val startRadius = size.width / 2 * .72f
             val endRadius = size.width / 2 * .8f
             val startPos = Offset(cos(theta) * startRadius, sin(theta) * startRadius)
             val endPos = Offset(cos(theta) * endRadius, sin(theta) * endRadius)
 
+            val isActive = i > ((NB_MARKER.toFloat() / totalSeconds) * remainingSeconds)
+
             drawLine(
-                color = if (isActive) activeMarkerColor else markerColor.copy(alpha = .1f),
+                color = if (isActive) activeMarkerColor else markerColor,
                 start = center + startPos,
                 end = center + endPos,
                 strokeWidth = 4f,

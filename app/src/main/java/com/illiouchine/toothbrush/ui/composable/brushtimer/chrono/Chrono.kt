@@ -33,7 +33,7 @@ fun Chrono(
             .background(Brush.radialGradient(listOf(Color.LightGray, backgroundColor))),
         contentAlignment = Alignment.Center
     ) {
-        CircleMarkers(
+        CircleMarkers2(
             totalSeconds = totalSeconds,
             remainingSeconds = seconds
         )
