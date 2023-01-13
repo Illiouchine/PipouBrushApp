@@ -106,7 +106,7 @@ fun ToothStar(
 @Composable
 private fun Int.colorIfActive(value: Int): Color {
     return if (this >= value) {
-        MaterialTheme.colorScheme.secondary
+        MaterialTheme.colorScheme.onBackground
     } else {
         MaterialTheme.colorScheme.secondaryContainer
     }
