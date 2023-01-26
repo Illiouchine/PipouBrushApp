@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -15,6 +14,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.illiouchine.toothbrush.feature.Screen
+import com.illiouchine.toothbrush.ui.utils.AutoSizeText
 
 @Composable
 fun BottomNavigationBar(
@@ -34,7 +34,7 @@ fun BottomNavigationBar(
                     )
                 },
                 label = {
-                    Text(
+                    AutoSizeText(
                         text = stringResource(id = screen.textId)
                     )
                 },
