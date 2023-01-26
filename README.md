@@ -74,6 +74,9 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - on Android [https://play.google.com/store/apps/details?id=com.illiouchine.toothbrush](https://play.google.com/store/apps/details?id=com.illiouchine.toothbrush)
 - on Web [https://play.google.com/apps/testing/com.illiouchine.toothbrush](https://play.google.com/apps/testing/com.illiouchine.toothbrush)
 
+## View on PlayStore
+[https://play.google.com/store/apps/details?id=com.illiouchine.toothbrush](https://play.google.com/store/apps/details?id=com.illiouchine.toothbrush)
+
 ## Screenshots
 ### Timer screen
 ![](screenshots/home-idle-pixel-4a.png)
