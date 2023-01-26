@@ -53,6 +53,7 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [x] Manage external link in Thanks section : https://www.instagram.com/krogogo/
 - [x] Change pipou background image from png to webp
 - [x] Some Ui improvement Reminder + Thanks View
+- [ ] Permit to view achievement on brush screen with movable "badge"
 - [ ] Add some animation
 - [ ] Setup PlayStore and CD/CI
 - [ ] setup Mini game when brushing
@@ -61,7 +62,8 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 - [ ] Setup light/dark theme
 
 ## Know issue
-- [ ] Fix Chono issue when timer set to more than 3min
+- [x] Fix an issue when navigationBar's text could'nt fit in this container
+- [x] Fix Chono issue when timer set to more than 3min
 - [x] Remove blur effect, unsupported on api lower than 11
 - [x] Fix timer positioning on other device
 - [x] Fix accessibility issue reported by the play console
