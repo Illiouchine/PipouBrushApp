@@ -1,12 +1,10 @@
 package com.illiouchine.toothbrush.ui.composable
 
 import android.os.Build
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.painter.Painter
@@ -14,7 +12,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.illiouchine.toothbrush.R
 
 @Preview(name = "NEXUS_7", device = Devices.NEXUS_7)
@@ -58,7 +55,7 @@ fun PipouBackground(
                     .fillMaxWidth()
                     .height(this@BoxWithConstraints.maxHeight * 0.3234f)
             ) {
-                Row() {
+                Row {
                     Box(
                         Modifier
                             .fillMaxHeight()
@@ -125,9 +122,13 @@ fun PipouBackground(
     }
 }
 
-private fun Modifier.paintWithBlurOrColorTint(painter: Painter, applyBlurOrColor: Boolean, color: Color): Modifier {
-    return if(applyBlurOrColor){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+private fun Modifier.paintWithBlurOrColorTint(
+    painter: Painter,
+    applyBlurOrColor: Boolean,
+    color: Color
+): Modifier {
+    return if (applyBlurOrColor) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             this
                 .graphicsLayer(
                     renderEffect = BlurEffect(20f, 20f, edgeTreatment = TileMode.Decal),

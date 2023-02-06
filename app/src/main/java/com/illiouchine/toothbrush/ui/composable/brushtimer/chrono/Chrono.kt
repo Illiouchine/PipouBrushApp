@@ -1,9 +1,8 @@
 package com.illiouchine.toothbrush.ui.composable.brushtimer.chrono
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,12 +17,12 @@ fun Chrono(
     totalSeconds: Long,
     modifier: Modifier = Modifier,
     backgroundColor: Color = Color.Transparent,
-    content: @Composable () -> Unit
+    content: @Composable BoxWithConstraintsScope.() -> Unit
 ) {
-    Box(
+    BoxWithConstraints(
         modifier = modifier
-            .fillMaxWidth()
             .aspectRatio(1f)
+            .fillMaxSize()
             .background(Brush.radialGradient(listOf(Color.LightGray, backgroundColor))),
         contentAlignment = Alignment.Center
     ) {
@@ -31,16 +30,25 @@ fun Chrono(
             totalSeconds = totalSeconds,
             remainingSeconds = seconds
         )
-        content()
+        BoxWithConstraints(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding((this.maxHeight / 4)),
+            contentAlignment = Alignment.Center
+        ) {
+            content()
+        }
     }
 }
 
 
 @Composable
-@Preview
+@Preview(heightDp = 100)
 fun ChronoPreview() {
     Chrono(
         seconds = 240,
         totalSeconds = 500
-    ) {}
+    ) {
+        Text(text = "Dododi")
+    }
 }

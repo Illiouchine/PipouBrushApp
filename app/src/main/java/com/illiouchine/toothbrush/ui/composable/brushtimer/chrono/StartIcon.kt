@@ -1,6 +1,7 @@
 package com.illiouchine.toothbrush.ui.composable.brushtimer.chrono
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,7 +14,9 @@ fun StartIcon(
     modifier: Modifier = Modifier
 ) {
     val pathColor = MaterialTheme.colorScheme.secondary
-    Canvas(modifier = modifier) {
+    Canvas(
+        modifier = modifier.aspectRatio(1f)
+    ) {
         val trianglePath = Path().let {
             it.moveTo(this.size.width * 0.05f, 0f)
             it.lineTo(this.size.width, this.size.height * 0.5f)

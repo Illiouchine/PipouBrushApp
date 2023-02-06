@@ -3,10 +3,8 @@ package com.illiouchine.toothbrush.ui.composable.brushtimer
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,7 +13,6 @@ import com.illiouchine.toothbrush.R
 
 @Composable
 fun BrushTimer(
-    modifier: Modifier = Modifier,
     timerState: BrushTimerState = BrushTimerState.Idle,
     onStartClick: () -> Unit = {},
     onRestartClick: () -> Unit = {},
@@ -24,6 +21,7 @@ fun BrushTimer(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .padding(8.dp)
             .clickable(
                 onClickLabel = when (timerState) {
                     BrushTimerState.Finished -> stringResource(R.string.brush_timer_finished_accessibility_label)
@@ -39,32 +37,25 @@ fun BrushTimer(
                 }
             ),
     ) {
-        Box(
-            modifier = modifier
-                .width(150.dp)
-                .align(Alignment.Center)
-                .wrapContentHeight()
-        ) {
-            when (timerState) {
-                BrushTimerState.Idle -> {
-                    IdleTimer()
-                }
-                is BrushTimerState.Running -> {
-                    RunningTimer(
-                        current = timerState.current,
-                        total = timerState.total
-                    )
-                }
-                BrushTimerState.Finished -> {
-                    FinishedTimer()
-                }
+        when (timerState) {
+            BrushTimerState.Idle -> {
+                IdleTimer()
+            }
+            is BrushTimerState.Running -> {
+                RunningTimer(
+                    current = timerState.current,
+                    total = timerState.total
+                )
+            }
+            BrushTimerState.Finished -> {
+                FinishedTimer()
             }
         }
     }
 }
 
 
-@Preview
+@Preview()
 @Composable
 fun BrushTimerIdle() {
     BrushTimer(

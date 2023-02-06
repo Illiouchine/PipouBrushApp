@@ -3,6 +3,7 @@ package com.illiouchine.toothbrush.ui.composable.brushtimer
 import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.illiouchine.toothbrush.R
 import com.illiouchine.toothbrush.ui.ToothBrushTheme
 import com.illiouchine.toothbrush.ui.composable.brushtimer.chrono.Chrono
+import com.illiouchine.toothbrush.ui.utils.AutoSizeText
 
 
 @Composable
@@ -26,18 +28,19 @@ fun RunningTimer(
     textColor: Color = MaterialTheme.colorScheme.secondary,
 ) {
     Column(
+        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Chrono(
+            modifier = Modifier.weight(1f),
             seconds = current,
             totalSeconds = total,
         ) {
-            Text(
+            AutoSizeText(
                 text = DateUtils.formatElapsedTime(current),
                 style = textStyle,
                 color = textColor,
-                modifier = Modifier
             )
         }
         Text(
