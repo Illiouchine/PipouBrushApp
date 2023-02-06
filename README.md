@@ -63,10 +63,11 @@ This project use the MVI (Model View Intent) architecture and use a custom mvi l
 
 ## Know issue
 - [x] Fix an issue when navigationBar's text could'nt fit in this container
-- [x] Fix Chono issue when timer set to more than 3min
+- [x] Fix Chrono issue when timer set to more than 3min
 - [x] Remove blur effect, unsupported on api lower than 11
 - [x] Fix timer positioning on other device
 - [x] Fix accessibility issue reported by the play console
+- [x] Fix chrono layout on small screen
 - [ ] Lock screen pause the timer on some device (tester's feedback)
 
 
