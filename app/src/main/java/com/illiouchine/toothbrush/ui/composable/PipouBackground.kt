@@ -1,9 +1,10 @@
 package com.illiouchine.toothbrush.ui.composable
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.*
@@ -13,7 +14,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.illiouchine.toothbrush.R
+import kotlinx.coroutines.*
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Preview(name = "NEXUS_7", device = Devices.NEXUS_7)
 @Preview(name = "NEXUS_7_2013", device = Devices.NEXUS_7_2013)
 @Preview(name = "NEXUS_5", device = Devices.NEXUS_5)
@@ -31,9 +34,11 @@ import com.illiouchine.toothbrush.R
 @Composable
 fun PipouBackground(
     blurOrAlphaBackground: Boolean = false,
+    animateBackground: Boolean = true,
     mirrorContent: @Composable (() -> Unit)? = null,
     fullScreenContent: @Composable (() -> Unit)? = null,
-) {
+
+    ) {
     BoxWithConstraints {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -98,18 +103,89 @@ fun PipouBackground(
                     )
                 }
             }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(this@BoxWithConstraints.maxHeight * 0.5449f)
-                    .paintWithBlurOrColorTint(
-                        painter = painterResource(
-                            id = R.drawable.pipou_bg_bottom
-                        ),
-                        applyBlurOrColor = blurOrAlphaBackground,
-                        color = MaterialTheme.colorScheme.secondaryContainer,
-                    )
-            ) {}
+            val scope = rememberCoroutineScope()
+            var job: Job? = null
+            if (animateBackground) {
+
+                val pipouBg0Deg = painterResource(id = R.drawable.pipou_bg_bottom_0deg)
+                val pipouBg1Deg = painterResource(id = R.drawable.pipou_bg_bottom_1deg)
+                val pipouBg2Deg = painterResource(id = R.drawable.pipou_bg_bottom_2deg)
+                val pipouBg3Deg = painterResource(id = R.drawable.pipou_bg_bottom_3deg)
+                val pipouBg4Deg = painterResource(id = R.drawable.pipou_bg_bottom_4deg)
+                var rememberPainter by remember { mutableStateOf(pipouBg0Deg) }
+
+                job = scope.launch {
+                    var pos = 0
+                    var shouldIncrement = true
+                    while (true) {
+                        delay(200)
+                        when (pos) {
+                            0 -> {
+                                rememberPainter = pipouBg0Deg
+                                pos++
+                                shouldIncrement = true
+                            }
+                            1 -> {
+                                rememberPainter = pipouBg1Deg
+                                if (shouldIncrement) {
+                                    pos++
+                                } else {
+                                    pos--
+                                }
+                            }
+                            2 -> {
+                                rememberPainter = pipouBg2Deg
+                                if (shouldIncrement) {
+                                    pos++
+                                } else {
+                                    pos--
+                                }
+                            }
+                            3 -> {
+                                rememberPainter = pipouBg3Deg
+                                if (shouldIncrement) {
+                                    pos++
+                                } else {
+                                    pos--
+                                }
+                            }
+                            4 -> {
+                                rememberPainter = pipouBg4Deg
+                                pos--
+                                shouldIncrement = false
+                            }
+                        }
+                    }
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(this@BoxWithConstraints.maxHeight * 0.5449f)
+                        .paintWithBlurOrColorTint(
+                            painter = rememberPainter,
+                            applyBlurOrColor = blurOrAlphaBackground,
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                        )
+                ) {}
+            } else {
+                if (job != null) {
+                    job.cancel()
+                    job = null
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(this@BoxWithConstraints.maxHeight * 0.5449f)
+                        .paintWithBlurOrColorTint(
+                            painter = painterResource(
+                                id = R.drawable.pipou_bg_bottom
+                            ),
+                            applyBlurOrColor = blurOrAlphaBackground,
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                        )
+                ) {}
+            }
         }
         if (fullScreenContent != null) {
             Box(

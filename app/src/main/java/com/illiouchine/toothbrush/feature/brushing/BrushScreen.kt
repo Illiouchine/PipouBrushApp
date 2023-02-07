@@ -31,8 +31,17 @@ fun BrushScreen(
                     onAchievementsHandled = { onAchievementsHandled() }
                 )
             }
-        }
+        },
+        animateBackground = timerState.toAnimateBackground()
     )
+}
+
+private fun BrushContract.BrushState.Timer.toAnimateBackground(): Boolean {
+    return when (this) {
+        BrushContract.BrushState.Timer.Finished -> false
+        BrushContract.BrushState.Timer.Idle -> false
+        is BrushContract.BrushState.Timer.Running -> true
+    }
 }
 
 private fun List<BrushContract.Achievement>.toAlertDialogAchievement(): List<AlertDialogAchievement> {
